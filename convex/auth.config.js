@@ -1,8 +1,8 @@
 export default {
   providers: [
     {
-      domain: "https://apparent-tapir-99.clerk.accounts.dev",
+      domain: "https://adequate-turkey-17.clerk.accounts.dev",
       applicationID: "convex",
     },
-  ]
+  ],
 };
