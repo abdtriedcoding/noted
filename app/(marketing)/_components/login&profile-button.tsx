@@ -1,35 +1,38 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ClerkLoading, UserButton, SignInButton, useUser } from "@clerk/nextjs";
+import { Spinner } from "@/components/spinner";
+import {
+  ClerkLoading,
+  UserButton,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+} from "@clerk/nextjs";
 
 const LoginAndProfileButton = () => {
-  const { isSignedIn } = useUser();
-
   return (
     <>
       <ClerkLoading>
-        <div>Clerk is loading</div>
+        <Spinner size={"lg"} />
       </ClerkLoading>
 
-      {isSignedIn ? (
-        <>
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/documents">Enter Jotion</Link>
+      <SignedIn>
+        <Button variant="ghost" size="sm" asChild>
+          <Link href="/documents">Enter Jotion</Link>
+        </Button>
+        <UserButton afterSignOutUrl="/" />
+      </SignedIn>
+
+      <SignedOut>
+        <SignInButton mode="modal">
+          <Button variant="ghost" size="sm">
+            Log in
           </Button>
-          <UserButton afterSignOutUrl="/" />
-        </>
-      ) : (
-        <>
-          <SignInButton mode="modal">
-            <Button variant="ghost" size="sm">
-              Log in
-            </Button>
-          </SignInButton>
-          <SignInButton mode="modal">
-            <Button size="sm">Get Jotion free</Button>
-          </SignInButton>
-        </>
-      )}
+        </SignInButton>
+        <SignInButton mode="modal">
+          <Button size="sm">Get Jotion free</Button>
+        </SignInButton>
+      </SignedOut>
     </>
   );
 };
