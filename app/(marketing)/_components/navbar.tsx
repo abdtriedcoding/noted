@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { useScrollTop } from "@/hooks/use-scroll-top";
+import { ModeToggle } from "@/components/mode-toggle";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import Logo from "./logo";
 
@@ -30,6 +30,7 @@ const Navbar = () => {
             <Link href="/documents">Enter Jotion</Link>
           </Button>
         </>
+        <ModeToggle />
       </div>
     </div>
   );
