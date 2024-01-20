@@ -1,9 +1,13 @@
-import { Button } from "@/components/ui/button"
+import { Heading } from "./_components/heading";
+import { Heroes } from "./_components/heroes";
 
-export default function Home() {
+const Page = () => {
   return (
-    <div>
-      <Button>Click me</Button>
+    <div className="flex h-full flex-col items-center justify-center md:justify-start text-center gap-y-8 px-6 py-10">
+      <Heading />
+      <Heroes />
     </div>
-  )
-}
+  );
+};
+
+export default Page;
