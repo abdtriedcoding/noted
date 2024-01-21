@@ -1,12 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  CalendarIcon,
-  RocketIcon,
-  ScanFaceIcon,
-  SearchIcon,
-} from "lucide-react";
+import { File, SearchIcon } from "lucide-react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -15,8 +10,15 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { useUser } from "@clerk/nextjs";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Spinner } from "@/components/spinner";
+import { useRouter } from "next/navigation";
 
 const SearchButton = () => {
+  const { user } = useUser();
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -30,6 +32,23 @@ const SearchButton = () => {
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
+
+  const documents = useQuery(api.documents.getSearch, {
+    userId: user?.id || "",
+  });
+
+  if (documents === undefined) {
+    return (
+      <div className="px-4 py-2">
+        <Spinner size="lg" />
+      </div>
+    );
+  }
+
+  const onSelect = (id: string) => {
+    router.push(`/documents/${id}`);
+    setOpen(false);
+  };
 
   return (
     <>
@@ -45,22 +64,25 @@ const SearchButton = () => {
         </kbd>
       </div>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput placeholder={`Search ${user?.fullName}'s Jotion...`} />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem>
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              <span>Calendar</span>
-            </CommandItem>
-            <CommandItem>
-              <ScanFaceIcon className="mr-2 h-4 w-4" />
-              <span>Search Emoji</span>
-            </CommandItem>
-            <CommandItem>
-              <RocketIcon className="mr-2 h-4 w-4" />
-              <span>Launch</span>
-            </CommandItem>
+          <CommandGroup heading="Documents">
+            {documents?.map((document) => (
+              <CommandItem
+                key={document._id}
+                value={`${document._id}-${document.title}`}
+                title={document.title}
+                onSelect={() => onSelect(document._id)}
+              >
+                {document.icon ? (
+                  <p className="mr-2 text-[18px]">{document.icon}</p>
+                ) : (
+                  <File className="mr-2 h-4 w-4" />
+                )}
+                <span>{document.title}</span>
+              </CommandItem>
+            ))}
           </CommandGroup>
         </CommandList>
       </CommandDialog>
