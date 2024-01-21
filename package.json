@@ -1,5 +1,5 @@
 {
-  "name": "wrappad",
+  "name": "jotion",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,12 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/clerk-react": "^4.30.3",
+    "@clerk/nextjs": "^4.29.4",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "convex": "^1.8.0",
     "lucide-react": "^0.312.0",
     "next": "14.1.0",
     "next-themes": "^0.2.1",
