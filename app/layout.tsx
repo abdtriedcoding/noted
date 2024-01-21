@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ConvexClientProvider from "@/components/providers/convex-client-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,17 +35,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ClerkProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-            storageKey="jotion-theme-2"
-          >
-            {children}
-          </ThemeProvider>
-        </ClerkProvider>
+        <ConvexClientProvider>
+          <ClerkProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+              storageKey="jotion-theme-2"
+            >
+              {children}
+            </ThemeProvider>
+          </ClerkProvider>
+        </ConvexClientProvider>
       </body>
     </html>
   );
