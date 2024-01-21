@@ -7,7 +7,7 @@ import { PlusCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-const AddDocumentButton = () => {
+const NewPageButton = () => {
   const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.documents.create);
@@ -30,7 +30,7 @@ const AddDocumentButton = () => {
     <div
       onClick={onCreate}
       role="button"
-      className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center text-muted-foreground font-medium"
+      className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center text-muted-foreground font-medium rounded-md"
     >
       <PlusCircleIcon className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground" />
       <span className="truncate">New Page</span>
@@ -38,4 +38,4 @@ const AddDocumentButton = () => {
   );
 };
 
-export default AddDocumentButton;
+export default NewPageButton;
