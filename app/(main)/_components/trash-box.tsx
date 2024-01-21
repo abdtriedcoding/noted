@@ -7,18 +7,22 @@ import {
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import { Search, Trash, TrashIcon, Undo } from "lucide-react";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import { Spinner } from "@/components/spinner";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ConfirmModal } from "@/components/modals/confirm-modal";
+import { Id } from "@/convex/_generated/dataModel";
+import { toast } from "sonner";
 
 const TrashBox = () => {
   const { user } = useUser();
   const router = useRouter();
+  const params = useParams();
   const [search, setSearch] = useState("");
+  const remove = useMutation(api.documents.remove);
 
   const documents = useQuery(api.documents.getTrash, {
     userId: user?.id || "",
@@ -36,8 +40,19 @@ const TrashBox = () => {
     );
   }
 
-  const onRemove = () => {
-    console.log("onRemove Button clicked");
+  const onRemove = (id: Id<"documents">) => {
+    if (!user) return;
+    const promise = remove({ id: id, userId: user?.id });
+
+    toast.promise(promise, {
+      loading: "Deleting note...",
+      success: "Note deleted!",
+      error: " Failed to delete note.",
+    });
+
+    if (params.documentId === id) {
+      router.push("/documents");
+    }
   };
 
   return (
@@ -81,7 +96,7 @@ const TrashBox = () => {
                   >
                     <Undo className="h-4 w-4 text-muted-foreground" />
                   </div>
-                  <ConfirmModal onConfirm={() => onRemove()}>
+                  <ConfirmModal onConfirm={() => onRemove(document._id)}>
                     <div
                       role="button"
                       className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
