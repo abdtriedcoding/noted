@@ -1,4 +1,4 @@
-import { Heading } from "./_components/heading";
+import Heading from "./_components/heading";
 import { Heroes } from "./_components/heroes";
 
 const Page = () => {
