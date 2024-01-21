@@ -6,15 +6,18 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
-import { Search, TrashIcon, Undo } from "lucide-react";
+import { Search, Trash, TrashIcon, Undo } from "lucide-react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import { Spinner } from "@/components/spinner";
+import { useRouter } from "next/navigation";
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 
 const TrashBox = () => {
   const { user } = useUser();
+  const router = useRouter();
   const [search, setSearch] = useState("");
 
   const documents = useQuery(api.documents.getTrash, {
@@ -32,6 +35,10 @@ const TrashBox = () => {
       </div>
     );
   }
+
+  const onRemove = () => {
+    console.log("onRemove Button clicked");
+  };
 
   return (
     <Popover>
@@ -62,6 +69,7 @@ const TrashBox = () => {
             {filteredDocuments?.map((document) => (
               <div
                 key={document._id}
+                onClick={() => router.push(`/documents/${document._id}`)}
                 role="button"
                 className="text-sm rounded-sm w-full hover:bg-primary/5 flex items-center text-primary justify-between"
               >
@@ -73,6 +81,14 @@ const TrashBox = () => {
                   >
                     <Undo className="h-4 w-4 text-muted-foreground" />
                   </div>
+                  <ConfirmModal onConfirm={() => onRemove()}>
+                    <div
+                      role="button"
+                      className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
+                    >
+                      <Trash className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                  </ConfirmModal>
                 </div>
               </div>
             ))}
