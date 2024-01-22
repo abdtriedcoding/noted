@@ -2,6 +2,7 @@ import UserItem from "./user-menu";
 import SearchButton from "./search-button";
 import SettingButton from "./setting-button";
 import NewPageButton from "./new-page-button";
+import DocumentList from "./document-list";
 
 const Sidebar = () => {
   return (
@@ -10,6 +11,7 @@ const Sidebar = () => {
       <SearchButton />
       <SettingButton />
       <NewPageButton />
+      <DocumentList />
     </aside>
   );
 };
