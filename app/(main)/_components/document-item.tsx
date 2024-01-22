@@ -9,6 +9,10 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { useUser } from "@clerk/nextjs";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 interface ItemProps {
   id: Id<"documents">;
   label: string;
@@ -27,10 +31,22 @@ const DocumentItem = ({
   onClick,
 }: ItemProps) => {
   const { user } = useUser();
+  const router = useRouter();
+
+  const archive = useMutation(api.documents.archive);
 
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation();
-    console.log("Clicked");
+    if (!id || !user) return;
+    const promise = archive({ id: id, userId: user.id }).then(() =>
+      router.push("/documents")
+    );
+
+    toast.promise(promise, {
+      loading: "Moving to trash...",
+      success: "Note moved to trash!",
+      error: "Failed to archive note.",
+    });
   };
 
   return (
