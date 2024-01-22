@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 
 export const create = mutation({
   args: {
@@ -21,5 +21,27 @@ export const create = mutation({
     });
 
     return document;
+  },
+});
+
+export const getUserDocuments = query({
+  args: {
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    if (!args.userId) {
+      throw new Error("Not authenticated");
+    }
+
+    const userId = args.userId;
+
+    const documents = await ctx.db
+      .query("documents")
+      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .filter((q) => q.eq(q.field("isArchived"), false))
+      .order("desc")
+      .collect();
+
+    return documents;
   },
 });
