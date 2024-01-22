@@ -6,6 +6,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { useParams } from "next/navigation";
+import Title from "./_components/title";
 
 const Page = () => {
   const { user } = useUser();
@@ -27,7 +28,11 @@ const Page = () => {
     return <div>Not found</div>;
   }
 
-  return <div>{document.title}</div>;
+  return (
+    <div className="p-4">
+      <Title title={document.title} icon={document.icon} />
+    </div>
+  );
 };
 
 export default Page;
