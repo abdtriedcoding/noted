@@ -3,29 +3,31 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { Button } from "../ui/button";
 import { useEdgeStore } from "@/lib/edgestore";
 import { SingleImageDropzone } from "../single-image-dropzone";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
+import { Id } from "@/convex/_generated/dataModel";
 
 interface CoverImageModalProps {
   children: React.ReactNode;
+  id: Id<"documents">;
 }
 
-export const CoverImageModal = ({ children }: CoverImageModalProps) => {
-  const [isDialogOpen, setDialogOpen] = useState(false);
+export const CoverImageModal = ({ children, id }: CoverImageModalProps) => {
+  const { user } = useUser();
   const { edgestore } = useEdgeStore();
 
   const [file, setFile] = useState<File>();
+  const [isDialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const update = useMutation(api.documents.update);
 
   const handelImageUpload = async (file?: File) => {
     if (!file) return;
@@ -34,6 +36,11 @@ export const CoverImageModal = ({ children }: CoverImageModalProps) => {
 
     const res = await edgestore.publicFiles.upload({
       file,
+    });
+    await update({
+      id: id,
+      userId: user?.id!,
+      coverImage: res.url,
     });
     setDialogOpen(false);
     setFile(undefined);

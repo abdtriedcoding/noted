@@ -71,7 +71,7 @@ const Toolbar = ({
             </Button>
           </IconPicker>
         )}
-        <CoverImageModal>
+        <CoverImageModal id={document._id}>
           {!document.coverImage && !preview && (
             <Button
               className="text-muted-foreground text-xs"
