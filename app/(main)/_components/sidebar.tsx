@@ -1,5 +1,5 @@
 import UserItem from "./user-menu";
-import AddDocumentButton from "./add-document-button";
+import AddDocumentButton from "./new-page-button";
 
 const Sidebar = () => {
   return (
