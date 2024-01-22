@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Doc } from "@/convex/_generated/dataModel";
 import { ImageIcon, Smile, X } from "lucide-react";
-import React, { useState } from "react";
 import IconPicker from "./icon-picker";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -16,6 +15,7 @@ const Toolbar = ({
   preview?: boolean;
 }) => {
   const { user } = useUser();
+
   const update = useMutation(api.documents.update);
   const removeIcon = useMutation(api.documents.removeIcon);
 
@@ -34,10 +34,6 @@ const Toolbar = ({
       id: document._id,
       userId: user.id,
     });
-  };
-
-  const onUpload = () => {
-    console.log("Upload Image");
   };
 
   return (
@@ -75,7 +71,7 @@ const Toolbar = ({
             </Button>
           </IconPicker>
         )}
-        <CoverImageModal onUpload={onUpload}>
+        <CoverImageModal>
           {!document.coverImage && !preview && (
             <Button
               className="text-muted-foreground text-xs"
