@@ -7,6 +7,7 @@ import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { useParams } from "next/navigation";
 import Title from "./_components/title";
+import Banner from "./_components/banner";
 
 const Page = () => {
   const { user } = useUser();
@@ -29,9 +30,12 @@ const Page = () => {
   }
 
   return (
-    <div className="p-4">
-      <Title id={document._id} title={document.title} icon={document.icon} />
-    </div>
+    <>
+      {document.isArchived && <Banner />}
+      <div className="p-4">
+        <Title id={document._id} title={document.title} icon={document.icon} />
+      </div>
+    </>
   );
 };
 
