@@ -9,6 +9,7 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useEdgeStore } from "@/lib/edgestore";
 import { Id } from "@/convex/_generated/dataModel";
+import { CoverImageModal } from "@/components/modals/cover-image-upload";
 
 interface CoverImageProps {
   id: Id<"documents">;
@@ -47,15 +48,16 @@ const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
       )}
       {imgUrl && !preview && (
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">
-          <Button
-            onClick={() => {}}
-            className="text-muted-foreground text-xs"
-            variant="outline"
-            size="sm"
-          >
-            <ImageIcon className="h-4 w-4 mr-2" />
-            Change cover
-          </Button>
+          <CoverImageModal id={id}>
+            <Button
+              className="text-muted-foreground text-xs"
+              variant="outline"
+              size="sm"
+            >
+              <ImageIcon className="h-4 w-4 mr-2" />
+              Change cover
+            </Button>
+          </CoverImageModal>
           <Button
             onClick={onRemove}
             className="text-muted-foreground text-xs"
