@@ -6,10 +6,14 @@ import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { FileIcon } from "lucide-react";
 import { useState } from "react";
+import DocumentItem from "./document-item";
+import { useParams, useRouter } from "next/navigation";
 
 const DocumentList = () => {
   const [isHovered, setIsHovered] = useState(false);
   const { user } = useUser();
+  const router = useRouter();
+  const params = useParams();
   const documents = useQuery(api.documents.getUserDocuments, {
     userId: user?.id || "",
   });
@@ -31,14 +35,15 @@ const DocumentList = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {documents?.map((document) => (
-        <div
+        <DocumentItem
           key={document._id}
-          role="button"
-          className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center text-muted-foreground font-medium rounded-md"
-        >
-          <FileIcon className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground" />
-          <span className="truncate">{document.title}</span>
-        </div>
+          id={document._id}
+          label={document.title}
+          icon={FileIcon}
+          documentIcon={document.icon}
+          active={params.documentId === document._id}
+          onClick={() => router.push(`/documents/${document._id}`)}
+        />
       ))}
     </div>
   );
