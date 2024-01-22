@@ -5,6 +5,7 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
+import Menu from "./menu";
 
 const Title = ({
   id,
@@ -48,7 +49,7 @@ const Title = ({
   };
 
   return (
-    <>
+    <div className="flex w-full items-center justify-between">
       <div className="flex items-center gap-x-1">
         {!!icon && <p>{icon}</p>}
         {isEditing ? (
@@ -68,7 +69,8 @@ const Title = ({
           </Button>
         )}
       </div>
-    </>
+      <Menu id={id} />
+    </div>
   );
 };
 
