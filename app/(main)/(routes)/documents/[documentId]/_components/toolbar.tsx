@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Doc } from "@/convex/_generated/dataModel";
 import { ImageIcon, Smile, X } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import IconPicker from "./icon-picker";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
+import { CoverImageModal } from "@/components/modals/cover-image-upload";
 
 const Toolbar = ({
   document,
@@ -33,6 +34,10 @@ const Toolbar = ({
       id: document._id,
       userId: user.id,
     });
+  };
+
+  const onUpload = () => {
+    console.log("Upload Image");
   };
 
   return (
@@ -70,6 +75,18 @@ const Toolbar = ({
             </Button>
           </IconPicker>
         )}
+        <CoverImageModal onUpload={onUpload}>
+          {!document.coverImage && !preview && (
+            <Button
+              className="text-muted-foreground text-xs"
+              variant="outline"
+              size="sm"
+            >
+              <ImageIcon className="h-4 w-4 mr-2" />
+              Add cover
+            </Button>
+          )}
+        </CoverImageModal>
       </div>
     </>
   );
