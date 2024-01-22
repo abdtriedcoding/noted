@@ -10,6 +10,7 @@ import Title from "./_components/title";
 import Banner from "./_components/banner";
 import Toolbar from "./_components/toolbar";
 import CoverImage from "./_components/cover-image";
+import Editor from "@/components/editor";
 
 const Page = () => {
   const { user } = useUser();
@@ -38,6 +39,7 @@ const Page = () => {
       <div className="p-4">
         <Title id={document._id} title={document.title} icon={document.icon} />
         <Toolbar document={document} />
+        <Editor />
       </div>
     </>
   );
