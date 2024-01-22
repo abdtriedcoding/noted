@@ -48,7 +48,7 @@ const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
       )}
       {imgUrl && !preview && (
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">
-          <CoverImageModal id={id}>
+          <CoverImageModal id={id} imgUrl={imgUrl}>
             <Button
               className="text-muted-foreground text-xs"
               variant="outline"
