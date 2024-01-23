@@ -34,7 +34,7 @@ const TrashBox = () => {
 
   if (documents === undefined) {
     return (
-      <div className="h-full flex items-center justify-center p-4">
+      <div className="px-4 py-2">
         <Spinner size="lg" />
       </div>
     );

@@ -20,7 +20,7 @@ const DocumentList = () => {
 
   if (documents === undefined) {
     return (
-      <div className="items-center justify-center flex pt-10">
+      <div className="items-center justify-center flex h-80">
         <Spinner size={"lg"} />
       </div>
     );
@@ -28,7 +28,7 @@ const DocumentList = () => {
 
   return (
     <div
-      className={`max-h-[460px] mt-4  h-full transition-scrollbar ${
+      className={`max-h-[400px] mt-4 overflow-y-auto transition-scrollbar ${
         isHovered ? "overflow-y-auto" : "overflow-y-hidden"
       }`}
       onMouseEnter={() => setIsHovered(true)}
