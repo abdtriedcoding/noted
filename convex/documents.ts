@@ -177,3 +177,30 @@ export const getSearch = query({
     return documents;
   },
 });
+
+export const getById = query({
+  args: { documentId: v.id("documents"), userId: v.string() },
+  handler: async (ctx, args) => {
+    if (!args.userId) {
+      throw new Error("Not authenticated");
+    }
+
+    const document = await ctx.db.get(args.documentId);
+
+    if (!document) {
+      throw new Error("Not found");
+    }
+
+    if (document.isPublished && !document.isArchived) {
+      return document;
+    }
+
+    const userId = args.userId;
+
+    if (document.userId !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    return document;
+  },
+});
