@@ -3,15 +3,13 @@
 import { useMemo } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { Id } from "@/convex/_generated/dataModel";
 import { api } from "@/convex/_generated/api";
 import { Spinner } from "@/components/spinner";
 import dynamic from "next/dynamic";
 
-import Banner from "@/app/(main)/(routes)/documents/[documentId]/_components/banner";
 import CoverImage from "@/app/(main)/(routes)/documents/[documentId]/_components/cover-image";
-import Title from "@/app/(main)/(routes)/documents/[documentId]/_components/title";
 import Toolbar from "@/app/(main)/(routes)/documents/[documentId]/_components/toolbar";
 
 const Page = () => {
@@ -39,21 +37,16 @@ const Page = () => {
     return <div>Not found</div>;
   }
 
+  if (document?.isPublished === false) {
+    notFound();
+  }
+
   return (
     <>
-      {document.isArchived && !document.isPublished && <Banner id={document._id} />}
       {document.coverImage && (
         <CoverImage id={document._id} imgUrl={document.coverImage} preview />
       )}
       <div className="p-4">
-        {!document.isPublished && (
-          <Title
-            id={document._id}
-            title={document.title}
-            icon={document.icon}
-            isPublished={document.isPublished}
-          />
-        )}
         <Toolbar document={document} preview />
         <Editor
           id={document._id}
