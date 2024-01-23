@@ -97,3 +97,31 @@ export const getTrash = query({
     return documents;
   },
 });
+
+export const remove = mutation({
+  args: {
+    id: v.id("documents"),
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    if (!args.userId) {
+      throw new Error("Not authenticated");
+    }
+
+    const userId = args.userId;
+
+    const existingDocument = await ctx.db.get(args.id);
+
+    if (!existingDocument) {
+      throw new Error("Not found");
+    }
+
+    if (existingDocument.userId !== userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const document = await ctx.db.delete(args.id);
+
+    return document;
+  },
+});
