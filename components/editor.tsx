@@ -11,9 +11,11 @@ import "@blocknote/react/style.css";
 const Editor = ({
   id,
   initialContent,
+  editable
 }: {
   id: Id<"documents">;
   initialContent?: string;
+  editable?: boolean;
 }) => {
   const { user } = useUser();
   const { resolvedTheme } = useTheme();
@@ -39,6 +41,7 @@ const Editor = ({
   };
 
   const editor: BlockNoteEditor = useBlockNote({
+    editable,
     initialContent: initialContent ? JSON.parse(initialContent) : undefined,
     onEditorContentChange: (editor) => {
       onChange(JSON.stringify(editor.topLevelBlocks, null, 2));
