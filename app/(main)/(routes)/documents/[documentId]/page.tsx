@@ -12,12 +12,13 @@ import Toolbar from "./_components/toolbar";
 import CoverImage from "./_components/cover-image";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
+import Editor from "@/components/editor";
 
 const Page = () => {
-  const Editor = useMemo(
-    () => dynamic(() => import("@/components/editor"), { ssr: false }),
-    []
-  );
+  // const Editor = useMemo(
+  //   () => dynamic(() => import("@/components/editor"), { ssr: false }),
+  //   []
+  // );
 
   const { user } = useUser();
   const params = useParams();
