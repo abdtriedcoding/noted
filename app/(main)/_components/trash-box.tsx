@@ -23,7 +23,7 @@ const TrashBox = () => {
   const params = useParams();
   const [search, setSearch] = useState("");
   const remove = useMutation(api.documents.remove);
-
+  const restore = useMutation(api.documents.restore);
   const documents = useQuery(api.documents.getTrash, {
     userId: user?.id || "",
   });
@@ -53,6 +53,21 @@ const TrashBox = () => {
     if (params.documentId === id) {
       router.push("/documents");
     }
+  };
+
+  const onRestore = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    id: Id<"documents">
+  ) => {
+    event.stopPropagation();
+    if (!user) return;
+    const promise = restore({ id: id, userId: user.id });
+
+    toast.promise(promise, {
+      loading: "Restoring note...",
+      success: "Note restored!",
+      error: " Failed to restore note.",
+    });
   };
 
   return (
@@ -92,6 +107,7 @@ const TrashBox = () => {
                 <div className="flex items-center">
                   <div
                     role="button"
+                    onClick={(e) => onRestore(e, document._id)}
                     className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                   >
                     <Undo className="h-4 w-4 text-muted-foreground" />
