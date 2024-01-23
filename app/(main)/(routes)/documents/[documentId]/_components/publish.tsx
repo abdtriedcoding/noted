@@ -4,11 +4,30 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Id } from "@/convex/_generated/dataModel";
 import { Check, Copy, Globe } from "lucide-react";
+import { useState } from "react";
 
-const Publish = () => {
-  const isPublished = false;
-  const copied = false;
+const Publish = ({
+  id,
+  isPublished,
+}: {
+  id: Id<"documents">;
+  isPublished: boolean;
+}) => {
+  const [copied, setCopied] = useState(false);
+
+  const url = `${origin}/preview/${id}`;
+
+  const onCopy = () => {
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
+
   return (
     <>
       <Popover>
@@ -30,12 +49,12 @@ const Publish = () => {
               <div className="flex items-center">
                 <input
                   className="flex-1 px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
-                  // value={url}
+                  value={url}
                   disabled
                 />
                 <Button
-                  // onClick={onCopy}
-                  // disabled={copied}
+                  onClick={onCopy}
+                  disabled={copied}
                   className="h-8 rounded-l-none"
                 >
                   {copied ? (

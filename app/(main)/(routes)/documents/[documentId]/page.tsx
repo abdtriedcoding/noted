@@ -45,7 +45,7 @@ const Page = () => {
         <CoverImage id={document._id} imgUrl={document.coverImage} />
       )}
       <div className="p-4">
-        <Title id={document._id} title={document.title} icon={document.icon} />
+        <Title id={document._id} title={document.title} icon={document.icon} isPublished={document.isPublished} />
         <Toolbar document={document} />
         <Editor id={document._id} initialContent={document.content} />
       </div>
