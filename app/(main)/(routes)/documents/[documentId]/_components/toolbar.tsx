@@ -3,6 +3,9 @@ import { Doc } from "@/convex/_generated/dataModel";
 import { ImageIcon, Smile, X } from "lucide-react";
 import React from "react";
 import IconPicker from "./icon-picker";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useUser } from "@clerk/nextjs";
 
 const Toolbar = ({
   document,
@@ -11,18 +14,30 @@ const Toolbar = ({
   document: Doc<"documents">;
   preview?: boolean;
 }) => {
+  const { user } = useUser();
+  const update = useMutation(api.documents.update);
+
+  const onIconSelect = (icon: string) => {
+    if (!user) return;
+    update({
+      id: document._id,
+      userId: user.id,
+      icon,
+    });
+  };
+
   return (
     <>
       {!!document.icon && !preview && (
-        <div className="flex items-center gap-x-2 pt-6">
-          <IconPicker onChange={() => {}}>
+        <div className="flex group items-center gap-x-2 pt-6">
+          <IconPicker onChange={onIconSelect}>
             <p className="text-6xl hover:opacity-75 transition">
               {document.icon}
             </p>
           </IconPicker>
           <Button
             onClick={() => {}}
-            className="rounded-full opacity-100 transition text-muted-foreground text-xs"
+            className="rounded-full opacity-0 group-hover:opacity-100 transition text-muted-foreground text-xs"
             variant="outline"
             size="icon"
           >
@@ -35,7 +50,7 @@ const Toolbar = ({
       )}
       <div className="opacity-100 flex items-center gap-x-1 py-4">
         {!document.icon && !preview && (
-          <IconPicker asChild onChange={() => {}}>
+          <IconPicker asChild onChange={onIconSelect}>
             <Button
               className="text-muted-foreground text-xs"
               variant="outline"
