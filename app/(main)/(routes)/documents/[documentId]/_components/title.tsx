@@ -1,13 +1,28 @@
 import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
+import { useUser } from "@clerk/nextjs";
 
-const Title = ({ title, icon }: { title: string; icon?: string }) => {
-  const [userTitle, setUserTitle] = useState(title || "Untitled");
+const Title = ({
+  id,
+  title,
+  icon,
+}: {
+  id: Id<"documents">;
+  title: string;
+  icon?: string;
+}) => {
+  const { user } = useUser();
   const [isEditing, setIsEditing] = useState(false);
+  const [userTitle, setUserTitle] = useState(title || "Untitled");
   const inputRef = useRef<HTMLInputElement>(null);
+  const update = useMutation(api.documents.update);
 
   const enableInput = () => {
+    setUserTitle(title);
     setIsEditing(true);
     setTimeout(() => {
       inputRef.current?.focus();
@@ -16,8 +31,14 @@ const Title = ({ title, icon }: { title: string; icon?: string }) => {
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!user) return;
     setUserTitle(event.target.value);
-    console.log(userTitle);
+    console.log(event.target.value.trim());
+    update({
+      id: id,
+      userId: user.id,
+      title: event.target.value.trim() || "Untitled",
+    });
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

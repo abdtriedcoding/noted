@@ -30,7 +30,7 @@ const Page = () => {
 
   return (
     <div className="p-4">
-      <Title title={document.title} icon={document.icon} />
+      <Title id={document._id} title={document.title} icon={document.icon} />
     </div>
   );
 };
