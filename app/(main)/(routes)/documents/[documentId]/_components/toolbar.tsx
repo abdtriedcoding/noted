@@ -16,6 +16,7 @@ const Toolbar = ({
 }) => {
   const { user } = useUser();
   const update = useMutation(api.documents.update);
+  const removeIcon = useMutation(api.documents.removeIcon);
 
   const onIconSelect = (icon: string) => {
     if (!user) return;
@@ -23,6 +24,14 @@ const Toolbar = ({
       id: document._id,
       userId: user.id,
       icon,
+    });
+  };
+
+  const onRemoveIcon = () => {
+    if (!user) return;
+    removeIcon({
+      id: document._id,
+      userId: user.id,
     });
   };
 
@@ -36,7 +45,7 @@ const Toolbar = ({
             </p>
           </IconPicker>
           <Button
-            onClick={() => {}}
+            onClick={onRemoveIcon}
             className="rounded-full opacity-0 group-hover:opacity-100 transition text-muted-foreground text-xs"
             variant="outline"
             size="icon"
