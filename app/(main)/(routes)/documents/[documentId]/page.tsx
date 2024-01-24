@@ -8,6 +8,7 @@ import { useQuery } from "convex/react";
 import { useParams } from "next/navigation";
 import Title from "./_components/title";
 import Banner from "./_components/banner";
+import Toolbar from "./_components/toolbar";
 
 const Page = () => {
   const { user } = useUser();
@@ -34,6 +35,7 @@ const Page = () => {
       {document.isArchived && <Banner id={document._id} />}
       <div className="p-4">
         <Title id={document._id} title={document.title} icon={document.icon} />
+        <Toolbar document={document} />
       </div>
     </>
   );
