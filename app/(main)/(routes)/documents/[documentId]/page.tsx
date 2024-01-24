@@ -31,7 +31,7 @@ const Page = () => {
 
   return (
     <>
-      {document.isArchived && <Banner />}
+      {document.isArchived && <Banner id={document._id} />}
       <div className="p-4">
         <Title id={document._id} title={document.title} icon={document.icon} />
       </div>
