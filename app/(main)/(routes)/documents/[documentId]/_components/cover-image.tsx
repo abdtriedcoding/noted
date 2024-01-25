@@ -1,14 +1,32 @@
+"use client";
+
 import { ImageIcon, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 
 interface CoverImageProps {
+  id: Id<"documents">;
   imgUrl: string;
   preview?: boolean;
 }
 
-const CoverImage = ({ imgUrl, preview }: CoverImageProps) => {
+const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
+  const { user } = useUser();
+  const removeCoverImage = useMutation(api.documents.removeCoverImage);
+
+  const onRemove = async () => {
+    if (!user) return;
+    removeCoverImage({
+      id: id,
+      userId: user?.id,
+    });
+  };
+
   return (
     <div
       className={cn(
@@ -32,7 +50,7 @@ const CoverImage = ({ imgUrl, preview }: CoverImageProps) => {
             Change cover
           </Button>
           <Button
-            onClick={() => {}}
+            onClick={onRemove}
             className="text-muted-foreground text-xs"
             variant="outline"
             size="sm"
