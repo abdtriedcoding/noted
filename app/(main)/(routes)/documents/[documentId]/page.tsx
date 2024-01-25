@@ -9,6 +9,7 @@ import { useParams } from "next/navigation";
 import Title from "./_components/title";
 import Banner from "./_components/banner";
 import Toolbar from "./_components/toolbar";
+import CoverImage from "./_components/cover-image";
 
 const Page = () => {
   const { user } = useUser();
@@ -33,6 +34,7 @@ const Page = () => {
   return (
     <>
       {document.isArchived && <Banner id={document._id} />}
+      {document.coverImage && <CoverImage imgUrl={document.coverImage} />}
       <div className="p-4">
         <Title id={document._id} title={document.title} icon={document.icon} />
         <Toolbar document={document} />
