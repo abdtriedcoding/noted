@@ -10,9 +10,15 @@ import Title from "./_components/title";
 import Banner from "./_components/banner";
 import Toolbar from "./_components/toolbar";
 import CoverImage from "./_components/cover-image";
-import Editor from "@/components/editor";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
 
 const Page = () => {
+  const Editor = useMemo(
+    () => dynamic(() => import("@/components/editor"), { ssr: false }),
+    []
+  );
+
   const { user } = useUser();
   const params = useParams();
   const document = useQuery(api.documents.getById, {
@@ -35,11 +41,13 @@ const Page = () => {
   return (
     <>
       {document.isArchived && <Banner id={document._id} />}
-      {document.coverImage && <CoverImage id={document._id} imgUrl={document.coverImage} />}
+      {document.coverImage && (
+        <CoverImage id={document._id} imgUrl={document.coverImage} />
+      )}
       <div className="p-4">
         <Title id={document._id} title={document.title} icon={document.icon} />
         <Toolbar document={document} />
-        <Editor />
+        <Editor id={document._id} initialContent={document.content} />
       </div>
     </>
   );
