@@ -17,9 +17,10 @@ import { Id } from "@/convex/_generated/dataModel";
 interface CoverImageModalProps {
   children: React.ReactNode;
   id: Id<"documents">;
+  imgUrl?: string;
 }
 
-export const CoverImageModal = ({ children, id }: CoverImageModalProps) => {
+export const CoverImageModal = ({ children, id, imgUrl }: CoverImageModalProps) => {
   const { user } = useUser();
   const { edgestore } = useEdgeStore();
 
@@ -36,6 +37,9 @@ export const CoverImageModal = ({ children, id }: CoverImageModalProps) => {
 
     const res = await edgestore.publicFiles.upload({
       file,
+      options: {
+        replaceTargetUrl: imgUrl,
+      },
     });
     await update({
       id: id,
