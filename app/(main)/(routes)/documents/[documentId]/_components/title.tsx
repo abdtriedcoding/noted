@@ -6,6 +6,7 @@ import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
 import Menu from "./menu";
+import Publish from "./publish";
 
 const Title = ({
   id,
@@ -69,7 +70,10 @@ const Title = ({
           </Button>
         )}
       </div>
-      <Menu id={id} />
+      <div className="space-x-2 flex items-center">
+        <Publish />
+        <Menu id={id} />
+      </div>
     </div>
   );
 };
