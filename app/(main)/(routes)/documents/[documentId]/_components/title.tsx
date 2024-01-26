@@ -12,10 +12,12 @@ const Title = ({
   id,
   title,
   icon,
+  isPublished,
 }: {
   id: Id<"documents">;
   title: string;
   icon?: string;
+  isPublished: boolean;
 }) => {
   const { user } = useUser();
   const [isEditing, setIsEditing] = useState(false);
@@ -71,7 +73,7 @@ const Title = ({
         )}
       </div>
       <div className="space-x-2 flex items-center">
-        <Publish />
+        <Publish id={id} isPublished={isPublished} />
         <Menu id={id} />
       </div>
     </div>
