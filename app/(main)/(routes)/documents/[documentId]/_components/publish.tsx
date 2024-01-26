@@ -53,6 +53,24 @@ const Publish = ({
     });
   };
 
+  const onUnpublish = () => {
+    if (!user) return;
+    setIsSubmitting(true);
+
+    const promise = update({
+      id: id,
+      userId: user.id,
+      isPublished: false,
+    });
+    setIsSubmitting(false);
+
+    toast.promise(promise, {
+      loading: "Unpublishing...",
+      success: "Note unpublished",
+      error: "Failed to unpublish note.",
+    });
+  };
+
   return (
     <>
       <Popover>
@@ -92,8 +110,8 @@ const Publish = ({
               <Button
                 size="sm"
                 className="w-full text-xs"
-                // disabled={isSubmitting}
-                // onClick={onUnpublish}
+                disabled={isSubmitting}
+                onClick={onUnpublish}
               >
                 Unpublish
               </Button>
