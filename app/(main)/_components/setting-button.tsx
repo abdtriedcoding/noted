@@ -21,10 +21,10 @@ const SettingButton = () => {
         </div>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader className="border-b pb-3">
+        <DialogHeader className="border-b pb-3 text-muted-foreground">
           <h2 className="text-lg font-medium">My settings</h2>
         </DialogHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between text-muted-foreground">
           <div className="flex flex-col gap-y-1">
             <Label>Appearance</Label>
             <span className="text-[0.8rem] text-muted-foreground">

@@ -52,7 +52,7 @@ const Title = ({
   };
 
   return (
-    <div className="flex w-full items-center justify-between">
+    <div className="flex w-full items-center justify-between text-muted-foreground">
       <div className="flex items-center gap-x-1">
         {!!icon && <p>{icon}</p>}
         {isEditing ? (
