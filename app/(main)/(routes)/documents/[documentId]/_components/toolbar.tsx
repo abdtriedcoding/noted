@@ -39,7 +39,7 @@ const Toolbar = ({
   return (
     <>
       {!!document.icon && !preview && (
-        <div className="flex group items-center gap-x-2 pt-6">
+        <div className="flex group w-fit items-center gap-x-2 pt-6">
           <IconPicker onChange={onIconSelect}>
             <p className="text-6xl hover:opacity-75 transition">
               {document.icon}
