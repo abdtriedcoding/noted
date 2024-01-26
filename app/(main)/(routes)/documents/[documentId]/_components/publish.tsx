@@ -4,9 +4,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { useUser } from "@clerk/nextjs";
+import { useMutation } from "convex/react";
 import { Check, Copy, Globe } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const Publish = ({
   id,
@@ -15,7 +19,11 @@ const Publish = ({
   id: Id<"documents">;
   isPublished: boolean;
 }) => {
+  const { user } = useUser();
   const [copied, setCopied] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const update = useMutation(api.documents.update);
 
   const url = `${origin}/preview/${id}`;
 
@@ -26,6 +34,23 @@ const Publish = ({
     setTimeout(() => {
       setCopied(false);
     }, 1000);
+  };
+
+  const onPublish = () => {
+    if (!user) return;
+    setIsSubmitting(true);
+
+    const promise = update({
+      id: id,
+      userId: user?.id,
+      isPublished: true,
+    });
+    setIsSubmitting(false);
+    toast.promise(promise, {
+      loading: "Publishing...",
+      success: "Note published",
+      error: "Failed to publish note.",
+    });
   };
 
   return (
@@ -81,8 +106,8 @@ const Publish = ({
                 Share your work with others.
               </span>
               <Button
-                // disabled={isSubmitting}
-                // onClick={onPublish}
+                disabled={isSubmitting}
+                onClick={onPublish}
                 className="w-full text-xs"
                 size="sm"
               >
