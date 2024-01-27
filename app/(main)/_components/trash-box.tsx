@@ -1,48 +1,42 @@
 "use client";
 
+import { toast } from "sonner";
+import { useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { Search, Trash, TrashIcon, Undo } from "lucide-react";
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
-import { Search, Trash, TrashIcon, Undo } from "lucide-react";
-import { useMutation, useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { useUser } from "@clerk/nextjs";
-import { useState } from "react";
-import { Spinner } from "@/components/spinner";
-import { useParams, useRouter } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ConfirmModal } from "@/components/modals/confirm-modal";
-import { Id } from "@/convex/_generated/dataModel";
-import { toast } from "sonner";
 
-const TrashBox = () => {
-  const { user } = useUser();
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
+import { useMutation, useQuery } from "convex/react";
+
+export const TrashBox = () => {
   const router = useRouter();
   const params = useParams();
   const [search, setSearch] = useState("");
+
   const remove = useMutation(api.documents.remove);
   const restore = useMutation(api.documents.restore);
-  const documents = useQuery(api.documents.getTrash, {
-    userId: user?.id || "",
-  });
+  const documents = useQuery(api.documents.getTrash);
 
   const filteredDocuments = documents?.filter((document) => {
     return document.title.toLowerCase().includes(search.toLowerCase());
   });
 
   if (documents === undefined) {
-    return (
-      <div className="px-4 py-2">
-        <Spinner size="lg" />
-      </div>
-    );
+    return <Skeleton className="px-4 py-4 w-full" />;
   }
 
   const onRemove = (id: Id<"documents">) => {
-    if (!user) return;
-    const promise = remove({ id: id, userId: user?.id });
+    const promise = remove({ id });
 
     toast.promise(promise, {
       loading: "Deleting note...",
@@ -60,8 +54,7 @@ const TrashBox = () => {
     id: Id<"documents">
   ) => {
     event.stopPropagation();
-    if (!user) return;
-    const promise = restore({ id: id, userId: user.id });
+    const promise = restore({ id });
 
     toast.promise(promise, {
       loading: "Restoring note...",
@@ -129,5 +122,3 @@ const TrashBox = () => {
     </Popover>
   );
 };
-
-export default TrashBox;
