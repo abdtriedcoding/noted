@@ -26,15 +26,14 @@ export const create = mutation({
 });
 
 export const getUserDocuments = query({
-  args: {
-    userId: v.string(),
-  },
-  handler: async (ctx, args) => {
-    if (!args.userId) {
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
       throw new Error("Not authenticated");
     }
 
-    const userId = args.userId;
+    const userId = identity.subject;
 
     const documents = await ctx.db
       .query("documents")
@@ -50,14 +49,15 @@ export const getUserDocuments = query({
 export const archive = mutation({
   args: {
     id: v.id("documents"),
-    userId: v.string(),
   },
   handler: async (ctx, args) => {
-    if (!args.userId) {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
       throw new Error("Not authenticated");
     }
 
-    const userId = args.userId;
+    const userId = identity.subject;
 
     const existingDocument = await ctx.db.get(args.id);
 

@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
+import { Spinner } from "@/components/spinner";
 import { File, SearchIcon } from "lucide-react";
 import {
   CommandDialog,
@@ -10,13 +12,12 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Spinner } from "@/components/spinner";
-import { useRouter } from "next/navigation";
 
-const SearchButton = () => {
+export const SearchButton = () => {
   const { user } = useUser();
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
@@ -89,5 +90,3 @@ const SearchButton = () => {
     </>
   );
 };
-
-export default SearchButton;

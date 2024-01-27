@@ -1,34 +1,29 @@
 "use client";
 
-import { Spinner } from "@/components/spinner";
-import { api } from "@/convex/_generated/api";
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import { FileIcon } from "lucide-react";
 import { useState } from "react";
-import DocumentItem from "./document-item";
-import { useParams, useRouter } from "next/navigation";
+import { DocumentItem } from "./document-item";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const DocumentList = () => {
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+
+export const DocumentList = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const { user } = useUser();
-  const router = useRouter();
-  const params = useParams();
-  const documents = useQuery(api.documents.getUserDocuments, {
-    userId: user?.id || "",
-  });
+  const documents = useQuery(api.documents.getUserDocuments);
 
   if (documents === undefined) {
     return (
-      <div className="items-center justify-center flex h-80">
-        <Spinner size={"lg"} />
+      <div className="space-y-2 mt-4">
+        <Skeleton className="px-4 py-4 w-full" />
+        <Skeleton className="px-4 py-4 w-full" />
+        <Skeleton className="px-4 py-4 w-full" />
       </div>
     );
   }
 
   return (
     <div
-      className={`max-h-[400px] mt-4 overflow-y-auto transition-scrollbar ${
+      className={`max-h-[400px] space-y-2 mt-4 overflow-y-auto transition-scrollbar ${
         isHovered ? "overflow-y-auto" : "overflow-y-hidden"
       }`}
       onMouseEnter={() => setIsHovered(true)}
@@ -39,14 +34,9 @@ const DocumentList = () => {
           key={document._id}
           id={document._id}
           label={document.title}
-          icon={FileIcon}
           documentIcon={document.icon}
-          active={params.documentId === document._id}
-          onClick={() => router.push(`/documents/${document._id}`)}
         />
       ))}
     </div>
   );
 };
-
-export default DocumentList;

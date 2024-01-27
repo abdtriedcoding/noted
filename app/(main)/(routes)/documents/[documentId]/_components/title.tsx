@@ -5,8 +5,8 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
-import Menu from "./menu";
 import Publish from "./publish";
+import { Menu } from "./menu";
 
 const Title = ({
   id,
