@@ -13,7 +13,7 @@ export const DocumentList = () => {
 
   if (documents === undefined) {
     return (
-      <div className="space-y-2 mt-4">
+      <div className="space-y-2 mt-4 text-muted-foreground">
         <Skeleton className="px-4 py-4 w-full" />
         <Skeleton className="px-4 py-4 w-full" />
         <Skeleton className="px-4 py-4 w-full" />

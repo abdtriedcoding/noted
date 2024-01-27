@@ -2,8 +2,8 @@ import { UserMenu } from "./user-menu";
 import { TrashBox } from "./trash-box";
 import { DocumentList } from "./document-list";
 import { SearchButton } from "./search-button"; 
-import SettingButton from "./setting-button";
-import NewPageButton from "./new-page-button";
+import { SettingButton } from "./setting-button";
+import { NewPageButton } from "./new-page-button";
 
 export const Sidebar = () => {
   return (
