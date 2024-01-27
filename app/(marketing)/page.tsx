@@ -1,13 +1,13 @@
-import Heading from "./_components/heading";
 import { Heroes } from "./_components/heroes";
+import { Heading } from "./_components/heading";
 
-const Page = () => {
+const MarketingPage = () => {
   return (
-    <div className="flex min-h-full dark:bg-[#1F1F1F] flex-col items-center justify-center lg:justify-start text-center gap-y-8 px-6 py-10">
+    <div className="dark:bg-[#1F1F1F] min-h-full flex flex-col items-center text-center justify-center lg:justify-start gap-y-8 px-4 py-10">
       <Heading />
       <Heroes />
     </div>
   );
 };
 
-export default Page;
+export default MarketingPage;

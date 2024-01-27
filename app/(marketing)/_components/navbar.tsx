@@ -1,12 +1,12 @@
 "use client";
 
+import Logo from "./logo";
 import { cn } from "@/lib/utils";
 import { useScrollTop } from "@/hooks/use-scroll-top";
 import { ModeToggle } from "@/components/mode-toggle";
-import Logo from "./logo";
-import LoginAndProfileButton from "./login&profile-button";
+import { LoginAndProfileButton } from "./login&profile-button";
 
-const Navbar = () => {
+export const Navbar = () => {
   const scrolled = useScrollTop();
 
   return (
@@ -24,5 +24,3 @@ const Navbar = () => {
     </div>
   );
 };
-
-export default Navbar;

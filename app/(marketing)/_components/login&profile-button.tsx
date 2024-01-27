@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/spinner";
 import { UserButton, SignInButton, useUser, ClerkLoading } from "@clerk/nextjs";
 
-const LoginAndProfileButton = () => {
+export  const LoginAndProfileButton = () => {
   const { isSignedIn, isLoaded } = useUser();
 
   if (!isLoaded) {
@@ -39,5 +39,3 @@ const LoginAndProfileButton = () => {
     </>
   );
 };
-
-export default LoginAndProfileButton;
