@@ -81,7 +81,7 @@ const TrashBox = () => {
           <span className="truncate">Trash</span>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="p-0 w-72" side="right">
+      <PopoverContent className="p-0 w-72">
         <div className="text-sm">
           <div className="flex items-center gap-x-1 p-2">
             <Search className="h-4 w-4" />
