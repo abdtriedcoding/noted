@@ -4,18 +4,19 @@ import { mutation, query } from "./_generated/server";
 export const create = mutation({
   args: {
     title: v.string(),
-    userId: v.string(),
   },
   handler: async (ctx, args) => {
-    if (!args.userId) {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
       throw new Error("Not authenticated");
     }
 
-    const userId = args.userId;
+    const userId = identity.subject;
 
     const document = await ctx.db.insert("documents", {
-      title: args.title,
       userId,
+      title: args.title,
       isArchived: false,
       isPublished: false,
     });
@@ -181,7 +182,6 @@ export const getSearch = query({
 export const getById = query({
   args: { documentId: v.id("documents"), userId: v.string() },
   handler: async (ctx, args) => {
-
     const document = await ctx.db.get(args.documentId);
 
     if (!document) {

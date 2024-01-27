@@ -1,22 +1,19 @@
 "use client";
 
-import { api } from "@/convex/_generated/api";
-import { useUser } from "@clerk/nextjs";
-import { useMutation } from "convex/react";
-import { PlusCircleIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { PlusCircleIcon } from "lucide-react";
+
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 const NewPageButton = () => {
-  const { user } = useUser();
   const router = useRouter();
   const create = useMutation(api.documents.create);
 
   const onCreate = () => {
-    if (!user) return;
-
-    const promise = create({ title: "Untitled", userId: user.id }).then(
-      (documentId) => router.push(`/documents/${documentId}`)
+    const promise = create({ title: "Untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
     );
 
     toast.promise(promise, {
