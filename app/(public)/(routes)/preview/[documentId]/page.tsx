@@ -46,14 +46,14 @@ const Page = () => {
       {document.coverImage && (
         <CoverImage id={document._id} imgUrl={document.coverImage} preview />
       )}
-      <div className="p-4">
+      <>
         <Toolbar document={document} preview />
         <Editor
           id={document._id}
           initialContent={document.content}
           editable={false}
         />
-      </div>
+      </>
     </>
   );
 };
