@@ -18,7 +18,7 @@ export const UserMenu = async () => {
       <DropdownMenuTrigger asChild>
         <div
           role="button"
-          className="flex items-center text-sm px-4 py-2 w-full hover:bg-primary/5 rounded-md justify-between text-muted-foreground"
+          className="flex items-center text-sm px-4 py-2 w-full hover:bg-primary/5 rounded-md justify-between"
         >
           <div className="gap-x-2 flex items-center max-w-[150px]">
             <Avatar className="h-5 w-5">
@@ -28,7 +28,7 @@ export const UserMenu = async () => {
               {user?.firstName}&apos;s Jotion
             </span>
           </div>
-          <ChevronsLeftRight className="rotate-90 ml-2 text-muted-foreground h-4 w-4" />
+          <ChevronsLeftRight className="rotate-90 ml-2 h-4 w-4" />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -38,7 +38,7 @@ export const UserMenu = async () => {
         forceMount
       >
         <div className="flex flex-col space-y-4 p-2">
-          <p className="text-xs font-medium leading-none text-muted-foreground">
+          <p className="text-xs font-medium leading-none">
             {user?.emailAddresses[0].emailAddress}
           </p>
           <div className="flex items-center gap-x-2">
@@ -55,10 +55,7 @@ export const UserMenu = async () => {
           </div>
         </div>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          asChild
-          className="w-full cursor-pointer text-muted-foreground"
-        >
+        <DropdownMenuItem asChild className="w-full cursor-pointer">
           <SignOutButton>Log out</SignOutButton>
         </DropdownMenuItem>
       </DropdownMenuContent>

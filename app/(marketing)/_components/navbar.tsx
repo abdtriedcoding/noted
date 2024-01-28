@@ -1,9 +1,9 @@
 "use client";
 
-import Logo from "./logo";
+import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
 import { useScrollTop } from "@/hooks/use-scroll-top";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { LoginAndProfileButton } from "./login&profile-button";
 
 export const Navbar = () => {
@@ -17,9 +17,9 @@ export const Navbar = () => {
       )}
     >
       <Logo />
-      <div className="md:ml-auto md:justify-end justify-between w-full flex items-center gap-x-2">
+      <div className="ml-auto justify-end w-full flex items-center gap-x-2">
         <LoginAndProfileButton />
-        <ModeToggle />
+        <ThemeToggle />
       </div>
     </div>
   );

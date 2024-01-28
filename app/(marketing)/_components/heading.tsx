@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useConvexAuth } from "convex/react";
+
 import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
 

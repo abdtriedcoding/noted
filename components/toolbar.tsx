@@ -40,7 +40,7 @@ export const Toolbar = ({ document, preview }: ItemProps) => {
           </IconPicker>
           <Button
             onClick={onRemoveIcon}
-            className="rounded-full opacity-0 group-hover:opacity-100 transition text-muted-foreground text-xs"
+            className="rounded-full opacity-0 group-hover:opacity-100 transition text-xs"
             variant="outline"
             size="icon"
           >
@@ -54,11 +54,7 @@ export const Toolbar = ({ document, preview }: ItemProps) => {
       <div className="opacity-100 flex items-center gap-x-1 py-4">
         {!document.icon && !preview && (
           <IconPicker asChild onChange={onIconSelect}>
-            <Button
-              className="text-muted-foreground text-xs"
-              variant="outline"
-              size="sm"
-            >
+            <Button className="text-xs" variant="outline" size="sm">
               <Smile className="h-4 w-4 mr-2" />
               Add icon
             </Button>
@@ -66,11 +62,7 @@ export const Toolbar = ({ document, preview }: ItemProps) => {
         )}
         <CoverImageModal id={document._id}>
           {!document.coverImage && !preview && (
-            <Button
-              className="text-muted-foreground text-xs"
-              variant="outline"
-              size="sm"
-            >
+            <Button className="text-xs" variant="outline" size="sm">
               <ImageIcon className="h-4 w-4 mr-2" />
               Add cover
             </Button>

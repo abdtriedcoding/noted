@@ -3,7 +3,7 @@ import { Heading } from "./_components/heading";
 
 const MarketingPage = () => {
   return (
-    <div className="dark:bg-[#1F1F1F] min-h-full flex flex-col items-center text-center justify-center lg:justify-start gap-y-8 px-4 py-10">
+    <div className="min-h-full dark:bg-[#1F1F1F] flex flex-col items-center text-center justify-center lg:justify-start gap-y-8 px-4 py-10">
       <Heading />
       <Heroes />
     </div>

@@ -27,9 +27,9 @@ export const NewPageButton = () => {
     <div
       onClick={onCreate}
       role="button"
-      className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center text-muted-foreground font-medium rounded-md"
+      className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center font-medium rounded-md"
     >
-      <PlusCircleIcon className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground" />
+      <PlusCircleIcon className="shrink-0 h-[18px] w-[18px] mr-2" />
       <span className="truncate">New Page</span>
     </div>
   );

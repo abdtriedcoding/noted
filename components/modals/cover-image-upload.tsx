@@ -1,14 +1,14 @@
 "use client";
 
+import { useState } from "react";
+import { useEdgeStore } from "@/lib/edgestore";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
-import { useEdgeStore } from "@/lib/edgestore";
-import { SingleImageDropzone } from "../single-image-dropzone";
+import { SingleImageDropzone } from "@/components/single-image-dropzone";
 
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";

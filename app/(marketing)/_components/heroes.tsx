@@ -34,5 +34,5 @@ export const Heroes = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
