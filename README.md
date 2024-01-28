@@ -1,6 +1,6 @@
 # Jotion: All-in-one workspace application that helps you for note-making, project management, collaboration, and more.
 
-![Thumbnail](https://raw.githubusercontent.com/abdtriedcoding/jotion/main/public/thumbnail.png)
+![Thumbnail](https://files.edgestore.dev/j26azsoyqh7n72m2/myPublicImages/_public/cbfd0d0e-bb59-4cf4-b57e-8d4df7fe7568.jpeg)
 
 Key Features:
 
@@ -26,7 +26,7 @@ Key Features:
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/AntonioErdeljac/notion-clone-tutorial.git
+git clone https://github.com/abdtriedcoding/jotion.git
 ```
 
 ### Install packages
