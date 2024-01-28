@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function constructMetadata({
   title = "Jotion",
-  description = "Jotion is an all-in-one workspace application that provides tools for note-taking, project management, collaboration, and more.",
+  description = "Jotion is an all-in-one workspace application that helps you for note-making, project management, collaboration, and more.",
   image = "/thumbnail.png",
   icons = [
     {
@@ -51,10 +51,10 @@ export function constructMetadata({
       title,
       description,
       images: [image],
-      creator: "@Sidddabdullah",
+      creator: "@abdtriedcoding",
     },
     icons,
-    metadataBase: new URL("https://jotion-ashy.vercel.app"),
+    metadataBase: new URL("https://jotionweb.vercel.app"),
     ...(noIndex && {
       robots: {
         index: false,
