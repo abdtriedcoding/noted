@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,10 +10,13 @@ import {
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 import { ChevronsLeftRight } from "lucide-react";
-import { SignOutButton, currentUser } from "@clerk/nextjs";
+import { useUser, useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
-export const UserMenu = async () => {
-  const user = await currentUser();
+export const UserMenu = () => {
+  const router = useRouter();
+  const { user } = useUser();
+  const { signOut } = useClerk();
 
   return (
     <DropdownMenu>
@@ -56,7 +61,9 @@ export const UserMenu = async () => {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="w-full cursor-pointer">
-          <SignOutButton>Log out</SignOutButton>
+          <button onClick={() => signOut(() => router.push("/"))}>
+            Log out
+          </button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
