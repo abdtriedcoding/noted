@@ -10,13 +10,10 @@ import {
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 import { ChevronsLeftRight } from "lucide-react";
-import { useUser, useClerk } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
+import { useUser, useClerk, SignOutButton } from "@clerk/nextjs";
 
 export const UserMenu = () => {
-  const router = useRouter();
   const { user } = useUser();
-  const { signOut } = useClerk();
 
   return (
     <DropdownMenu>
@@ -61,9 +58,7 @@ export const UserMenu = () => {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="w-full cursor-pointer">
-          <button onClick={() => signOut(() => router.push("/"))}>
-            Log out
-          </button>
+          <SignOutButton>Log out</SignOutButton>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
