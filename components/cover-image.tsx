@@ -1,15 +1,15 @@
 "use client";
 
-import { ImageIcon, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useUser } from "@clerk/nextjs";
+import { cn } from "@/lib/utils";
+import { ImageIcon, X } from "lucide-react";
+import { useEdgeStore } from "@/lib/edgestore";
+import { Button } from "@/components/ui/button";
+import { CoverImageModal } from "@/components/modals/cover-image-upload";
+
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useEdgeStore } from "@/lib/edgestore";
 import { Id } from "@/convex/_generated/dataModel";
-import { CoverImageModal } from "@/components/modals/cover-image-upload";
 
 interface CoverImageProps {
   id: Id<"documents">;
@@ -17,21 +17,18 @@ interface CoverImageProps {
   preview?: boolean;
 }
 
-const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
-  const { user } = useUser();
+export const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
   const { edgestore } = useEdgeStore();
   const removeCoverImage = useMutation(api.documents.removeCoverImage);
 
   const onRemove = async () => {
-    if (!user) return;
     if (imgUrl) {
       await edgestore.publicFiles.delete({
         url: imgUrl,
       });
     }
     removeCoverImage({
-      id: id,
-      userId: user?.id,
+      id,
     });
   };
 
@@ -72,5 +69,3 @@ const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
     </div>
   );
 };
-
-export default CoverImage;

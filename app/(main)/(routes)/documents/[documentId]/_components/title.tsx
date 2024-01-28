@@ -1,28 +1,25 @@
 import { useRef, useState } from "react";
+import { MenuButton } from "./menu-button";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { PublishButton } from "./publish-button";
+
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
-import { useUser } from "@clerk/nextjs";
-import Publish from "./publish";
-import { Menu } from "./menu";
 
-const Title = ({
-  id,
-  title,
-  icon,
-  isPublished,
-}: {
+interface ItemProps {
   id: Id<"documents">;
   title: string;
   icon?: string;
   isPublished: boolean;
-}) => {
-  const { user } = useUser();
+}
+
+export const Title = ({ id, title, icon, isPublished }: ItemProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [userTitle, setUserTitle] = useState(title || "Untitled");
-  const inputRef = useRef<HTMLInputElement>(null);
+
   const update = useMutation(api.documents.update);
 
   const enableInput = () => {
@@ -35,12 +32,9 @@ const Title = ({
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!user) return;
     setUserTitle(event.target.value);
-    console.log(event.target.value.trim());
     update({
       id: id,
-      userId: user.id,
       title: event.target.value.trim() || "Untitled",
     });
   };
@@ -73,11 +67,9 @@ const Title = ({
         )}
       </div>
       <div className="space-x-2 flex items-center">
-        <Publish id={id} isPublished={isPublished} />
-        <Menu id={id} />
+        <PublishButton id={id} isPublished={isPublished} />
+        <MenuButton id={id} />
       </div>
     </div>
   );
 };
-
-export default Title;

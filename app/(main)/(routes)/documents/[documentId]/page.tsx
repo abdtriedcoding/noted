@@ -1,30 +1,22 @@
 "use client";
 
+import { Title } from "./_components/title";
+import { Banner } from "./_components/banner";
+import { Editor } from "@/components/editor";
 import { Spinner } from "@/components/spinner";
-import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
-import { useUser } from "@clerk/nextjs";
+import { Toolbar } from "@/components/toolbar";
+import { CoverImage } from "@/components/cover-image";
+
 import { useQuery } from "convex/react";
 import { useParams } from "next/navigation";
-import Title from "./_components/title";
-import Banner from "./_components/banner";
-import Toolbar from "./_components/toolbar";
-import CoverImage from "./_components/cover-image";
-import dynamic from "next/dynamic";
-import { useMemo } from "react";
-import Editor from "@/components/editor";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 
-const Page = () => {
-  // const Editor = useMemo(
-  //   () => dynamic(() => import("@/components/editor"), { ssr: false }),
-  //   []
-  // );
-
-  const { user } = useUser();
+const DocumentPage = () => {
   const params = useParams();
+
   const document = useQuery(api.documents.getById, {
     documentId: params.documentId as Id<"documents">,
-    userId: user?.id || "",
   });
 
   if (document === undefined) {
@@ -36,7 +28,7 @@ const Page = () => {
   }
 
   if (document === null) {
-    return <div>Not found</div>;
+    return null;
   }
 
   return (
@@ -46,7 +38,12 @@ const Page = () => {
         <CoverImage id={document._id} imgUrl={document.coverImage} />
       )}
       <div className="p-4">
-        <Title id={document._id} title={document.title} icon={document.icon} isPublished={document.isPublished} />
+        <Title
+          id={document._id}
+          title={document.title}
+          icon={document.icon}
+          isPublished={document.isPublished}
+        />
         <Toolbar document={document} />
         <Editor id={document._id} initialContent={document.content} />
       </div>
@@ -54,4 +51,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default DocumentPage;

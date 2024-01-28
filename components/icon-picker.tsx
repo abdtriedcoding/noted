@@ -1,8 +1,7 @@
 "use client";
 
-import EmojiPicker, { Theme } from "emoji-picker-react";
 import { useTheme } from "next-themes";
-
+import EmojiPicker, { Theme } from "emoji-picker-react";
 import {
   Popover,
   PopoverContent,
@@ -15,7 +14,11 @@ interface IconPickerProps {
   asChild?: boolean;
 }
 
-const IconPicker = ({ onChange, children, asChild }: IconPickerProps) => {
+export const IconPicker = ({
+  onChange,
+  children,
+  asChild,
+}: IconPickerProps) => {
   const { resolvedTheme } = useTheme();
   const currentTheme = (resolvedTheme || "light") as keyof typeof themeMap;
 
@@ -39,5 +42,3 @@ const IconPicker = ({ onChange, children, asChild }: IconPickerProps) => {
     </Popover>
   );
 };
-
-export default IconPicker;
