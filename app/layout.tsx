@@ -1,33 +1,15 @@
 import "./globals.css";
 
 import { Toaster } from "sonner";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { constructMetadata } from "@/lib/utils";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexProvider } from "@/components/providers/convex-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Jotion",
-  description:
-    "Jotion is an all-in-one workspace application that provides tools for note-taking, project management, collaboration, and more.",
-  icons: {
-    icon: [
-      {
-        media: "(prefers-color-scheme: light)",
-        url: "/logo.svg",
-        href: "/logo.svg",
-      },
-      {
-        media: "(prefers-color-scheme: dark)",
-        url: "/logo-dark.svg",
-        href: "/logo-dark.svg",
-      },
-    ],
-  },
-};
+export const metadata = constructMetadata();
 
 export default function RootLayout({
   children,
