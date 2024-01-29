@@ -19,22 +19,17 @@ export const LoginAndProfileButton = () => {
       <ClerkLoaded>
         <SignedIn>
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/documents">Enter Jotion</Link>
+            <Link href="/documents">Enter Noted</Link>
           </Button>
           <UserButton afterSignOutUrl="/" />
         </SignedIn>
         <SignedOut>
           <SignInButton
-            signUpFallbackRedirectUrl={"/documents"}
-            fallbackRedirectUrl={"/documents"}
             mode="modal"
+            fallbackRedirectUrl={"/documents"}
+            signUpFallbackRedirectUrl={"/documents"}
           >
-            <Button variant="ghost" size="sm">
-              Log in
-            </Button>
-          </SignInButton>
-          <SignInButton mode="modal">
-            <Button size="sm">Get Jotion free</Button>
+            <Button size="sm">Get Noted free</Button>
           </SignInButton>
         </SignedOut>
       </ClerkLoaded>

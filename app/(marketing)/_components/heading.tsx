@@ -48,14 +48,14 @@ export const Heading = () => {
           style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
         >
           <Balancer>
-            Jotion is the connected workspace where better, faster work happens.
+            Noted is the connected workspace where better, faster work happens.
             Capture your ideas, thoughts, and meeting notes in a structured and
             organized manner.
           </Balancer>
         </p>
         <ShinnyLinkButton
           label="Get started"
-          href="/documents"
+          href="/sign-in"
           shiny
           size={"lg"}
           IconLeft={LogIn}
