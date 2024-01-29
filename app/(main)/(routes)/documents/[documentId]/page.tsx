@@ -37,7 +37,7 @@ const DocumentPage = () => {
       {document.coverImage && (
         <CoverImage id={document._id} imgUrl={document.coverImage} />
       )}
-      <div className="p-4">
+      <div>
         <Title
           id={document._id}
           title={document.title}

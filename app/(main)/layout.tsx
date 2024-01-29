@@ -1,16 +1,19 @@
 import { Sidebar } from "./_components/sidebar";
-import { NavigationMenu } from "./_components/navigation-menu";
+// import { NavigationMenu } from "./_components/navigation-menu";
 
-export default function MainLayout({
+export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-full flex dark:bg-[#1F1F1F] dark:text-slate-300">
-      <Sidebar />
-      <main className="flex-1 h-full overflow-y-auto">
-        <NavigationMenu />
+    <div className="flex min-h-screen">
+      <aside className="fixed left-0 top-0 h-[100vh] w-72 border-r-2 hidden md:block">
+        <Sidebar />
+      </aside>
+
+      <main className="flex-1 overflow-y-auto p-2 md:ml-72">
+        {/* <NavigationMenu /> */}
         {children}
       </main>
     </div>

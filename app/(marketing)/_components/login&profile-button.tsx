@@ -24,7 +24,11 @@ export const LoginAndProfileButton = () => {
           <UserButton afterSignOutUrl="/" />
         </SignedIn>
         <SignedOut>
-          <SignInButton mode="modal">
+          <SignInButton
+            signUpFallbackRedirectUrl={"/documents"}
+            fallbackRedirectUrl={"/documents"}
+            mode="modal"
+          >
             <Button variant="ghost" size="sm">
               Log in
             </Button>

@@ -8,7 +8,7 @@ export default function MarketingLayout({
   return (
     <>
       <Navbar />
-      <main className="p-4 max-w-5xl mx-auto">{children}</main>
+      <main className="p-4 min-h-screen max-w-5xl mx-auto">{children}</main>
     </>
   );
 }

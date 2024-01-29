@@ -37,7 +37,7 @@ export const Testimonials = () => {
         </Balancer>
       </p>
       <div
-        className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background py-20 animate-fade-up opacity-0"
+        className="relative flex w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background py-20 animate-fade-up opacity-0"
         style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
       >
         <Marquee pauseOnHover className="[--duration:20s]">

@@ -29,12 +29,13 @@ const MainPage = () => {
   };
 
   return (
-    <div className="h-[85vh] flex flex-col items-center justify-center space-y-4">
+    <div className="h-[90vh] flex flex-col items-center justify-center space-y-4">
       <Image
         src="/empty.png"
         height="300"
         width="300"
         alt="Empty"
+        priority
         className="dark:hidden"
       />
       <Image
@@ -42,6 +43,7 @@ const MainPage = () => {
         height="300"
         width="300"
         alt="Empty"
+        priority
         className="hidden dark:block"
       />
       {!isLoaded || !isSignedIn ? (
