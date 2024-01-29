@@ -22,7 +22,7 @@ export const Editor = ({ id, initialContent, editable }: ItemProps) => {
 
   const update = useMutation(api.documents.update);
 
-  const onChange = (content: string) => {
+  const onEditorChange = (content: string) => {
     update({
       id: id,
       content,
@@ -45,9 +45,10 @@ export const Editor = ({ id, initialContent, editable }: ItemProps) => {
   return (
     <BlockNoteView
       editor={editor}
+      sideMenu={false}
       editable={editable}
       onChange={() => {
-        onChange(JSON.stringify(editor.document));
+        onEditorChange(JSON.stringify(editor.document));
       }}
       theme={resolvedTheme === "dark" ? "dark" : "light"}
     />
