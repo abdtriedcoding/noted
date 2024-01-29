@@ -5,8 +5,8 @@ import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
 import { PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -47,7 +47,7 @@ const MainPage = () => {
         className="hidden dark:block"
       />
       {!isLoaded || !isSignedIn ? (
-        <Spinner size={"lg"} />
+        <SkeltonData />
       ) : (
         <>
           <h2 className="text-lg font-medium">
@@ -64,3 +64,12 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
+function SkeltonData() {
+  return (
+    <div className="flex flex-col items-center space-y-4 w-full">
+      <Skeleton className="h-6 w-60" />
+      <Skeleton className="h-10 w-40" />
+    </div>
+  );
+}

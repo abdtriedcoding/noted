@@ -15,11 +15,11 @@ export default async function MainLayout({
 
   return (
     <div className="flex min-h-screen">
-      <aside className="fixed left-0 top-0 h-[100vh] w-72 border-r-2 hidden md:block">
+      <aside className="dark:bg-[#202020] fixed left-0 top-0 h-[100vh] w-72 border-r-2 hidden md:block">
         <Sidebar />
       </aside>
 
-      <main className="flex-1 overflow-y-auto p-2 md:ml-72">
+      <main className="dark:bg-[#1F1F1F] flex-1 overflow-y-auto p-2 md:ml-72">
         <NavigationMenu />
         {children}
       </main>
