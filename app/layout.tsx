@@ -1,5 +1,4 @@
 import "./globals.css";
-
 import { Toaster } from "sonner";
 import { Poppins } from "next/font/google";
 import { constructMetadata } from "@/lib/utils";
@@ -29,7 +28,9 @@ export default function RootLayout({
               storageKey="jotion-theme-2"
             >
               <Toaster position="bottom-center" />
-              {children}
+              <main className="min-h-screen antialiased overflow-x-hidden">
+                {children}
+              </main>
             </ThemeProvider>
           </EdgeStoreProvider>
         </ConvexProvider>

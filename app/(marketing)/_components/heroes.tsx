@@ -1,18 +1,20 @@
 import Image from "next/image";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 export const Heroes = () => {
   return (
-    <ContainerScroll>
+    <div className="relative rounded-xl w-full border-2 p-2">
       <Image
-        src={`/herosection-image.jpg`}
-        alt="hero"
-        height={720}
         width={1400}
-        className="mx-auto rounded-2xl object-cover h-full object-left-top animate-fade-up opacity-0"
+        height={720}
+        src="/herosection-image.jpg"
+        alt="Hero Image"
         draggable={false}
+        className="w-[1400px] rounded-[inherit] border object-contain shadow-lg animate-fade-up opacity-0"
         style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
       />
-    </ContainerScroll>
+
+      <BorderBeam size={150} duration={12} delay={9} borderWidth={2} />
+    </div>
   );
 };
