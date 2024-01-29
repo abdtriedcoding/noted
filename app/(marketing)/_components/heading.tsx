@@ -7,7 +7,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 
 export const Heading = () => {
   return (
-    <div className="py-28 w-full rounded-md flex md:items-center md:justify-center antialiased bg-grid-white/[0.02] relative overflow-hidden">
+    <div className="h-[40rem] w-full rounded-md flex md:items-center md:justify-center antialiased bg-grid-white/[0.02] relative overflow-hidden">
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="white"
@@ -46,14 +46,16 @@ export const Heading = () => {
             organized manner.
           </Balancer>
         </p>
-        <Button
-          asChild
-          size={"lg"}
-          className="rounded-lg animate-fade-up opacity-0"
+        <Link
+          href={"/documents"}
+          className={cn(
+            buttonVariants({ size: "lg" }),
+            "rounded-lg animate-fade-up opacity-0"
+          )}
           style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
         >
-          <Link href={"/documents"}>Get Started</Link>
-        </Button>
+          Get Started
+        </Link>
       </div>
     </div>
   );
