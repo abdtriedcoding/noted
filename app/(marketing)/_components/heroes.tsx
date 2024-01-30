@@ -8,6 +8,9 @@ export const Heroes = () => {
         width={1400}
         height={720}
         src="/herosection-image.png"
+        priority
+        fetchPriority="high"
+        loading="eager"
         alt="Hero Image"
         draggable={false}
         className="rounded-xl dark:hidden object-contain animate-fade-up opacity-0"
@@ -17,6 +20,9 @@ export const Heroes = () => {
         width={1400}
         height={720}
         src="/herosection-dark-image.png"
+        priority
+        fetchPriority="high"
+        loading="eager"
         alt="Hero Image"
         draggable={false}
         className="rounded-xl hidden dark:block object-contain animate-fade-up opacity-0"
