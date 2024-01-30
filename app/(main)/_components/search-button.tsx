@@ -1,9 +1,12 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
+import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
 import { File, Search } from "lucide-react";
 import { useEffect, useState } from "react";
+import { api } from "@/convex/_generated/api";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   CommandDialog,
   CommandEmpty,
@@ -12,10 +15,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Skeleton } from "@/components/ui/skeleton";
-
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
 
 export const SearchButton = () => {
   const { user } = useUser();

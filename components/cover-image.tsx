@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { ImageIcon, X } from "lucide-react";
 import { useEdgeStore } from "@/lib/edgestore";
 import { Button } from "@/components/ui/button";
@@ -33,15 +32,9 @@ export const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
   };
 
   return (
-    <div
-      className={cn(
-        "relative w-full h-[35vh] group",
-        !imgUrl && "h-[12vh]",
-        imgUrl && "bg-muted"
-      )}
-    >
+    <div className="relative w-full h-[35vh] group">
       {!!imgUrl && (
-        <Image src={imgUrl} fill alt="Cover" className="object-cover" />
+        <Image src={imgUrl} fill alt="Cover-Image" className="object-cover" />
       )}
       {imgUrl && !preview && (
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">

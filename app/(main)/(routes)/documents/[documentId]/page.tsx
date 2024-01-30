@@ -15,20 +15,16 @@ import { Id } from "@/convex/_generated/dataModel";
 const DocumentPage = () => {
   const params = useParams();
 
-  const document = useQuery(api.documents.getById, {
+  const document = useQuery(api.documents.getDocumentById, {
     documentId: params.documentId as Id<"documents">,
   });
 
   if (document === undefined) {
     return (
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center min-h-screen">
         <Spinner size={"lg"} />
       </div>
     );
-  }
-
-  if (document === null) {
-    return null;
   }
 
   return (
@@ -37,7 +33,7 @@ const DocumentPage = () => {
       {document.coverImage && (
         <CoverImage id={document._id} imgUrl={document.coverImage} />
       )}
-      <div>
+      <div className="p-4">
         <Title
           id={document._id}
           title={document.title}

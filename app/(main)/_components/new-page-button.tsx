@@ -9,10 +9,10 @@ import { api } from "@/convex/_generated/api";
 
 export const NewPageButton = () => {
   const router = useRouter();
-  const create = useMutation(api.documents.create);
+  const createDocument = useMutation(api.documents.createDocument);
 
-  const onCreate = () => {
-    const promise = create({ title: "Untitled" }).then((documentId) =>
+  const onCreateNote = () => {
+    const promise = createDocument({ title: "Untitled" }).then((documentId) =>
       router.push(`/documents/${documentId}`)
     );
 
@@ -25,7 +25,7 @@ export const NewPageButton = () => {
 
   return (
     <div
-      onClick={onCreate}
+      onClick={onCreateNote}
       role="button"
       className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center font-medium rounded-md"
     >

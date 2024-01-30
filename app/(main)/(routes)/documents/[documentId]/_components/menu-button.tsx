@@ -21,10 +21,12 @@ export const MenuButton = ({ id }: { id: Id<"documents"> }) => {
   const { user } = useUser();
   const router = useRouter();
 
-  const archive = useMutation(api.documents.archive);
+  const archiveDocument = useMutation(api.documents.archiveDocument);
 
-  const onArchive = () => {
-    const promise = archive({ id }).then(() => router.push("/documents"));
+  const onArchiveNote = () => {
+    const promise = archiveDocument({ id }).then(() =>
+      router.push("/documents")
+    );
 
     toast.promise(promise, {
       loading: "Moving to trash...",
@@ -46,7 +48,7 @@ export const MenuButton = ({ id }: { id: Id<"documents"> }) => {
         alignOffset={8}
         forceMount
       >
-        <DropdownMenuItem onClick={onArchive}>
+        <DropdownMenuItem onClick={onArchiveNote}>
           <Trash className="h-4 w-4 mr-2" />
           Delete
         </DropdownMenuItem>

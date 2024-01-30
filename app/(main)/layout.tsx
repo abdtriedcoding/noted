@@ -19,7 +19,7 @@ export default async function MainLayout({
         <Sidebar />
       </aside>
 
-      <main className="dark:bg-[#1F1F1F] flex-1 overflow-y-auto p-2 md:ml-72">
+      <main className="dark:bg-[#1F1F1F] flex-1 overflow-y-auto md:ml-72">
         <NavigationMenu />
         {children}
       </main>

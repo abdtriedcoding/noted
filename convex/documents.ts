@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
-export const create = mutation({
+export const createDocument = mutation({
   args: {
     title: v.string(),
   },
@@ -46,7 +46,7 @@ export const getUserDocuments = query({
   },
 });
 
-export const archive = mutation({
+export const archiveDocument = mutation({
   args: {
     id: v.id("documents"),
   },
@@ -77,7 +77,7 @@ export const archive = mutation({
   },
 });
 
-export const getTrash = query({
+export const getTrashDocuments = query({
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
 
@@ -98,7 +98,7 @@ export const getTrash = query({
   },
 });
 
-export const remove = mutation({
+export const removeDocument = mutation({
   args: {
     id: v.id("documents"),
   },
@@ -127,7 +127,7 @@ export const remove = mutation({
   },
 });
 
-export const restore = mutation({
+export const restoreDocument = mutation({
   args: {
     id: v.id("documents"),
   },
@@ -158,7 +158,7 @@ export const restore = mutation({
   },
 });
 
-export const getById = query({
+export const getDocumentById = query({
   args: { documentId: v.id("documents") },
   handler: async (ctx, args) => {
     const document = await ctx.db.get(args.documentId);
@@ -187,7 +187,7 @@ export const getById = query({
   },
 });
 
-export const update = mutation({
+export const updateDocument = mutation({
   args: {
     id: v.id("documents"),
     title: v.optional(v.string()),
