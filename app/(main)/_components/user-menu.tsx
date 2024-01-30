@@ -25,7 +25,7 @@ export const UserMenu = async () => {
               <AvatarImage src={user?.imageUrl} />
             </Avatar>
             <span className="text-start font-medium line-clamp-1">
-              {user?.firstName}&apos;s Jotion
+              {user?.firstName}&apos;s Noted
             </span>
           </div>
           <ChevronsLeftRight className="rotate-90 ml-2 h-4 w-4" />
@@ -49,7 +49,7 @@ export const UserMenu = async () => {
             </div>
             <div className="space-y-1">
               <p className="text-sm line-clamp-1">
-                {user?.firstName}&apos;s Jotion
+                {user?.firstName}&apos;s Noted
               </p>
             </div>
           </div>
