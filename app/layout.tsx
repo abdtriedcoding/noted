@@ -14,7 +14,7 @@ const font = Poppins({ subsets: ["latin"], weight: ["400"] });
 export const metadata: Metadata = {
   title: {
     default: "Noted",
-    template: `%s - "Noted`,
+    template: `%s | Noted`,
   },
   metadataBase: new URL("https://notedwebapp.vercel.app"),
   description:
