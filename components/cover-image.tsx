@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { ImageIcon, X } from "lucide-react";
 import { useEdgeStore } from "@/lib/edgestore";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ interface CoverImageProps {
 
 export const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
   const { edgestore } = useEdgeStore();
+  const [imageLoaded, setImageLoaded] = useState(false);
   const removeCoverImage = useMutation(api.documents.removeCoverImage);
 
   const onRemove = async () => {
@@ -36,12 +38,12 @@ export const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
       {!!imgUrl && (
         <Image
           src={imgUrl}
-          priority
-          fetchPriority="high"
-          loading="eager"
           fill
           alt="Cover-Image"
-          className="object-cover"
+          className={`object-cover transition-opacity duration-700 ease-in-out ${
+            imageLoaded ? "opacity-100" : "opacity-0"
+          }`}
+          onLoadingComplete={() => setImageLoaded(true)}
         />
       )}
       {imgUrl && !preview && (
