@@ -1,30 +1,3 @@
 {
   "extends": "next/core-web-vitals"
 }
-
-// This will be enabled when we finished pushed all our code to github and our servers because they are causing issues when pushing code to github due to changes in eslint rules in between of project.
-
-// {
-//   "extends": [
-//     "next/core-web-vitals",
-//     "airbnb",
-//     "airbnb-typescript",
-//     "airbnb/hooks",
-//     "plugin:@typescript-eslint/recommended-type-checked",
-//     "plugin:@typescript-eslint/stylistic-type-checked",
-//     "plugin:react/jsx-runtime"
-//   ],
-//   "parser": "@typescript-eslint/parser",
-//   "parserOptions": {
-//     "project": "./tsconfig.json",
-//     "ecmaFeatures": {
-//       "jsx": true
-//     }
-//   },
-//   "rules": {
-//     "@typescript-eslint/semi": "off",
-//     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
-//     "react/require-default-props": "off",
-//     "max-len": "off"
-//   }
-// }
