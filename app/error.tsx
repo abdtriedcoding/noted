@@ -1,19 +1,20 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import Image from 'next/image';
+import { useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
-const Error = ({
+export default function Error({
   error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
-}) => {
+}) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(error);
+    toast.error(error.message);
   }, [error]);
 
   return (
@@ -24,17 +25,17 @@ const Error = ({
         width="300"
         alt="Error"
         className="dark:invert animate-fade-up opacity-0"
-        style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
+        style={{ animationDelay: '0.15s', animationFillMode: 'forwards' }}
       />
       <h2
         className="text-xl font-medium animate-fade-up opacity-0"
-        style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
+        style={{ animationDelay: '0.25s', animationFillMode: 'forwards' }}
       >
         Something went wrong!
       </h2>
       <Button
         className="animate-fade-up opacity-0"
-        style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
+        style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
@@ -44,6 +45,4 @@ const Error = ({
       </Button>
     </div>
   );
-};
-
-export default Error;
+}
