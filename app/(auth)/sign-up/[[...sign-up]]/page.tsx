@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Signup",
 };
 
-export default function SignUp() {
+export default function SignUpPage() {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <SignUp />
