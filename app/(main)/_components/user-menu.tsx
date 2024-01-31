@@ -1,6 +1,8 @@
-import { SignOutButton } from "@clerk/nextjs";
+"use client";
+
 import { ChevronsLeftRight } from "lucide-react";
-import { currentUser } from "@clerk/nextjs/server";
+import { Skeleton } from "@/components/ui/skeleton";
+import { SignOutButton, useUser } from "@clerk/nextjs";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -10,8 +12,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export const UserMenu = async () => {
-  const user = await currentUser();
+export const UserMenu = () => {
+  const { isLoaded, isSignedIn, user } = useUser();
+
+  if (!isLoaded && !isSignedIn) {
+    return <Skeleton className="px-4 py-4 w-full" />;
+  }
 
   return (
     <DropdownMenu>
@@ -28,7 +34,7 @@ export const UserMenu = async () => {
               {user?.firstName}&apos;s Noted
             </span>
           </div>
-          <ChevronsLeftRight className="rotate-90 ml-2 h-4 w-4" />
+          <ChevronsLeftRight className="rotate-90 h-4 w-4" />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -39,7 +45,7 @@ export const UserMenu = async () => {
       >
         <div className="flex flex-col space-y-4 p-2">
           <p className="text-xs font-medium leading-none">
-            {user?.emailAddresses[0].emailAddress}
+            {user?.emailAddresses[0]?.emailAddress}
           </p>
           <div className="flex items-center gap-x-2">
             <div className="rounded-md bg-secondary p-1">

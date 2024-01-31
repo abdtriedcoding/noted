@@ -11,6 +11,7 @@ import {
 import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
 import { useParams, useRouter } from "next/navigation";
+import { useSidebarStore } from "@/lib/useSidebarStore";
 
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -23,7 +24,9 @@ interface ItemProps {
 }
 
 export const DocumentItem = ({ id, label, documentIcon }: ItemProps) => {
-  const { user } = useUser();
+  const { setOpen } = useSidebarStore();
+  const { isLoaded, isSignedIn, user } = useUser();
+
   const router = useRouter();
   const params = useParams();
 
@@ -46,9 +49,14 @@ export const DocumentItem = ({ id, label, documentIcon }: ItemProps) => {
     });
   };
 
+  const handleRedirect = () => {
+    router.push(`/documents/${id}`);
+    setOpen(false);
+  };
+
   return (
     <div
-      onClick={() => router.push(`/documents/${id}`)}
+      onClick={handleRedirect}
       role="button"
       className={cn(
         "group px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center font-medium rounded-md",
@@ -81,7 +89,9 @@ export const DocumentItem = ({ id, label, documentIcon }: ItemProps) => {
             Delete
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <div className="text-xs p-2">Last edited by: {user?.fullName}</div>
+          {isLoaded && isSignedIn && user && (
+            <div className="text-xs p-2">Last edited by: {user.fullName}</div>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
