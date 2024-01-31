@@ -2,10 +2,7 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
 export const createDocument = mutation({
-  args: {
-    title: v.string(),
-  },
-  handler: async (ctx, args) => {
+  handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
 
     if (!identity) {
@@ -16,7 +13,7 @@ export const createDocument = mutation({
 
     const document = await ctx.db.insert("documents", {
       userId,
-      title: args.title,
+      title: "Untitled",
       isArchived: false,
       isPublished: false,
     });

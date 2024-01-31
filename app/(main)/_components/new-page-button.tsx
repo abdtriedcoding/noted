@@ -12,7 +12,7 @@ export const NewPageButton = () => {
   const createDocument = useMutation(api.documents.createDocument);
 
   const onCreateNote = () => {
-    const promise = createDocument({ title: "Untitled" }).then((documentId) =>
+    const promise = createDocument().then((documentId) =>
       router.push(`/documents/${documentId}`)
     );
 
