@@ -164,9 +164,7 @@ export const getDocumentById = query({
       throw new Error("Not found");
     }
 
-    if (document.isPublished && !document.isArchived) {
-      return document;
-    }
+    if (document.isPublished && !document.isArchived) return document;
 
     const identity = await ctx.auth.getUserIdentity();
 

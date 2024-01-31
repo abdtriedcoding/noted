@@ -1,11 +1,12 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Title } from "./_components/title";
 import { Banner } from "./_components/banner";
-import { Editor } from "@/components/editor";
 import { Spinner } from "@/components/spinner";
 import { Toolbar } from "@/components/toolbar";
 import { CoverImage } from "@/components/cover-image";
+const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
 
 import { useQuery } from "convex/react";
 import { useParams } from "next/navigation";
@@ -41,7 +42,7 @@ const DocumentPage = () => {
           isPublished={document.isPublished}
         />
         <Toolbar document={document} />
-        <Editor id={document._id} initialContent={document.content} />
+        <Editor id={document._id} initialContent={document.content} editable />
       </div>
     </>
   );

@@ -13,9 +13,10 @@ import { Id } from "@/convex/_generated/dataModel";
 interface ItemProps {
   id: Id<"documents">;
   initialContent?: string;
+  editable: boolean;
 }
 
-export const Editor = ({ id, initialContent }: ItemProps) => {
+export default function Editor({ id, initialContent, editable }: ItemProps) {
   const { resolvedTheme } = useTheme();
   const { edgestore } = useEdgeStore();
 
@@ -23,7 +24,7 @@ export const Editor = ({ id, initialContent }: ItemProps) => {
 
   const onEditorChange = (content: string) => {
     updateDocument({
-      id: id,
+      id,
       content,
     });
   };
@@ -42,14 +43,24 @@ export const Editor = ({ id, initialContent }: ItemProps) => {
   });
 
   return (
-    <BlockNoteView
-      editor={editor}
-      sideMenu={false}
-      editable={true}
-      onChange={() => {
-        onEditorChange(JSON.stringify(editor.document));
-      }}
-      theme={resolvedTheme === "dark" ? "dark" : "light"}
-    />
+    <>
+      {editable ? (
+        <BlockNoteView
+          editor={editor}
+          sideMenu={false}
+          editable={true}
+          onChange={() => {
+            onEditorChange(JSON.stringify(editor.document));
+          }}
+          theme={resolvedTheme === "dark" ? "dark" : "light"}
+        />
+      ) : (
+        <BlockNoteView
+          editor={editor}
+          editable={false}
+          theme={resolvedTheme === "dark" ? "dark" : "light"}
+        />
+      )}
+    </>
   );
-};
+}

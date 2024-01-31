@@ -35,24 +35,13 @@ export const Banner = ({ id }: { id: Id<"documents"> }) => {
   };
 
   return (
-    <div className="w-full bg-rose-500 text-center text-sm p-2 text-white flex items-center gap-x-2 justify-center">
+    <div className="w-full bg-rose-500 text-center p-2 text-white flex items-center gap-x-2 justify-center">
       <p className="hidden md:block">This page is in the Trash.</p>
-      <Button
-        size="sm"
-        onClick={onRestoreNote}
-        variant="outline"
-        className="border-white bg-transparent hover:bg-primary/5 text-white hover:text-white p-1 px-2 h-auto font-normal"
-      >
+      <Button size="sm" onClick={onRestoreNote}>
         Restore page
       </Button>
       <ConfirmModal onConfirm={onRemoveNote}>
-        <Button
-          size="sm"
-          variant="outline"
-          className="border-white bg-transparent hover:bg-primary/5 text-white hover:text-white p-1 px-2 h-auto font-normal"
-        >
-          Delete forever
-        </Button>
+        <Button size="sm">Delete forever</Button>
       </ConfirmModal>
     </div>
   );
