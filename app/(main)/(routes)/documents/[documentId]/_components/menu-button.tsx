@@ -1,39 +1,38 @@
-"use client";
+'use client'
 
-import { toast } from "sonner";
-import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Trash } from "lucide-react";
+import { toast } from 'sonner'
+import { useUser } from '@clerk/nextjs'
+import { useMutation } from 'convex/react'
+import { useRouter } from 'next/navigation'
+import { api } from '@/convex/_generated/api'
+import { Button } from '@/components/ui/button'
+import { MoreHorizontal, Trash } from 'lucide-react'
+import { type Id } from '@/convex/_generated/dataModel'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu'
 
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
+export default function MenuButton({ id }: { id: Id<'documents'> }) {
+  const { user } = useUser()
+  const router = useRouter()
 
-export const MenuButton = ({ id }: { id: Id<"documents"> }) => {
-  const { user } = useUser();
-  const router = useRouter();
-
-  const archiveDocument = useMutation(api.documents.archiveDocument);
+  const archiveDocument = useMutation(api.documents.archiveDocument)
 
   const onArchiveNote = () => {
     const promise = archiveDocument({ id }).then(() =>
-      router.push("/documents")
-    );
+      router.push('/documents')
+    )
 
     toast.promise(promise, {
-      loading: "Moving to trash...",
-      success: "Note moved to trash!",
-      error: "Failed to archive note.",
-    });
-  };
+      loading: 'Moving to trash...',
+      success: 'Note moved to trash!',
+      error: 'Failed to archive note.',
+    })
+  }
 
   return (
     <DropdownMenu>
@@ -49,12 +48,12 @@ export const MenuButton = ({ id }: { id: Id<"documents"> }) => {
         forceMount
       >
         <DropdownMenuItem onClick={onArchiveNote}>
-          <Trash className="h-4 w-4 mr-2" />
+          <Trash className="mr-2 h-4 w-4" />
           Delete
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <div className="text-xs p-2">Last edited by: {user?.fullName}</div>
+        <div className="p-2 text-xs">Last edited by: {user?.fullName}</div>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}

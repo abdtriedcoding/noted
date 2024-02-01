@@ -1,14 +1,14 @@
-import { Metadata } from "next";
-import { SignUp } from "@clerk/nextjs";
+import { type Metadata } from 'next'
+import { SignUp } from '@clerk/nextjs'
 
 export const metadata: Metadata = {
-  title: "Signup",
-};
+  title: 'Signup',
+}
 
 export default function SignUpPage() {
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex min-h-screen items-center justify-center">
       <SignUp />
     </div>
-  );
+  )
 }

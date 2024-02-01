@@ -1,22 +1,22 @@
-"use client";
+'use client'
 
-import { ChevronsLeftRight } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { SignOutButton, useUser } from "@clerk/nextjs";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { ChevronsLeftRight } from 'lucide-react'
+import { Skeleton } from '@/components/ui/skeleton'
+import { SignOutButton, useUser } from '@clerk/nextjs'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu'
 
-export const UserMenu = () => {
-  const { isLoaded, isSignedIn, user } = useUser();
+export default function UserMenu() {
+  const { isLoaded, isSignedIn, user } = useUser()
 
   if (!isLoaded && !isSignedIn) {
-    return <Skeleton className="px-4 py-4 w-full" />;
+    return <Skeleton className="w-full px-4 py-4" />
   }
 
   return (
@@ -24,17 +24,17 @@ export const UserMenu = () => {
       <DropdownMenuTrigger asChild>
         <div
           role="button"
-          className="flex items-center text-sm px-4 py-2 w-full hover:bg-primary/5 rounded-md justify-between"
+          className="flex w-full items-center justify-between rounded-md px-4 py-2 text-sm hover:bg-primary/5"
         >
-          <div className="gap-x-2 flex items-center max-w-[150px]">
+          <div className="flex max-w-[150px] items-center gap-x-2">
             <Avatar className="h-5 w-5">
               <AvatarImage src={user?.imageUrl} />
             </Avatar>
-            <span className="text-start font-medium line-clamp-1">
+            <span className="line-clamp-1 text-start font-medium">
               {user?.firstName}&apos;s Noted
             </span>
           </div>
-          <ChevronsLeftRight className="rotate-90 h-4 w-4" />
+          <ChevronsLeftRight className="h-4 w-4 rotate-90" />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -54,7 +54,7 @@ export const UserMenu = () => {
               </Avatar>
             </div>
             <div className="space-y-1">
-              <p className="text-sm line-clamp-1">
+              <p className="line-clamp-1 text-sm">
                 {user?.firstName}&apos;s Noted
               </p>
             </div>
@@ -66,5 +66,5 @@ export const UserMenu = () => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}

@@ -1,56 +1,54 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { useState } from "react";
-import { ImageIcon, X } from "lucide-react";
-import { useEdgeStore } from "@/lib/edgestore";
-import { Button } from "@/components/ui/button";
-import { CoverImageModal } from "@/components/modals/cover-image-upload";
-
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
+import Image from 'next/image'
+import { toast } from 'sonner'
+import { useState } from 'react'
+import { useMutation } from 'convex/react'
+import { ImageIcon, X } from 'lucide-react'
+import { api } from '@/convex/_generated/api'
+import { useEdgeStore } from '@/lib/edgestore'
+import { Button } from '@/components/ui/button'
+import { type Id } from '@/convex/_generated/dataModel'
+import CoverImageModal from '@/components/modals/cover-image-upload'
 
 interface CoverImageProps {
-  id: Id<"documents">;
-  imgUrl: string;
-  preview?: boolean;
+  id: Id<'documents'>
+  imgUrl: string
+  preview?: boolean
 }
 
-export const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
-  const { edgestore } = useEdgeStore();
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const removeCoverImage = useMutation(api.documents.removeCoverImage);
+export default function CoverImage({ id, imgUrl, preview }: CoverImageProps) {
+  const { edgestore } = useEdgeStore()
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const removeCoverImage = useMutation(api.documents.removeCoverImage)
 
   const onRemove = async () => {
     if (imgUrl) {
       await edgestore.publicFiles.delete({
         url: imgUrl,
-      });
+      })
     }
     removeCoverImage({
       id,
-    });
-  };
+    }).catch(() => toast.error('Failed to remove cover image'))
+  }
 
   return (
-    <div className="relative w-full h-[35vh] group">
+    <div className="group relative h-[35vh] w-full">
       {!!imgUrl && (
         <Image
           src={imgUrl}
           fill
           alt="Cover-Image"
-          className={`object-cover transition-opacity duration-700 ease-in-out ${
-            imageLoaded ? "opacity-100" : "opacity-0"
-          }`}
+          className={`object-cover transition-opacity duration-700 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoadingComplete={() => setImageLoaded(true)}
         />
       )}
       {imgUrl && !preview && (
-        <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">
+        <div className="absolute bottom-5 right-5 flex items-center gap-x-2 opacity-0 group-hover:opacity-100">
           <CoverImageModal id={id} imgUrl={imgUrl}>
             <Button className="text-xs" variant="outline" size="sm">
-              <ImageIcon className="h-4 w-4 mr-2" />
+              <ImageIcon className="mr-2 h-4 w-4" />
               Change cover
             </Button>
           </CoverImageModal>
@@ -60,11 +58,11 @@ export const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
             variant="outline"
             size="sm"
           >
-            <X className="h-4 w-4 mr-2" />
+            <X className="mr-2 h-4 w-4" />
             Remove
           </Button>
         </div>
       )}
     </div>
-  );
-};
+  )
+}

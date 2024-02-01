@@ -1,22 +1,22 @@
-import { Settings } from "lucide-react";
-import { Label } from "@/components/ui/label";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { Settings } from 'lucide-react'
+import { Label } from '@/components/ui/label'
+import ThemeToggle from '@/components/theme-toggle'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog'
 
-export const SettingButton = () => {
+export default function SettingButton() {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <div
           role="button"
-          className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center font-medium rounded-md"
+          className="flex w-full items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-primary/5"
         >
-          <Settings className="shrink-0 h-[18px] w-[18px] mr-2" />
+          <Settings className="mr-2 h-[18px] w-[18px] shrink-0" />
           <span className="truncate">Settings</span>
         </div>
       </DialogTrigger>
@@ -35,5 +35,5 @@ export const SettingButton = () => {
         </div>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

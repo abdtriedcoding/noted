@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { Spinner } from "@/components/spinner";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link'
+import Spinner from '@/components/spinner'
+import { Button } from '@/components/ui/button'
 import {
   SignedIn,
   SignedOut,
@@ -8,31 +8,31 @@ import {
   UserButton,
   ClerkLoaded,
   ClerkLoading,
-} from "@clerk/nextjs";
+} from '@clerk/nextjs'
 
-export const LoginAndProfileButton = () => {
+export default function LoginAndProfileButton() {
   return (
     <>
       <ClerkLoading>
-        <Spinner size={"lg"} />
+        <Spinner size={'lg'} />
       </ClerkLoading>
       <ClerkLoaded>
         <SignedIn>
           <Button variant="ghost" size="sm" asChild>
             <Link href="/documents">Enter Noted</Link>
           </Button>
-          <UserButton afterSignOutUrl="/" />
+          <UserButton />
         </SignedIn>
         <SignedOut>
           <SignInButton
             mode="modal"
-            fallbackRedirectUrl={"/documents"}
-            signUpFallbackRedirectUrl={"/documents"}
+            fallbackRedirectUrl={'/documents'}
+            signUpFallbackRedirectUrl={'/documents'}
           >
             <Button size="sm">Get Noted free</Button>
           </SignInButton>
         </SignedOut>
       </ClerkLoaded>
     </>
-  );
-};
+  )
+}

@@ -1,31 +1,30 @@
-"use client";
+'use client'
 
-import dynamic from "next/dynamic";
-import { Title } from "./_components/title";
-import { Banner } from "./_components/banner";
-import { Spinner } from "@/components/spinner";
-import { Toolbar } from "@/components/toolbar";
-import { CoverImage } from "@/components/cover-image";
-const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
+import dynamic from 'next/dynamic'
+import Title from './_components/title'
+import { useQuery } from 'convex/react'
+import Banner from './_components/banner'
+import Toolbar from '@/components/toolbar'
+import Spinner from '@/components/spinner'
+import { useParams } from 'next/navigation'
+import { api } from '@/convex/_generated/api'
+import CoverImage from '@/components/cover-image'
+import { type Id } from '@/convex/_generated/dataModel'
+const Editor = dynamic(() => import('@/components/editor'), { ssr: false })
 
-import { useQuery } from "convex/react";
-import { useParams } from "next/navigation";
-import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
-
-const DocumentPage = () => {
-  const params = useParams();
+export default function DocumentPage() {
+  const params = useParams()
 
   const document = useQuery(api.documents.getDocumentById, {
-    documentId: params.documentId as Id<"documents">,
-  });
+    documentId: params.documentId as Id<'documents'>,
+  })
 
   if (document === undefined) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Spinner size={"lg"} />
+      <div className="flex min-h-screen items-center justify-center">
+        <Spinner size={'lg'} />
       </div>
-    );
+    )
   }
 
   return (
@@ -45,7 +44,5 @@ const DocumentPage = () => {
         <Editor id={document._id} initialContent={document.content} editable />
       </div>
     </>
-  );
-};
-
-export default DocumentPage;
+  )
+}

@@ -1,26 +1,25 @@
-"use client";
+'use client'
 
-import { DocumentItem } from "./document-item";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from 'convex/react'
+import DocumentItem from './document-item'
+import { api } from '@/convex/_generated/api'
+import { Skeleton } from '@/components/ui/skeleton'
 
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
-
-export const DocumentList = () => {
-  const documents = useQuery(api.documents.getUserDocuments);
+export default function DocumentList() {
+  const documents = useQuery(api.documents.getUserDocuments)
 
   if (documents === undefined) {
     return (
-      <div className="space-y-2 mt-4 p-2 mr-2">
-        <Skeleton className="px-4 py-4 w-full" />
-        <Skeleton className="px-4 py-4 w-full" />
-        <Skeleton className="px-4 py-4 w-full" />
+      <div className="mr-2 mt-4 space-y-2 p-2">
+        <Skeleton className="w-full px-4 py-4" />
+        <Skeleton className="w-full px-4 py-4" />
+        <Skeleton className="w-full px-4 py-4" />
       </div>
-    );
+    )
   }
 
   return (
-    <div className="p-2 mr-2 space-y-2">
+    <div className="mr-2 space-y-2 p-2">
       {documents?.map((document) => (
         <DocumentItem
           key={document._id}
@@ -30,5 +29,5 @@ export const DocumentList = () => {
         />
       ))}
     </div>
-  );
-};
+  )
+}
