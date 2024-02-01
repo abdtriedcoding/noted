@@ -20,6 +20,7 @@ export default function Error({
     <div className="flex min-h-screen flex-col items-center justify-center space-y-4">
       <Image
         src="/error.svg"
+        priority
         height="300"
         width="300"
         alt="Error"
