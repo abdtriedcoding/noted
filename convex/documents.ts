@@ -1,17 +1,86 @@
+import { getAuthUserId } from '@convex-dev/auth/server'
 import { v } from 'convex/values'
+
 import { mutation, query } from './_generated/server'
 
-export const createDocument = mutation({
-  handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity()
+export const createWorkspace = mutation({
+  args: {
+    name: v.string(),
+    image: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx)
 
-    if (!identity) {
+    if (userId === null) {
       throw new Error('Not authenticated')
     }
 
-    const userId = identity.subject
+    const workspace = await ctx.db.insert('workspaces', {
+      userId,
+      name: args.name,
+      image: args.image,
+    })
+
+    return workspace
+  },
+})
+
+export const getWorkspaces = query({
+  handler: async (ctx) => {
+    const userId = await getAuthUserId(ctx)
+
+    if (userId === null) {
+      throw new Error('Not authenticated')
+    }
+
+    const workspaces = await ctx.db
+      .query('workspaces')
+      .withIndex('by_user', (q) => q.eq('userId', userId))
+      .collect()
+
+    return workspaces
+  },
+})
+
+export const getWorkspaceById = query({
+  args: {
+    workspaceId: v.id('workspaces'),
+  },
+  handler: async (ctx, args) => {
+    const { workspaceId } = args
+    const userId = await getAuthUserId(ctx)
+
+    if (userId === null) {
+      throw new Error('Not authenticated')
+    }
+
+    const workspace = await ctx.db.get(workspaceId)
+
+    if (!workspace) {
+      throw new Error('Not found')
+    }
+
+    if (workspace?.userId !== userId) {
+      throw new Error('Not authenticated')
+    }
+
+    return workspace
+  },
+})
+
+export const createDocument = mutation({
+  args: {
+    workspaceId: v.id('workspaces'),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx)
+
+    if (userId === null) {
+      throw new Error('Not authenticated')
+    }
 
     const document = await ctx.db.insert('documents', {
+      workspaceId: args.workspaceId,
       userId,
       title: 'Untitled',
       isArchived: false,
@@ -22,19 +91,21 @@ export const createDocument = mutation({
   },
 })
 
-export const getUserDocuments = query({
-  handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity()
+export const getDocuments = query({
+  args: {
+    workspaceId: v.id('workspaces'),
+  },
+  handler: async (ctx, args) => {
+    const { workspaceId } = args
+    const userId = await getAuthUserId(ctx)
 
-    if (!identity) {
+    if (userId === null) {
       throw new Error('Not authenticated')
     }
 
-    const userId = identity.subject
-
     const documents = await ctx.db
       .query('documents')
-      .withIndex('by_user', (q) => q.eq('userId', userId))
+      .withIndex('by_workspace', (q) => q.eq('workspaceId', workspaceId))
       .filter((q) => q.eq(q.field('isArchived'), false))
       .order('desc')
       .collect()
@@ -46,15 +117,14 @@ export const getUserDocuments = query({
 export const archiveDocument = mutation({
   args: {
     id: v.id('documents'),
+    workspaceId: v.id('workspaces'),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity()
+    const userId = await getAuthUserId(ctx)
 
-    if (!identity) {
+    if (userId === null) {
       throw new Error('Not authenticated')
     }
-
-    const userId = identity.subject
 
     const existingDocument = await ctx.db.get(args.id)
 
@@ -64,6 +134,10 @@ export const archiveDocument = mutation({
 
     if (existingDocument.userId !== userId) {
       throw new Error('Unauthorized')
+    }
+
+    if (existingDocument.workspaceId !== args.workspaceId) {
+      throw new Error('Unauthorized workspace.')
     }
 
     const document = await ctx.db.patch(args.id, {
@@ -75,18 +149,19 @@ export const archiveDocument = mutation({
 })
 
 export const getTrashDocuments = query({
-  handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity()
+  args: {
+    workspaceId: v.id('workspaces'),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx)
 
-    if (!identity) {
+    if (userId === null) {
       throw new Error('Not authenticated')
     }
 
-    const userId = identity.subject
-
     const documents = await ctx.db
       .query('documents')
-      .withIndex('by_user', (q) => q.eq('userId', userId))
+      .withIndex('by_workspace', (q) => q.eq('workspaceId', args.workspaceId))
       .filter((q) => q.eq(q.field('isArchived'), true))
       .order('desc')
       .collect()
@@ -98,15 +173,14 @@ export const getTrashDocuments = query({
 export const removeDocument = mutation({
   args: {
     id: v.id('documents'),
+    workspaceId: v.id('workspaces'),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity()
+    const userId = await getAuthUserId(ctx)
 
-    if (!identity) {
+    if (userId === null) {
       throw new Error('Not authenticated')
     }
-
-    const userId = identity.subject
 
     const existingDocument = await ctx.db.get(args.id)
 
@@ -116,6 +190,10 @@ export const removeDocument = mutation({
 
     if (existingDocument.userId !== userId) {
       throw new Error('Unauthorized')
+    }
+
+    if (existingDocument.workspaceId !== args.workspaceId) {
+      throw new Error('Unauthorized workspace.')
     }
 
     const document = await ctx.db.delete(args.id)
@@ -127,15 +205,14 @@ export const removeDocument = mutation({
 export const restoreDocument = mutation({
   args: {
     id: v.id('documents'),
+    workspaceId: v.id('workspaces'),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity()
+    const userId = await getAuthUserId(ctx)
 
-    if (!identity) {
+    if (userId === null) {
       throw new Error('Not authenticated')
     }
-
-    const userId = identity.subject
 
     const existingDocument = await ctx.db.get(args.id)
 
@@ -147,6 +224,10 @@ export const restoreDocument = mutation({
       throw new Error('Unauthorized')
     }
 
+    if (existingDocument.workspaceId !== args.workspaceId) {
+      throw new Error('Unauthorized workspace.')
+    }
+
     const document = await ctx.db.patch(args.id, {
       isArchived: false,
     })
@@ -156,23 +237,32 @@ export const restoreDocument = mutation({
 })
 
 export const getDocumentById = query({
-  args: { documentId: v.id('documents') },
+  args: {
+    documentId: v.id('documents'),
+    workspaceId: v.id('workspaces'),
+  },
   handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx)
+
+    if (userId === null) {
+      throw new Error('Not authenticated')
+    }
+
+    const workspace = await ctx.db.get(args.workspaceId)
+
+    if (!workspace) {
+      throw new Error('Not found')
+    }
+
     const document = await ctx.db.get(args.documentId)
 
     if (!document) {
       throw new Error('Not found')
     }
 
-    if (document.isPublished && !document.isArchived) return document
-
-    const identity = await ctx.auth.getUserIdentity()
-
-    if (!identity) {
-      throw new Error('Not authenticated')
+    if (document.workspaceId !== args.workspaceId) {
+      throw new Error('Unauthorized workspace.')
     }
-
-    const userId = identity.subject
 
     if (document.userId !== userId) {
       throw new Error('Unauthorized')
@@ -185,6 +275,7 @@ export const getDocumentById = query({
 export const updateDocument = mutation({
   args: {
     id: v.id('documents'),
+    workspaceId: v.id('workspaces'),
     title: v.optional(v.string()),
     content: v.optional(v.string()),
     coverImage: v.optional(v.string()),
@@ -192,15 +283,19 @@ export const updateDocument = mutation({
     isPublished: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity()
+    const userId = await getAuthUserId(ctx)
 
-    if (!identity) {
+    if (userId === null) {
       throw new Error('Not authenticated')
     }
 
-    const userId = identity.subject
-
     const { id, ...rest } = args
+
+    const workspace = await ctx.db.get(args.workspaceId)
+
+    if (!workspace) {
+      throw new Error('Not found')
+    }
 
     const existingDocument = await ctx.db.get(args.id)
 
@@ -208,10 +303,13 @@ export const updateDocument = mutation({
       throw new Error('Not found')
     }
 
-    if (existingDocument.userId !== userId) {
+    if (existingDocument.workspaceId !== args.workspaceId) {
       throw new Error('Unauthorized')
     }
 
+    if (existingDocument.userId !== userId) {
+      throw new Error('Unauthorized')
+    }
     const document = await ctx.db.patch(args.id, {
       ...rest,
     })
@@ -223,20 +321,29 @@ export const updateDocument = mutation({
 export const removeIcon = mutation({
   args: {
     id: v.id('documents'),
+    workspaceId: v.id('workspaces'),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity()
+    const userId = await getAuthUserId(ctx)
 
-    if (!identity) {
+    if (userId === null) {
       throw new Error('Not authenticated')
     }
 
-    const userId = identity.subject
+    const workspace = await ctx.db.get(args.workspaceId)
+
+    if (!workspace) {
+      throw new Error('Not found')
+    }
 
     const existingDocument = await ctx.db.get(args.id)
 
     if (!existingDocument) {
       throw new Error('Not found')
+    }
+
+    if (existingDocument.workspaceId !== args.workspaceId) {
+      throw new Error('Unauthorized workspace.')
     }
 
     if (existingDocument.userId !== userId) {
@@ -254,20 +361,29 @@ export const removeIcon = mutation({
 export const removeCoverImage = mutation({
   args: {
     id: v.id('documents'),
+    workspaceId: v.id('workspaces'),
   },
   handler: async (ctx, args) => {
-    const identity = await ctx.auth.getUserIdentity()
+    const userId = await getAuthUserId(ctx)
 
-    if (!identity) {
+    if (userId === null) {
       throw new Error('Not authenticated')
     }
 
-    const userId = identity.subject
+    const workspace = await ctx.db.get(args.workspaceId)
+
+    if (!workspace) {
+      throw new Error('Not found')
+    }
 
     const existingDocument = await ctx.db.get(args.id)
 
     if (!existingDocument) {
       throw new Error('Not found')
+    }
+
+    if (existingDocument.workspaceId !== args.workspaceId) {
+      throw new Error('Unauthorized workspace.')
     }
 
     if (existingDocument.userId !== userId) {
@@ -279,5 +395,24 @@ export const removeCoverImage = mutation({
     })
 
     return document
+  },
+})
+
+export const getPreviewDocumentById = query({
+  args: {
+    documentId: v.id('documents'),
+  },
+  handler: async (ctx, args) => {
+    const document = await ctx.db.get(args.documentId)
+
+    if (!document) {
+      throw new Error('Document not found')
+    }
+
+    if (document.isPublished && !document.isArchived) {
+      return document
+    } else {
+      throw new Error('Document not available for preview')
+    }
   },
 })

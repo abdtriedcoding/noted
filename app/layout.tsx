@@ -1,15 +1,22 @@
-import './globals.css'
-import { cn } from '@/lib/utils'
-import { Toaster } from 'sonner'
-import { type Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+import { ConvexAuthNextjsServerProvider } from '@convex-dev/auth/nextjs/server'
 import { Analytics } from '@vercel/analytics/react'
-import { EdgeStoreProvider } from '@/lib/edgestore'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import ThemeProvider from '@/components/providers/theme-provider'
-import ConvexProvider from '@/components/providers/convex-provider'
+import { type Metadata } from 'next'
+import { Manrope } from 'next/font/google'
+import { Toaster } from 'sonner'
 
-const font = Poppins({ subsets: ['latin'], weight: ['400'] })
+import { EdgeStoreProvider } from '@/lib/edgestore'
+import { cn } from '@/lib/utils'
+
+import ConvexProvider from '@/components/providers/convex-provider'
+import ThemeProvider from '@/components/providers/theme-provider'
+
+import './globals.css'
+
+const font = Manrope({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -78,25 +85,27 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn('antialiased', font.className)}>
-        <ConvexProvider>
-          <EdgeStoreProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-              storageKey="noted-theme"
-            >
-              <Toaster richColors theme="system" position="bottom-center" />
-              {children}
-              <Analytics />
-              <SpeedInsights />
-            </ThemeProvider>
-          </EdgeStoreProvider>
-        </ConvexProvider>
-      </body>
-    </html>
+    <ConvexAuthNextjsServerProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={cn('antialiased', font.className)}>
+          <ConvexProvider>
+            <EdgeStoreProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+                storageKey="noted-theme"
+              >
+                <Toaster richColors theme="system" position="bottom-center" />
+                {children}
+                <Analytics />
+                <SpeedInsights />
+              </ThemeProvider>
+            </EdgeStoreProvider>
+          </ConvexProvider>
+        </body>
+      </html>
+    </ConvexAuthNextjsServerProvider>
   )
 }

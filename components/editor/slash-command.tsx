@@ -1,6 +1,3 @@
-import { Command, renderItems } from 'novel/extensions'
-import { createSuggestionItems } from 'novel/extensions'
-import { uploadFn } from './image-upload'
 import {
   CheckSquare,
   Code,
@@ -15,6 +12,10 @@ import {
   Twitter,
   Youtube,
 } from 'lucide-react'
+import { Command, renderItems } from 'novel/extensions'
+import { createSuggestionItems } from 'novel/extensions'
+
+import { uploadFn } from './image-upload'
 
 export const suggestionItems = createSuggestionItems([
   {
