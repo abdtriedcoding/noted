@@ -1,7 +1,7 @@
 'use client'
 
 import Sidebar from './sidebar'
-import { PanelLeftOpen } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useSidebarStore } from '@/lib/useSidebarStore'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
@@ -11,9 +11,9 @@ export default function NavigationMenu() {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
+      <SheetTrigger className="m-2" asChild>
         <Button className="inline-flex md:hidden" size="icon" variant="ghost">
-          <PanelLeftOpen className="h-8 w-8" />
+          <Menu className="h-8 w-8" />
         </Button>
       </SheetTrigger>
       <SheetContent side={'left'}>

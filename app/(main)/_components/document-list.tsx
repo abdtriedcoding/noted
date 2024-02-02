@@ -20,7 +20,7 @@ export default function DocumentList() {
 
   return (
     <div className="mr-2 space-y-2 p-2">
-      {documents?.map((document) => (
+      {documents.map((document) => (
         <DocumentItem
           key={document._id}
           id={document._id}

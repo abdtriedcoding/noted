@@ -1,8 +1,8 @@
 import { toast } from 'sonner'
-import { cn } from '@/lib/utils'
 import { useUser } from '@clerk/nextjs'
 import { useMutation } from 'convex/react'
 import { api } from '@/convex/_generated/api'
+import { Button } from '@/components/ui/button'
 import { useParams, useRouter } from 'next/navigation'
 import { type Id } from '@/convex/_generated/dataModel'
 import { useSidebarStore } from '@/lib/useSidebarStore'
@@ -22,14 +22,12 @@ interface ItemProps {
 }
 
 export default function DocumentItem({ id, label, documentIcon }: ItemProps) {
+  const router = useRouter()
+  const params = useParams()
   const { setOpen } = useSidebarStore()
   const { isLoaded, isSignedIn, user } = useUser()
 
-  const router = useRouter()
-  const params = useParams()
-
   const active = params.documentId === id
-
   const archiveDocument = useMutation(api.documents.archiveDocument)
 
   const onArchiveNote = (
@@ -53,28 +51,24 @@ export default function DocumentItem({ id, label, documentIcon }: ItemProps) {
   }
 
   return (
-    <div
+    <Button
       onClick={handleRedirect}
-      role="button"
-      className={cn(
-        'group flex w-full items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-primary/5',
-        active && 'bg-primary/5 text-primary'
-      )}
+      variant={active ? 'secondary' : 'ghost'}
+      size={'sm'}
+      className="group w-full cursor-auto items-center justify-start"
     >
       {documentIcon ? (
-        <div className="mr-2 shrink-0 text-[18px]">{documentIcon}</div>
+        <div className="mr-2 h-5 w-5">{documentIcon}</div>
       ) : (
-        <File className="mr-2 h-[18px] w-[18px] shrink-0" />
+        <File className="mr-2 h-5 w-5" />
       )}
-      <span className="truncate">{label}</span>
+      {label}
       <DropdownMenu>
-        <DropdownMenuTrigger onClick={(e) => e.stopPropagation()} asChild>
-          <div
-            role="button"
-            className="ml-auto h-full rounded-sm opacity-0 hover:bg-neutral-300 group-hover:opacity-100 dark:hover:bg-neutral-600"
-          >
-            <MoreHorizontal className="h-4 w-4" />
-          </div>
+        <DropdownMenuTrigger
+          className="ml-auto opacity-0 group-hover:opacity-100"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <MoreHorizontal className="h-4 w-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent
           className="w-60"
@@ -92,6 +86,6 @@ export default function DocumentItem({ id, label, documentIcon }: ItemProps) {
           )}
         </DropdownMenuContent>
       </DropdownMenu>
-    </div>
+    </Button>
   )
 }
