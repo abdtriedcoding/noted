@@ -28,9 +28,15 @@ export default function CoverImage({ id, imgUrl, preview }: CoverImageProps) {
         url: imgUrl,
       })
     }
-    removeCoverImage({
+    const promise = removeCoverImage({
       id,
-    }).catch(() => toast.error('Failed to remove cover image'))
+    })
+
+    toast.promise(promise, {
+      loading: 'Removing...',
+      success: 'Cover image removed',
+      error: 'Failed to remove cover image',
+    })
   }
 
   return (

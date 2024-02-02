@@ -24,9 +24,15 @@ export default function Toolbar({ document, preview }: ItemProps) {
   }
 
   const onRemoveIcon = () => {
-    removeIcon({
+    const promise = removeIcon({
       id: document._id,
-    }).catch(() => toast.error('Failed to remove icon'))
+    })
+
+    toast.promise(promise, {
+      loading: 'Removing icon...',
+      success: 'Icon removed',
+      error: 'Failed to remove icon',
+    })
   }
 
   return (

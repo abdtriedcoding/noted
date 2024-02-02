@@ -141,8 +141,10 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
           <input ref={ref} {...getInputProps()} />
 
           {imageUrl ? (
-            // Image Preview
             <Image
+              width={0}
+              height={0}
+              sizes="100vw"
               unoptimized
               className="h-full w-full rounded-md object-cover"
               src={imageUrl}
