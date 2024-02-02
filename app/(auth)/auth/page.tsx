@@ -1,10 +1,11 @@
 import { type Metadata } from 'next'
-import { SignIn } from '@clerk/nextjs'
+
+import AuthScreen from '@/components/auth/auth-screen'
 
 export const metadata: Metadata = {
-  title: 'Signin',
+  title: 'Auth',
 }
 
 export default function SignInPage() {
-  return <SignIn />
+  return <AuthScreen />
 }
