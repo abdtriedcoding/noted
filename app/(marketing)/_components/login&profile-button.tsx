@@ -1,23 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { useConvexAuth } from "convex/react";
 import { Spinner } from "@/components/spinner";
-import { UserButton, SignInButton, useUser, ClerkLoading } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import { UserButton, SignInButton } from "@clerk/nextjs";
 
-export  const LoginAndProfileButton = () => {
-  const { isSignedIn, isLoaded } = useUser();
+export const LoginAndProfileButton = () => {
+  const { isAuthenticated, isLoading } = useConvexAuth();
 
-  if (!isLoaded) {
+  if (isLoading) {
     return <Spinner size={"lg"} />;
   }
 
   return (
     <>
-      <ClerkLoading>
-        <Spinner size="lg" />
-      </ClerkLoading>
-      {isSignedIn ? (
+      {isAuthenticated ? (
         <>
           <Button variant="ghost" size="sm" asChild>
             <Link href="/documents">Enter Jotion</Link>
