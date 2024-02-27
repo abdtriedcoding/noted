@@ -6,8 +6,8 @@ import { UserMenu } from "@/app/(main)/_components/user-menu";
 import { TrashBox } from "@/app/(main)/_components/trash-box";
 import { DocumentList } from "@/app/(main)/_components/document-list";
 import { SearchButton } from "@/app/(main)/_components/search-button";
-import SettingButton from "@/app/(main)/_components/setting-button";
-import NewPageButton from "@/app/(main)/_components/new-page-button";
+import { SettingButton } from "@/app/(main)/_components/setting-button";
+import { NewPageButton } from "@/app/(main)/_components/new-page-button";
 
 export const Header = () => {
   return (

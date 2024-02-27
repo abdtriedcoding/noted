@@ -7,7 +7,7 @@ import { PlusCircleIcon } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
-const NewPageButton = () => {
+export const NewPageButton = () => {
   const router = useRouter();
   const create = useMutation(api.documents.create);
 
@@ -34,5 +34,3 @@ const NewPageButton = () => {
     </div>
   );
 };
-
-export default NewPageButton;
