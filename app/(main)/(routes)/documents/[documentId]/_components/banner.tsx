@@ -16,7 +16,7 @@ const Banner = ({ id }: { id: Id<"documents"> }) => {
 
   const onRemove = () => {
     if (!user) return;
-    const promise = remove({ id: id, userId: user?.id });
+    const promise = remove({ id });
 
     toast.promise(promise, {
       loading: "Deleting note...",
@@ -28,7 +28,7 @@ const Banner = ({ id }: { id: Id<"documents"> }) => {
 
   const onRestore = () => {
     if (!user) return;
-    const promise = restore({ id: id, userId: user.id });
+    const promise = restore({ id });
 
     toast.promise(promise, {
       loading: "Restoring note...",

@@ -1,9 +1,9 @@
 "use client";
 
-import * as React from "react";
+import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Spinner } from "@/components/spinner";
-import { File, SearchIcon } from "lucide-react";
+import { File, Search } from "lucide-react";
+import { useEffect, useState } from "react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -12,17 +12,17 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { Skeleton } from "@/components/ui/skeleton";
 
-import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
 export const SearchButton = () => {
   const { user } = useUser();
   const router = useRouter();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
@@ -34,16 +34,10 @@ export const SearchButton = () => {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  const documents = useQuery(api.documents.getSearch, {
-    userId: user?.id || "",
-  });
+  const documents = useQuery(api.documents.getUserDocuments);
 
   if (documents === undefined) {
-    return (
-      <div className="px-4 py-2">
-        <Spinner size="lg" />
-      </div>
-    );
+    return <Skeleton className="px-4 py-4 w-full" />;
   }
 
   const onSelect = (id: string) => {
@@ -58,7 +52,7 @@ export const SearchButton = () => {
         onClick={() => setOpen(true)}
         className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center text-muted-foreground font-medium rounded-md"
       >
-        <SearchIcon className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground" />
+        <Search className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground" />
         <span className="truncate">Search</span>
         <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
           <span className="text-xs">⌘</span>K
