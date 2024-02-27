@@ -78,15 +78,14 @@ export const archive = mutation({
 });
 
 export const getTrash = query({
-  args: {
-    userId: v.string(),
-  },
-  handler: async (ctx, args) => {
-    if (!args.userId) {
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
       throw new Error("Not authenticated");
     }
 
-    const userId = args.userId;
+    const userId = identity.subject;
 
     const documents = await ctx.db
       .query("documents")
@@ -102,14 +101,15 @@ export const getTrash = query({
 export const remove = mutation({
   args: {
     id: v.id("documents"),
-    userId: v.string(),
   },
   handler: async (ctx, args) => {
-    if (!args.userId) {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
       throw new Error("Not authenticated");
     }
 
-    const userId = args.userId;
+    const userId = identity.subject;
 
     const existingDocument = await ctx.db.get(args.id);
 
@@ -130,14 +130,15 @@ export const remove = mutation({
 export const restore = mutation({
   args: {
     id: v.id("documents"),
-    userId: v.string(),
   },
   handler: async (ctx, args) => {
-    if (!args.userId) {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
       throw new Error("Not authenticated");
     }
 
-    const userId = args.userId;
+    const userId = identity.subject;
 
     const existingDocument = await ctx.db.get(args.id);
 
