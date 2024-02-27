@@ -4,10 +4,10 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import TrashBox from "@/app/(main)/_components/trash-box";
 import { UserMenu } from "@/app/(main)/_components/user-menu";
-import DocumentList from "@/app/(main)/_components/document-list";
-import SearchButton from "@/app/(main)/_components/search-button";
 import SettingButton from "@/app/(main)/_components/setting-button";
 import NewPageButton from "@/app/(main)/_components/new-page-button";
+import { SearchButton } from "@/app/(main)/_components/search-button";
+import { DocumentList } from "@/app/(main)/_components/document-list";
 
 export const Header = () => {
   return (
