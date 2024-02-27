@@ -3,13 +3,13 @@ import { defineSchema, defineTable } from "convex/server";
 
 export default defineSchema({
   documents: defineTable({
-    title: v.string(),
     userId: v.string(),
+    title: v.string(),
     isArchived: v.boolean(),
-    content: v.optional(v.string()),
-    coverImage: v.optional(v.string()),
-    icon: v.optional(v.string()),
     isPublished: v.boolean(),
+    icon: v.optional(v.string()),
+    coverImage: v.optional(v.string()),
+    content: v.optional(v.string()),
   })
   .index("by_user", ["userId"])
 });

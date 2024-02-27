@@ -1,4 +1,3 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,10 +5,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+
 import { ChevronsLeftRight } from "lucide-react";
 import { SignOutButton, currentUser } from "@clerk/nextjs";
 
-const UserMenu = async () => {
+export const UserMenu = async () => {
   const user = await currentUser();
 
   return (
@@ -64,5 +65,3 @@ const UserMenu = async () => {
     </DropdownMenu>
   );
 };
-
-export default UserMenu;

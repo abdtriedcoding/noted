@@ -1,14 +1,14 @@
-import UserItem from "./user-menu";
+import TrashBox from "./trash-box";
+import { UserMenu } from "./user-menu";
 import SearchButton from "./search-button";
+import DocumentList from "./document-list";
 import SettingButton from "./setting-button";
 import NewPageButton from "./new-page-button";
-import DocumentList from "./document-list";
-import TrashBox from "./trash-box";
 
-const Sidebar = () => {
+export const Sidebar = () => {
   return (
     <aside className="w-64 p-4 flex-col hidden md:block bg-secondary dark:bg-[#303030] h-full">
-      <UserItem />
+      <UserMenu />
       <SearchButton />
       <SettingButton />
       <NewPageButton />
@@ -17,5 +17,3 @@ const Sidebar = () => {
     </aside>
   );
 };
-
-export default Sidebar;

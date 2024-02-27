@@ -1,25 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/nextjs";
+import { toast } from "sonner";
 import { PlusCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
+
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { Spinner } from "@/components/spinner";
+import { ClerkLoaded, ClerkLoading, useUser } from "@clerk/nextjs";
 
-const Page = () => {
+const MainPage = () => {
   const router = useRouter();
   const { user } = useUser();
   const create = useMutation(api.documents.create);
 
   const onCreate = () => {
-    if (!user) return;
-
-    const promise = create({ title: "Untitled", userId: user.id }).then(
-      (documentId) => router.push(`/documents/${documentId}`)
+    const promise = create({ title: "Untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
     );
 
     toast.promise(promise, {
@@ -30,7 +29,7 @@ const Page = () => {
   };
 
   return (
-    <div className="h-full flex flex-col items-center justify-center space-y-4">
+    <div className="h-[85vh] flex flex-col items-center justify-center space-y-4">
       <Image
         src="/empty.png"
         height="300"
@@ -63,4 +62,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default MainPage;
