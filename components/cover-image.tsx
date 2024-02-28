@@ -46,18 +46,14 @@ export const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
       {imgUrl && !preview && (
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">
           <CoverImageModal id={id} imgUrl={imgUrl}>
-            <Button
-              className="text-muted-foreground text-xs"
-              variant="outline"
-              size="sm"
-            >
+            <Button className="text-xs" variant="outline" size="sm">
               <ImageIcon className="h-4 w-4 mr-2" />
               Change cover
             </Button>
           </CoverImageModal>
           <Button
             onClick={onRemove}
-            className="text-muted-foreground text-xs"
+            className="text-xs"
             variant="outline"
             size="sm"
           >

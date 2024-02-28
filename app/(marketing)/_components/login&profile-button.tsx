@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useConvexAuth } from "convex/react";
+import { UserButton, SignInButton } from "@clerk/nextjs";
+
 import { Spinner } from "@/components/spinner";
 import { Button } from "@/components/ui/button";
-import { UserButton, SignInButton } from "@clerk/nextjs";
 
 export const LoginAndProfileButton = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();

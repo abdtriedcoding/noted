@@ -51,9 +51,7 @@ export const MenuButton = ({ id }: { id: Id<"documents"> }) => {
           Delete
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <div className="text-xs text-muted-foreground p-2">
-          Last edited by: {user?.fullName}
-        </div>
+        <div className="text-xs p-2">Last edited by: {user?.fullName}</div>
       </DropdownMenuContent>
     </DropdownMenu>
   );

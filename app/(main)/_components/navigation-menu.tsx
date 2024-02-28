@@ -9,15 +9,15 @@ import { SearchButton } from "@/app/(main)/_components/search-button";
 import { SettingButton } from "@/app/(main)/_components/setting-button";
 import { NewPageButton } from "@/app/(main)/_components/new-page-button";
 
-export const Header = () => {
+export const NavigationMenu = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size="sm" variant="ghost">
-          <MenuIcon className="h-8 w-8 text-muted-foreground inline-flex md:hidden" />
+        <Button className="inline-flex md:hidden" size="sm" variant="ghost">
+          <MenuIcon className="h-8 w-8" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="dark:bg-[#1F1F1F]">
+      <SheetContent className="dark:bg-[#303030] dark:text-slate-300">
         <div className="mt-4">
           <UserMenu />
           <SearchButton />

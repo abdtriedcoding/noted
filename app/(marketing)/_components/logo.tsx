@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-const Logo = () => {
+export const Logo = () => {
   return (
-    <div className="hidden md:flex items-center gap-x-2">
+    <div className="flex items-center gap-x-2">
       <Image
         src="/logo.svg"
         height="40"
@@ -21,5 +21,3 @@ const Logo = () => {
     </div>
   );
 };
-
-export default Logo;

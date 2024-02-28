@@ -68,9 +68,9 @@ export const TrashBox = () => {
       <PopoverTrigger className="w-full">
         <div
           role="button"
-          className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center text-muted-foreground font-medium rounded-md"
+          className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center font-medium rounded-md"
         >
-          <TrashIcon className="shrink-0 h-[18px] w-[18px] mr-2 text-muted-foreground" />
+          <TrashIcon className="shrink-0 h-[18px] w-[18px] mr-2" />
           <span className="truncate">Trash</span>
         </div>
       </PopoverTrigger>
@@ -86,7 +86,7 @@ export const TrashBox = () => {
             />
           </div>
           <div className="mt-2 px-1 pb-1">
-            <p className="hidden last:block text-xs text-center text-muted-foreground pb-2">
+            <p className="hidden last:block text-xs text-center pb-2">
               No documents found.
             </p>
             {filteredDocuments?.map((document) => (
@@ -103,14 +103,14 @@ export const TrashBox = () => {
                     onClick={(e) => onRestore(e, document._id)}
                     className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                   >
-                    <Undo className="h-4 w-4 text-muted-foreground" />
+                    <Undo className="h-4 w-4" />
                   </div>
                   <ConfirmModal onConfirm={() => onRemove(document._id)}>
                     <div
                       role="button"
                       className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                     >
-                      <Trash className="h-4 w-4 text-muted-foreground" />
+                      <Trash className="h-4 w-4" />
                     </div>
                   </ConfirmModal>
                 </div>

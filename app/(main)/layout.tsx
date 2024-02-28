@@ -1,5 +1,5 @@
 import { Sidebar } from "./_components/sidebar";
-import { Header } from "../(marketing)/_components/header";
+import { NavigationMenu } from "./_components/navigation-menu";
 
 export default function MainLayout({
   children,
@@ -7,10 +7,10 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-full flex dark:bg-[#1F1F1F]">
+    <div className="h-full flex dark:bg-[#1F1F1F] dark:text-slate-300">
       <Sidebar />
-      <main className="flex-1 h-full overflow-y-auto py-4">
-        <Header />
+      <main className="flex-1 h-full overflow-y-auto">
+        <NavigationMenu />
         {children}
       </main>
     </div>

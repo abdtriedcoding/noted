@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { useState } from "react";
-import { Check, Copy, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Check, Copy, Globe } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -85,7 +85,7 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
               </div>
               <div className="flex items-center">
                 <input
-                  className="flex-1 px-2 text-xs border rounded-l-md h-8 bg-muted truncate"
+                  className="flex-1 px-2 text-xs border rounded-l-md h-8 truncate"
                   value={url}
                   disabled
                 />
@@ -112,11 +112,9 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center">
-              <Globe className="h-8 w-8 text-muted-foreground mb-2" />
+              <Globe className="h-8 w-8 mb-2" />
               <p className="text-sm font-medium mb-2">Publish this note</p>
-              <span className="text-xs text-muted-foreground mb-4">
-                Share your work with others.
-              </span>
+              <span className="text-xs mb-4">Share your work with others.</span>
               <Button
                 disabled={isSubmitting}
                 onClick={onPublish}
