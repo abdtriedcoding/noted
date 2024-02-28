@@ -1,28 +1,20 @@
 "use client";
 
-import { useMemo } from "react";
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
 import { notFound, useParams } from "next/navigation";
-import { Id } from "@/convex/_generated/dataModel";
-import { api } from "@/convex/_generated/api";
+
+import { Editor } from "@/components/editor";
+import { Toolbar } from "@/components/toolbar";
 import { Spinner } from "@/components/spinner";
-import dynamic from "next/dynamic";
+import { CoverImage } from "@/components/cover-image";
 
-import CoverImage from "@/app/(main)/(routes)/documents/[documentId]/_components/cover-image";
-import Toolbar from "@/app/(main)/(routes)/documents/[documentId]/_components/toolbar";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 
-const Page = () => {
-  const Editor = useMemo(
-    () => dynamic(() => import("@/components/editor"), { ssr: false }),
-    []
-  );
-
-  const { user } = useUser();
+const PreviewPage = () => {
   const params = useParams();
   const document = useQuery(api.documents.getById, {
     documentId: params.documentId as Id<"documents">,
-    userId: user?.id || "",
   });
 
   if (document === undefined) {
@@ -46,16 +38,14 @@ const Page = () => {
       {document.coverImage && (
         <CoverImage id={document._id} imgUrl={document.coverImage} preview />
       )}
-      <>
-        <Toolbar document={document} preview />
-        <Editor
-          id={document._id}
-          initialContent={document.content}
-          editable={false}
-        />
-      </>
+      <Toolbar document={document} preview />
+      <Editor
+        id={document._id}
+        initialContent={document.content}
+        editable={false}
+      />
     </>
   );
 };
 
-export default Page;
+export default PreviewPage;

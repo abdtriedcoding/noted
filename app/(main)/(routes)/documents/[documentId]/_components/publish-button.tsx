@@ -1,25 +1,23 @@
+import { toast } from "sonner";
+import { useState } from "react";
+import { Check, Copy, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
-import { useUser } from "@clerk/nextjs";
-import { useMutation } from "convex/react";
-import { Check, Copy, Globe } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
 
-const Publish = ({
-  id,
-  isPublished,
-}: {
+import { api } from "@/convex/_generated/api";
+import { useMutation } from "convex/react";
+import { Id } from "@/convex/_generated/dataModel";
+
+interface ItemProps {
   id: Id<"documents">;
   isPublished: boolean;
-}) => {
-  const { user } = useUser();
+}
+
+export const PublishButton = ({ id, isPublished }: ItemProps) => {
   const [copied, setCopied] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -37,12 +35,10 @@ const Publish = ({
   };
 
   const onPublish = () => {
-    if (!user) return;
     setIsSubmitting(true);
 
     const promise = update({
-      id: id,
-      userId: user?.id,
+      id,
       isPublished: true,
     });
     setIsSubmitting(false);
@@ -54,12 +50,10 @@ const Publish = ({
   };
 
   const onUnpublish = () => {
-    if (!user) return;
     setIsSubmitting(true);
 
     const promise = update({
-      id: id,
-      userId: user.id,
+      id,
       isPublished: false,
     });
     setIsSubmitting(false);
@@ -138,5 +132,3 @@ const Publish = ({
     </>
   );
 };
-
-export default Publish;

@@ -9,9 +9,9 @@ import {
 import { useState } from "react";
 import { useEdgeStore } from "@/lib/edgestore";
 import { SingleImageDropzone } from "../single-image-dropzone";
+
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useUser } from "@clerk/nextjs";
 import { Id } from "@/convex/_generated/dataModel";
 
 interface CoverImageModalProps {
@@ -20,8 +20,11 @@ interface CoverImageModalProps {
   imgUrl?: string;
 }
 
-export const CoverImageModal = ({ children, id, imgUrl }: CoverImageModalProps) => {
-  const { user } = useUser();
+export const CoverImageModal = ({
+  children,
+  id,
+  imgUrl,
+}: CoverImageModalProps) => {
   const { edgestore } = useEdgeStore();
 
   const [file, setFile] = useState<File>();
@@ -43,7 +46,6 @@ export const CoverImageModal = ({ children, id, imgUrl }: CoverImageModalProps) 
     });
     await update({
       id: id,
-      userId: user?.id!,
       coverImage: res.url,
     });
     setDialogOpen(false);

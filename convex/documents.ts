@@ -159,7 +159,7 @@ export const restore = mutation({
 });
 
 export const getById = query({
-  args: { documentId: v.id("documents"), userId: v.string() },
+  args: { documentId: v.id("documents") },
   handler: async (ctx, args) => {
     const document = await ctx.db.get(args.documentId);
 
@@ -171,7 +171,13 @@ export const getById = query({
       return document;
     }
 
-    const userId = args.userId;
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const userId = identity.subject;
 
     if (document.userId !== userId) {
       throw new Error("Unauthorized");
@@ -184,7 +190,6 @@ export const getById = query({
 export const update = mutation({
   args: {
     id: v.id("documents"),
-    userId: v.string(),
     title: v.optional(v.string()),
     content: v.optional(v.string()),
     coverImage: v.optional(v.string()),
@@ -192,13 +197,15 @@ export const update = mutation({
     isPublished: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
-    if (!args.userId) {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
       throw new Error("Not authenticated");
     }
 
-    const userID = args.userId;
+    const userId = identity.subject;
 
-    const { id, userId, ...rest } = args;
+    const { id, ...rest } = args;
 
     const existingDocument = await ctx.db.get(args.id);
 
@@ -206,7 +213,7 @@ export const update = mutation({
       throw new Error("Not found");
     }
 
-    if (existingDocument.userId !== userID) {
+    if (existingDocument.userId !== userId) {
       throw new Error("Unauthorized");
     }
 
@@ -221,14 +228,15 @@ export const update = mutation({
 export const removeIcon = mutation({
   args: {
     id: v.id("documents"),
-    userId: v.string(),
   },
   handler: async (ctx, args) => {
-    if (!args.userId) {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
       throw new Error("Not authenticated");
     }
 
-    const userId = args.userId;
+    const userId = identity.subject;
 
     const existingDocument = await ctx.db.get(args.id);
 
@@ -251,14 +259,15 @@ export const removeIcon = mutation({
 export const removeCoverImage = mutation({
   args: {
     id: v.id("documents"),
-    userId: v.string(),
   },
   handler: async (ctx, args) => {
-    if (!args.userId) {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
       throw new Error("Not authenticated");
     }
 
-    const userId = args.userId;
+    const userId = identity.subject;
 
     const existingDocument = await ctx.db.get(args.id);
 

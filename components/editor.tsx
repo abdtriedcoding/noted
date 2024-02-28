@@ -1,33 +1,28 @@
+import "@blocknote/react/style.css";
 import { useTheme } from "next-themes";
+import { useEdgeStore } from "@/lib/edgestore";
 import { BlockNoteEditor } from "@blocknote/core";
 import { BlockNoteView, useBlockNote } from "@blocknote/react";
+
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useUser } from "@clerk/nextjs";
 import { Id } from "@/convex/_generated/dataModel";
-import { useEdgeStore } from "@/lib/edgestore";
-import "@blocknote/react/style.css";
 
-const Editor = ({
-  id,
-  initialContent,
-  editable
-}: {
+interface ItemProps {
   id: Id<"documents">;
   initialContent?: string;
   editable?: boolean;
-}) => {
-  const { user } = useUser();
+}
+
+export const Editor = ({ id, initialContent, editable }: ItemProps) => {
   const { resolvedTheme } = useTheme();
   const { edgestore } = useEdgeStore();
 
   const update = useMutation(api.documents.update);
 
   const onChange = (content: string) => {
-    if (!user) return;
     update({
       id: id,
-      userId: user?.id,
       content,
     });
   };
@@ -50,13 +45,9 @@ const Editor = ({
   });
 
   return (
-    <div>
-      <BlockNoteView
-        editor={editor}
-        theme={resolvedTheme === "dark" ? "dark" : "light"}
-      />
-    </div>
+    <BlockNoteView
+      editor={editor}
+      theme={resolvedTheme === "dark" ? "dark" : "light"}
+    />
   );
 };
-
-export default Editor;

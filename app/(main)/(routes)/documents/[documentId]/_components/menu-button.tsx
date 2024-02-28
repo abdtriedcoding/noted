@@ -17,7 +17,7 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
-export const Menu = ({ id }: { id: Id<"documents"> }) => {
+export const MenuButton = ({ id }: { id: Id<"documents"> }) => {
   const { user } = useUser();
   const router = useRouter();
 
