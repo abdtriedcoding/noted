@@ -27,9 +27,9 @@ export const TrashBox = () => {
   const restore = useMutation(api.documents.restore);
   const documents = useQuery(api.documents.getTrash);
 
-  const filteredDocuments = documents?.filter((document) => {
-    return document.title.toLowerCase().includes(search.toLowerCase());
-  });
+  const filteredDocuments = documents?.filter((document) =>
+    document.title.toLowerCase().includes(search.toLowerCase())
+  );
 
   if (documents === undefined) {
     return <Skeleton className="px-4 py-4 w-full" />;

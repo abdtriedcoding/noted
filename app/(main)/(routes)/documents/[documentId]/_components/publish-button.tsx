@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 import { useState } from "react";
+import { useOrigin } from "@/hooks/use-origin";
 import { Button } from "@/components/ui/button";
 import { Check, Copy, Globe } from "lucide-react";
 import {
@@ -18,6 +19,7 @@ interface ItemProps {
 }
 
 export const PublishButton = ({ id, isPublished }: ItemProps) => {
+  const origin = useOrigin();
   const [copied, setCopied] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 

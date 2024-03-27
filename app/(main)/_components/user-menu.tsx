@@ -10,7 +10,7 @@ import {
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 import { ChevronsLeftRight } from "lucide-react";
-import { useUser, useClerk, SignOutButton } from "@clerk/nextjs";
+import { useUser, SignOutButton } from "@clerk/nextjs";
 
 export const UserMenu = () => {
   const { user } = useUser();
