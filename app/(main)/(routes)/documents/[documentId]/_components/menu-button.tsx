@@ -1,8 +1,9 @@
 "use client";
 
 import { toast } from "sonner";
+import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/clerk-react";
+import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Trash } from "lucide-react";
 import {
   DropdownMenu,
@@ -11,7 +12,6 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
