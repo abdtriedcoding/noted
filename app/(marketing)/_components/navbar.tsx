@@ -12,12 +12,12 @@ export const Navbar = () => {
   return (
     <div
       className={cn(
-        "z-50 bg-background fixed top-0 flex items-center w-full p-4",
+        "p-4 sticky inset-x-0 top-0 z-30 flex items-center w-full bg-background",
         scrolled && "border-b shadow-sm"
       )}
     >
       <Logo />
-      <div className="ml-auto justify-end w-full flex items-center gap-x-2">
+      <div className="ml-auto justify-end flex items-center gap-x-2">
         <LoginAndProfileButton />
         <ThemeToggle />
       </div>

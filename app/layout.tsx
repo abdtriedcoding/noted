@@ -1,13 +1,13 @@
 import "./globals.css";
 
 import { Toaster } from "sonner";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { constructMetadata } from "@/lib/utils";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexProvider } from "@/components/providers/convex-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Poppins({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata = constructMetadata();
 
@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={font.className}>
         <ConvexProvider>
           <EdgeStoreProvider>
             <ThemeProvider
