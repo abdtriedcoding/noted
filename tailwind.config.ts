@@ -136,6 +136,41 @@ const config = {
             opacity: "1",
           },
         },
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
+        gradient: {
+          to: {
+            backgroundPosition: "var(--bg-size) 0",
+          },
+        },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
+        shine: {
+          "0%": {
+            backgroundPosition: "0 0",
+            opacity: "0",
+          },
+          "1%": {
+            backgroundPosition: "0 0",
+            opacity: "1",
+          },
+          "80%": {
+            backgroundPosition: "180% 0",
+            opacity: "1",
+          },
+          "85%": {
+            opacity: "0",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -144,6 +179,11 @@ const config = {
         "fade-down": "fade-down 0.5s",
         "fade-in": "fade-in 0.4s",
         "fade-out": "fade-out 0.4s",
+        "button-shine": "shine .6s linear forwards",
+        "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+        marquee: "marquee var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+        gradient: "gradient 8s linear infinite",
         spotlight: "spotlight 2s ease .75s 1 forwards",
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",

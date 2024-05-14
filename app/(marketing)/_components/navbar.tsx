@@ -12,7 +12,7 @@ export const Navbar = () => {
   return (
     <div
       className={cn(
-        "p-4 sticky inset-x-0 top-0 z-30 flex items-center w-full bg-background",
+        "p-4 fixed z-50 flex items-center w-full bg-background",
         scrolled && "border-b shadow-sm"
       )}
     >
