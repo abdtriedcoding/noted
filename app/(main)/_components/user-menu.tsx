@@ -1,5 +1,9 @@
 "use client";
 
+import { ChevronsLeftRight } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useUser, SignOutButton } from "@clerk/nextjs";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,13 +11,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-
-import { ChevronsLeftRight } from "lucide-react";
-import { useUser, SignOutButton } from "@clerk/nextjs";
 
 export const UserMenu = () => {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
+
+  if (!isLoaded) {
+    return <Skeleton className="px-4 py-4 w-full" />;
+  }
 
   return (
     <DropdownMenu>
@@ -58,7 +62,7 @@ export const UserMenu = () => {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="w-full cursor-pointer">
-          <SignOutButton>Log out</SignOutButton>
+          <SignOutButton redirectUrl="/">Log out</SignOutButton>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

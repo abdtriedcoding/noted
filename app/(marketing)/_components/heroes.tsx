@@ -10,7 +10,7 @@ export const Heroes = () => {
         src="/herosection-image.jpg"
         alt="Hero Image"
         draggable={false}
-        className="w-[1400px] rounded-[inherit] border object-contain shadow-lg animate-fade-up opacity-0"
+        className="rounded-xl object-contain animate-fade-up opacity-0"
         style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
       />
 

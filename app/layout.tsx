@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Poppins } from "next/font/google";
-import { constructMetadata } from "@/lib/utils";
+import { cn, constructMetadata } from "@/lib/utils";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexProvider } from "@/components/providers/convex-provider";
@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={font.className}>
+      <body className={cn("antialiased", font.className)}>
         <ConvexProvider>
           <EdgeStoreProvider>
             <ThemeProvider
@@ -28,9 +28,7 @@ export default function RootLayout({
               storageKey="jotion-theme-2"
             >
               <Toaster position="bottom-center" />
-              <main className="min-h-screen antialiased overflow-x-hidden">
-                {children}
-              </main>
+              {children}
             </ThemeProvider>
           </EdgeStoreProvider>
         </ConvexProvider>
