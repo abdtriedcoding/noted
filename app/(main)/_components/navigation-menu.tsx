@@ -1,5 +1,3 @@
-"use client";
-
 import { Sidebar } from "./sidebar";
 import { PanelLeftOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
