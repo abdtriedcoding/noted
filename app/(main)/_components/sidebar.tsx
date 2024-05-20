@@ -12,10 +12,10 @@ export const Sidebar = () => {
     <ScrollArea className="h-[100vh]">
       <div className="p-2 mr-2 space-y-1">
         <UserMenu />
-        <SearchButton />
-        <SettingButton />
         <NewPageButton />
+        <SettingButton />
         <TrashBox />
+        <SearchButton />
       </div>
       <Separator className="my-2" />
       <DocumentList />
