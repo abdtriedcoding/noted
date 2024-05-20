@@ -1,8 +1,10 @@
-import "@blocknote/react/style.css";
 import { useTheme } from "next-themes";
 import { useEdgeStore } from "@/lib/edgestore";
-import { BlockNoteEditor } from "@blocknote/core";
-import { BlockNoteView, useBlockNote } from "@blocknote/react";
+
+import "@blocknote/core/fonts/inter.css";
+import { useCreateBlockNote } from "@blocknote/react";
+import { BlockNoteView } from "@blocknote/mantine";
+import "@blocknote/mantine/style.css";
 
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -35,18 +37,18 @@ export const Editor = ({ id, initialContent, editable }: ItemProps) => {
     return response.url;
   };
 
-  const editor: BlockNoteEditor = useBlockNote({
-    editable,
+  const editor = useCreateBlockNote({
     initialContent: initialContent ? JSON.parse(initialContent) : undefined,
-    onEditorContentChange: (editor) => {
-      onChange(JSON.stringify(editor.topLevelBlocks, null, 2));
-    },
     uploadFile: handleUpload,
   });
 
   return (
     <BlockNoteView
       editor={editor}
+      editable={editable}
+      onChange={() => {
+        onChange(JSON.stringify(editor.document));
+      }}
       theme={resolvedTheme === "dark" ? "dark" : "light"}
     />
   );
