@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Poppins } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import { cn, constructMetadata } from "@/lib/utils";
 import { EdgeStoreProvider } from "@/lib/edgestore";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -30,6 +31,7 @@ export default function RootLayout({
             >
               <Toaster richColors theme="system" position="bottom-center" />
               {children}
+              <Analytics />
               <SpeedInsights />
             </ThemeProvider>
           </EdgeStoreProvider>
