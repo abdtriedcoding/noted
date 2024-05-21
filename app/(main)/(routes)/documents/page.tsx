@@ -31,20 +31,14 @@ const MainPage = () => {
   return (
     <div className="h-[90vh] flex flex-col items-center justify-center space-y-4">
       <Image
-        src="/empty.png"
+        src="/welcome-logo.svg"
+        priority
+        fetchPriority="high"
+        loading="eager"
         height="300"
         width="300"
         alt="Empty"
-        priority
-        className="dark:hidden"
-      />
-      <Image
-        src="/empty-dark.png"
-        height="300"
-        width="300"
-        alt="Empty"
-        priority
-        className="hidden dark:block"
+        className="dark:invert"
       />
       {!isLoaded || !isSignedIn ? (
         <SkeltonData />
