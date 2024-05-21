@@ -23,10 +23,18 @@ const Error = ({
         height="300"
         width="300"
         alt="Error"
-        className="dark:invert"
+        className="dark:invert animate-fade-up opacity-0"
+        style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
       />
-      <h2 className="text-xl font-medium">Something went wrong!</h2>
+      <h2
+        className="text-xl font-medium animate-fade-up opacity-0"
+        style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
+      >
+        Something went wrong!
+      </h2>
       <Button
+        className="animate-fade-up opacity-0"
+        style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()

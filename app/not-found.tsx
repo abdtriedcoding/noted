@@ -1,37 +1,35 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
-  return ( 
-    <div className="h-full flex flex-col items-center justify-center space-y-4">
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center space-y-4">
       <Image
-        src="/error.png"
+        src="/error.svg"
         height="300"
         width="300"
         alt="Error"
-        className="dark:hidden"
+        className="dark:invert animate-fade-up opacity-0"
+        style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
       />
-      <Image
-        src="/error-dark.png"
-        height="300"
-        width="300"
-        alt="Error"
-        className="hidden dark:block"
-      />
-      <h2 className="text-xl font-medium">
+      <h2
+        className="text-xl font-medium animate-fade-up opacity-0"
+        style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
+      >
         Page not found!!
       </h2>
-      <Button asChild>
-        <Link href="/">
-          Go back
-        </Link>
+      <Button
+        className="animate-fade-up opacity-0"
+        asChild
+        style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
+      >
+        <Link href="/">Go back</Link>
       </Button>
     </div>
   );
-}
- 
+};
+
 export default NotFound;
