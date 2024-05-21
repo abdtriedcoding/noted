@@ -23,9 +23,9 @@ export const TrashBox = () => {
   const params = useParams();
   const [search, setSearch] = useState("");
 
-  const remove = useMutation(api.documents.remove);
-  const restore = useMutation(api.documents.restore);
-  const documents = useQuery(api.documents.getTrash);
+  const removeDocument = useMutation(api.documents.removeDocument);
+  const restoreDocument = useMutation(api.documents.restoreDocument);
+  const documents = useQuery(api.documents.getTrashDocuments);
 
   const filteredDocuments = documents?.filter((document) =>
     document.title.toLowerCase().includes(search.toLowerCase())
@@ -35,8 +35,8 @@ export const TrashBox = () => {
     return <Skeleton className="px-4 py-4 w-full" />;
   }
 
-  const onRemove = (id: Id<"documents">) => {
-    const promise = remove({ id });
+  const onRemoveNote = (id: Id<"documents">) => {
+    const promise = removeDocument({ id });
 
     toast.promise(promise, {
       loading: "Deleting note...",
@@ -49,12 +49,12 @@ export const TrashBox = () => {
     }
   };
 
-  const onRestore = (
+  const onRestoreNote = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     id: Id<"documents">
   ) => {
     event.stopPropagation();
-    const promise = restore({ id });
+    const promise = restoreDocument({ id });
 
     toast.promise(promise, {
       loading: "Restoring note...",
@@ -100,12 +100,12 @@ export const TrashBox = () => {
                 <div className="flex items-center">
                   <div
                     role="button"
-                    onClick={(e) => onRestore(e, document._id)}
+                    onClick={(e) => onRestoreNote(e, document._id)}
                     className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                   >
                     <Undo className="h-4 w-4" />
                   </div>
-                  <ConfirmModal onConfirm={() => onRemove(document._id)}>
+                  <ConfirmModal onConfirm={() => onRemoveNote(document._id)}>
                     <div
                       role="button"
                       className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"

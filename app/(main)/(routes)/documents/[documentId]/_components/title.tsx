@@ -20,7 +20,7 @@ export const Title = ({ id, title, icon, isPublished }: ItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [userTitle, setUserTitle] = useState(title || "Untitled");
 
-  const update = useMutation(api.documents.update);
+  const updateDocument = useMutation(api.documents.updateDocument);
 
   const enableInput = () => {
     setUserTitle(title);
@@ -33,7 +33,7 @@ export const Title = ({ id, title, icon, isPublished }: ItemProps) => {
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserTitle(event.target.value);
-    update({
+    updateDocument({
       id: id,
       title: event.target.value.trim() || "Untitled",
     });

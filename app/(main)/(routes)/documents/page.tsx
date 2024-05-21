@@ -14,10 +14,10 @@ import { api } from "@/convex/_generated/api";
 const MainPage = () => {
   const router = useRouter();
   const { isLoaded, isSignedIn, user } = useUser();
-  const create = useMutation(api.documents.create);
+  const createDocument = useMutation(api.documents.createDocument);
 
-  const onCreate = () => {
-    const promise = create({ title: "Untitled" }).then((documentId) =>
+  const onCreateNote = () => {
+    const promise = createDocument({ title: "Untitled" }).then((documentId) =>
       router.push(`/documents/${documentId}`)
     );
 
@@ -53,7 +53,7 @@ const MainPage = () => {
           <h2 className="text-lg font-medium">
             Welcome to {user?.firstName}&apos;s Jotion
           </h2>
-          <Button onClick={onCreate}>
+          <Button onClick={onCreateNote}>
             <PlusCircle className="h-4 w-4 mr-2" />
             Create a note
           </Button>

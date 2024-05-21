@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { useEdgeStore } from "@/lib/edgestore";
+import { SingleImageDropzone } from "@/components/single-image-dropzone";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { SingleImageDropzone } from "@/components/single-image-dropzone";
 
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -31,7 +31,7 @@ export const CoverImageModal = ({
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const update = useMutation(api.documents.update);
+  const updateDocument = useMutation(api.documents.updateDocument);
 
   const handelImageUpload = async (file?: File) => {
     if (!file) return;
@@ -44,7 +44,7 @@ export const CoverImageModal = ({
         replaceTargetUrl: imgUrl,
       },
     });
-    await update({
+    await updateDocument({
       id: id,
       coverImage: res.url,
     });

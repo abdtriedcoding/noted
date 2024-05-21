@@ -10,11 +10,11 @@ import { Id } from "@/convex/_generated/dataModel";
 export const Banner = ({ id }: { id: Id<"documents"> }) => {
   const router = useRouter();
 
-  const remove = useMutation(api.documents.remove);
-  const restore = useMutation(api.documents.restore);
+  const removeDocument = useMutation(api.documents.removeDocument);
+  const restoreDocument = useMutation(api.documents.restoreDocument);
 
-  const onRemove = () => {
-    const promise = remove({ id });
+  const onRemoveNote = () => {
+    const promise = removeDocument({ id });
 
     toast.promise(promise, {
       loading: "Deleting note...",
@@ -24,8 +24,8 @@ export const Banner = ({ id }: { id: Id<"documents"> }) => {
     router.push("/documents");
   };
 
-  const onRestore = () => {
-    const promise = restore({ id });
+  const onRestoreNote = () => {
+    const promise = restoreDocument({ id });
 
     toast.promise(promise, {
       loading: "Restoring note...",
@@ -36,16 +36,16 @@ export const Banner = ({ id }: { id: Id<"documents"> }) => {
 
   return (
     <div className="w-full bg-rose-500 text-center text-sm p-2 text-white flex items-center gap-x-2 justify-center">
-      <p>This page is in the Trash.</p>
+      <p className="hidden md:block">This page is in the Trash.</p>
       <Button
         size="sm"
-        onClick={onRestore}
+        onClick={onRestoreNote}
         variant="outline"
         className="border-white bg-transparent hover:bg-primary/5 text-white hover:text-white p-1 px-2 h-auto font-normal"
       >
         Restore page
       </Button>
-      <ConfirmModal onConfirm={onRemove}>
+      <ConfirmModal onConfirm={onRemoveNote}>
         <Button
           size="sm"
           variant="outline"

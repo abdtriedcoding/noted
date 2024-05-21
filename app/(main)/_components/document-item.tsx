@@ -29,11 +29,15 @@ export const DocumentItem = ({ id, label, documentIcon }: ItemProps) => {
 
   const active = params.documentId === id;
 
-  const archive = useMutation(api.documents.archive);
+  const archiveDocument = useMutation(api.documents.archiveDocument);
 
-  const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const onArchiveNote = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     event.stopPropagation();
-    const promise = archive({ id }).then(() => router.push("/documents"));
+    const promise = archiveDocument({ id }).then(() =>
+      router.push("/documents")
+    );
 
     toast.promise(promise, {
       loading: "Moving to trash...",
@@ -72,7 +76,7 @@ export const DocumentItem = ({ id, label, documentIcon }: ItemProps) => {
           side="right"
           forceMount
         >
-          <DropdownMenuItem onClick={onArchive}>
+          <DropdownMenuItem onClick={onArchiveNote}>
             <Trash className="h-4 w-4 mr-2" />
             Delete
           </DropdownMenuItem>

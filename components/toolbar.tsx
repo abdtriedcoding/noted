@@ -13,11 +13,11 @@ interface ItemProps {
 }
 
 export const Toolbar = ({ document, preview }: ItemProps) => {
-  const update = useMutation(api.documents.update);
+  const updateDocument = useMutation(api.documents.updateDocument);
   const removeIcon = useMutation(api.documents.removeIcon);
 
   const onIconSelect = (icon: string) => {
-    update({
+    updateDocument({
       id: document._id,
       icon,
     });

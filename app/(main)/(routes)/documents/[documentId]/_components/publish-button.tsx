@@ -23,7 +23,7 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
   const [copied, setCopied] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const update = useMutation(api.documents.update);
+  const updateDocument = useMutation(api.documents.updateDocument);
 
   const url = `${origin}/preview/${id}`;
 
@@ -39,7 +39,7 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
   const onPublish = () => {
     setIsSubmitting(true);
 
-    const promise = update({
+    const promise = updateDocument({
       id,
       isPublished: true,
     });
@@ -54,7 +54,7 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
   const onUnpublish = () => {
     setIsSubmitting(true);
 
-    const promise = update({
+    const promise = updateDocument({
       id,
       isPublished: false,
     });

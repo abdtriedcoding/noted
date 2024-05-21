@@ -1,8 +1,8 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import { Toolbar } from "@/components/toolbar";
 import { Spinner } from "@/components/spinner";
-import { notFound, useParams } from "next/navigation";
 import { CoverImage } from "@/components/cover-image";
 import { PreviewEditor } from "@/components/preview-editor";
 
@@ -12,7 +12,7 @@ import { Id } from "@/convex/_generated/dataModel";
 
 const PreviewPage = () => {
   const params = useParams();
-  const document = useQuery(api.documents.getById, {
+  const document = useQuery(api.documents.getDocumentById, {
     documentId: params.documentId as Id<"documents">,
   });
 
@@ -24,22 +24,16 @@ const PreviewPage = () => {
     );
   }
 
-  if (document === null) {
-    return <div>Not found</div>;
-  }
-
-  if (document?.isPublished === false) {
-    notFound();
-  }
-
   return (
-    <div className="p-2">
+    <>
       {document.coverImage && (
         <CoverImage id={document._id} imgUrl={document.coverImage} preview />
       )}
-      <Toolbar document={document} preview />
-      <PreviewEditor initialContent={document.content} />
-    </div>
+      <div className="p-4">
+        <Toolbar document={document} preview />
+        <PreviewEditor initialContent={document.content} />
+      </div>
+    </>
   );
 };
 
