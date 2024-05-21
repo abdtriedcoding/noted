@@ -14,10 +14,10 @@ export const OpenSource = () => {
         className="max-w-[85%] text-muted-foreground sm:text-lg animate-fade-up opacity-0"
         style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
       >
-        Jotion is open source and powered by open source software. <br /> The
+        Noted is open source and powered by open source software. <br /> The
         code is available on{" "}
         <a
-          href="https://github.com/abdtriedcoding/jotion"
+          href="https://github.com/abdtriedcoding/noted"
           target="_blank"
           rel="noreferrer"
           className="underline underline-offset-4 duration-200 hover:text-foreground"
@@ -28,7 +28,7 @@ export const OpenSource = () => {
       </p>
       <ShinnyLinkButton
         label="Star us on GitHub"
-        href="/https://github.com/abdtriedcoding/jotion"
+        href="/https://github.com/abdtriedcoding/noted"
         shiny
         size={"lg"}
         IconLeft={Star}

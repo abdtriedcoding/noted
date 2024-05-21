@@ -7,10 +7,19 @@ export const Heroes = () => {
       <Image
         width={1400}
         height={720}
-        src="/herosection-image.jpg"
+        src="/herosection-image.png"
         alt="Hero Image"
         draggable={false}
-        className="rounded-xl object-contain animate-fade-up opacity-0"
+        className="rounded-xl dark:hidden object-contain animate-fade-up opacity-0"
+        style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
+      />
+      <Image
+        width={1400}
+        height={720}
+        src="/herosection-dark-image.png"
+        alt="Hero Image"
+        draggable={false}
+        className="rounded-xl hidden dark:block object-contain animate-fade-up opacity-0"
         style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
       />
 
