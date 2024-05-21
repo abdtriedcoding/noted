@@ -1,11 +1,10 @@
 "use client";
 
-import { notFound, useParams } from "next/navigation";
-
-import { Editor } from "@/components/editor";
 import { Toolbar } from "@/components/toolbar";
 import { Spinner } from "@/components/spinner";
+import { notFound, useParams } from "next/navigation";
 import { CoverImage } from "@/components/cover-image";
+import { PreviewEditor } from "@/components/preview-editor";
 
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -19,7 +18,7 @@ const PreviewPage = () => {
 
   if (document === undefined) {
     return (
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center min-h-screen">
         <Spinner size={"lg"} />
       </div>
     );
@@ -34,17 +33,13 @@ const PreviewPage = () => {
   }
 
   return (
-    <>
+    <div className="p-2">
       {document.coverImage && (
         <CoverImage id={document._id} imgUrl={document.coverImage} preview />
       )}
       <Toolbar document={document} preview />
-      <Editor
-        id={document._id}
-        initialContent={document.content}
-        editable={false}
-      />
-    </>
+      <PreviewEditor initialContent={document.content} />
+    </div>
   );
 };
 
