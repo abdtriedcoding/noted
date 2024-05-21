@@ -3,6 +3,7 @@ import { Toaster } from "sonner";
 import { Poppins } from "next/font/google";
 import { cn, constructMetadata } from "@/lib/utils";
 import { EdgeStoreProvider } from "@/lib/edgestore";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexProvider } from "@/components/providers/convex-provider";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
             >
               <Toaster richColors theme="system" position="bottom-center" />
               {children}
+              <SpeedInsights />
             </ThemeProvider>
           </EdgeStoreProvider>
         </ConvexProvider>
