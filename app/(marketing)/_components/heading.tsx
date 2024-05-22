@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Balancer from "react-wrap-balancer";
 import { ChevronRight, LogIn } from "lucide-react";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { Spotlight } from "@/components/ui/spotlight";
 import { ShinnyLinkButton } from "@/components/button";
 import AnimatedGradientText from "@/components/ui/animated-gradient-text";
@@ -53,15 +54,28 @@ export const Heading = () => {
             organized manner.
           </Balancer>
         </p>
-        <ShinnyLinkButton
-          label="Get started"
-          href="/sign-in"
-          shiny
-          size={"lg"}
-          IconLeft={LogIn}
-          className="rounded-lg animate-fade-up opacity-0"
-          style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
-        />
+        <SignedOut>
+          <ShinnyLinkButton
+            label="Get started"
+            href="/sign-in"
+            shiny
+            size={"lg"}
+            IconLeft={LogIn}
+            className="rounded-lg animate-fade-up opacity-0"
+            style={{ animationDelay: "0.45s", animationFillMode: "forwards" }}
+          />
+        </SignedOut>
+        <SignedIn>
+          <ShinnyLinkButton
+            label="Enter Noted"
+            href="/documents"
+            shiny
+            size={"lg"}
+            IconRight={ChevronRight}
+            className="rounded-lg animate-fade-up opacity-0"
+            style={{ animationDelay: "0.45s", animationFillMode: "forwards" }}
+          />
+        </SignedIn>
       </div>
     </div>
   );
