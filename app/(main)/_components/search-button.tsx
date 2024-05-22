@@ -58,7 +58,7 @@ export const SearchButton = () => {
         </kbd>
       </div>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder={`Search ${user?.fullName}'s Jotion...`} />
+        <CommandInput placeholder={`Search ${user?.fullName}'s Noted...`} />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Documents">

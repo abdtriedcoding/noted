@@ -28,7 +28,7 @@ export const SettingButton = () => {
           <div className="flex flex-col gap-y-1">
             <Label>Appearance</Label>
             <span className="text-[0.8rem]">
-              Customize how Jotion looks on your device
+              Customize how Noted looks on your device
             </span>
           </div>
           <ThemeToggle />
