@@ -17,15 +17,16 @@ import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export const TrashBox = () => {
   const router = useRouter();
   const params = useParams();
   const [search, setSearch] = useState("");
 
+  const documents = useQuery(api.documents.getTrashDocuments);
   const removeDocument = useMutation(api.documents.removeDocument);
   const restoreDocument = useMutation(api.documents.restoreDocument);
-  const documents = useQuery(api.documents.getTrashDocuments);
 
   const filteredDocuments = documents?.filter((document) =>
     document.title.toLowerCase().includes(search.toLowerCase())
@@ -75,17 +76,17 @@ export const TrashBox = () => {
         </div>
       </PopoverTrigger>
       <PopoverContent className="p-0 w-72">
-        <div className="text-sm">
-          <div className="flex items-center gap-x-1 p-2">
-            <Search className="h-4 w-4" />
-            <Input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="h-7 px-2 focus-visible:ring-transparent bg-secondary"
-              placeholder="Filter by page title..."
-            />
-          </div>
-          <div className="mt-2 px-1 pb-1">
+        <div className="flex items-center gap-x-1 p-2">
+          <Search className="h-4 w-4" />
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="h-7 px-2 focus-visible:ring-transparent bg-secondary"
+            placeholder="Filter by note title..."
+          />
+        </div>
+        <ScrollArea className="h-96">
+          <div className="p-2 mr-2 space-y-1">
             <p className="hidden last:block text-xs text-center pb-2">
               No documents found.
             </p>
@@ -117,7 +118,7 @@ export const TrashBox = () => {
               </div>
             ))}
           </div>
-        </div>
+        </ScrollArea>
       </PopoverContent>
     </Popover>
   );
