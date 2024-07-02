@@ -26,7 +26,7 @@ const NotFound = () => {
         asChild
         style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
       >
-        <Link href="/">Go back</Link>
+        <Link href="/documents">Go back</Link>
       </Button>
     </div>
   );

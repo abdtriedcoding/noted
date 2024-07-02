@@ -28,7 +28,7 @@ export const OpenSource = () => {
       </p>
       <ShinnyLinkButton
         label="Star us on GitHub"
-        href="/https://github.com/abdtriedcoding/noted"
+        href="https://github.com/abdtriedcoding/noted"
         shiny
         size={"lg"}
         IconLeft={Star}

@@ -39,7 +39,7 @@ const features = [
     Icon: FileTextIcon,
     name: "Save your files",
     description: "We automatically save your files as you type.",
-    href: "/",
+    href: "/documents",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-1",
     background: (
@@ -74,7 +74,7 @@ const features = [
     Icon: FileInputIcon,
     name: "Full text search",
     description: "Search through all your files in one place.",
-    href: "/",
+    href: "/documents",
     cta: "Learn more",
     className: "col-span-3 lg:col-span-2",
     background: (
