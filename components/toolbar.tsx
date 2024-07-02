@@ -60,14 +60,14 @@ export const Toolbar = ({ document, preview }: ItemProps) => {
             </Button>
           </IconPicker>
         )}
-        <CoverImageModal id={document._id}>
-          {!document.coverImage && !preview && (
+        {!document.coverImage && !preview && (
+          <CoverImageModal id={document._id}>
             <Button className="text-xs" variant="outline" size="sm">
               <ImageIcon className="h-4 w-4 mr-2" />
               Add cover
             </Button>
-          )}
-        </CoverImageModal>
+          </CoverImageModal>
+        )}
       </div>
     </>
   );

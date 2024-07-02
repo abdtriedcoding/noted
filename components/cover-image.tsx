@@ -34,7 +34,15 @@ export const CoverImage = ({ id, imgUrl, preview }: CoverImageProps) => {
   return (
     <div className="relative w-full h-[35vh] group">
       {!!imgUrl && (
-        <Image src={imgUrl} fill alt="Cover-Image" className="object-cover" />
+        <Image
+          src={imgUrl}
+          priority
+          fetchPriority="high"
+          loading="eager"
+          fill
+          alt="Cover-Image"
+          className="object-cover"
+        />
       )}
       {imgUrl && !preview && (
         <div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2">

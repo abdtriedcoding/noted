@@ -12,6 +12,7 @@ import {
 import { api } from "@/convex/_generated/api";
 import { useMutation } from "convex/react";
 import { Id } from "@/convex/_generated/dataModel";
+import { Input } from "@/components/ui/input";
 
 interface ItemProps {
   id: Id<"documents">;
@@ -28,7 +29,7 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
   const url = `${origin}/preview/${id}`;
 
   const onCopy = () => {
-    navigator.clipboard.writeText(url);
+    navigator?.clipboard?.writeText(url);
     setCopied(true);
 
     setTimeout(() => {
@@ -86,8 +87,8 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
                 </p>
               </div>
               <div className="flex items-center">
-                <input
-                  className="flex-1 px-2 text-xs border rounded-l-md h-8 truncate"
+                <Input
+                  className="flex-1 text-xs rounded-r-none h-8 truncate"
                   value={url}
                   disabled
                 />
@@ -97,7 +98,7 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
                   className="h-8 rounded-l-none"
                 >
                   {copied ? (
-                    <Check className="h-4 w-4" />
+                    <Check className="h-4 w-4 text-green-500" />
                   ) : (
                     <Copy className="h-4 w-4" />
                   )}

@@ -4,8 +4,9 @@ import { useParams } from "next/navigation";
 import { Toolbar } from "@/components/toolbar";
 import { Spinner } from "@/components/spinner";
 import { CoverImage } from "@/components/cover-image";
-import { PreviewEditor } from "@/components/preview-editor";
+const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
 
+import dynamic from "next/dynamic";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -31,7 +32,11 @@ const PreviewPage = () => {
       )}
       <div className="p-4">
         <Toolbar document={document} preview />
-        <PreviewEditor initialContent={document.content} />
+        <Editor
+          id={document._id}
+          initialContent={document.content}
+          editable={false}
+        />
       </div>
     </>
   );
