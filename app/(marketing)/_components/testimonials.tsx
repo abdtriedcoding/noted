@@ -1,6 +1,6 @@
 import Balancer from "react-wrap-balancer";
 import Marquee from "@/components/ui/marquee";
-import { TESTIMONIALS } from "@/lib/constants";
+import TESTIMONIALS from "@/lib/constants";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Card,
