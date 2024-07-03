@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
+import Image from "next/image";
+import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function Error({
   error,
@@ -25,17 +25,17 @@ export default function Error({
         width="300"
         alt="Error"
         className="dark:invert animate-fade-up opacity-0"
-        style={{ animationDelay: '0.15s', animationFillMode: 'forwards' }}
+        style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}
       />
       <h2
         className="text-xl font-medium animate-fade-up opacity-0"
-        style={{ animationDelay: '0.25s', animationFillMode: 'forwards' }}
+        style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
       >
         Something went wrong!
       </h2>
       <Button
         className="animate-fade-up opacity-0"
-        style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}
+        style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
