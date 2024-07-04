@@ -1,28 +1,27 @@
-"use client";
+'use client'
 
-import { useParams } from "next/navigation";
-import { Toolbar } from "@/components/toolbar";
-import { Spinner } from "@/components/spinner";
-import { CoverImage } from "@/components/cover-image";
-const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
+import dynamic from 'next/dynamic'
+import { useQuery } from 'convex/react'
+import Spinner from '@/components/spinner'
+import Toolbar from '@/components/toolbar'
+import { useParams } from 'next/navigation'
+import { api } from '@/convex/_generated/api'
+import CoverImage from '@/components/cover-image'
+import { type Id } from '@/convex/_generated/dataModel'
+const Editor = dynamic(() => import('@/components/editor'), { ssr: false })
 
-import dynamic from "next/dynamic";
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
-
-const PreviewPage = () => {
-  const params = useParams();
+export default function PreviewPage() {
+  const params = useParams()
   const document = useQuery(api.documents.getDocumentById, {
-    documentId: params.documentId as Id<"documents">,
-  });
+    documentId: params.documentId as Id<'documents'>,
+  })
 
   if (document === undefined) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Spinner size={"lg"} />
+      <div className="flex min-h-screen items-center justify-center">
+        <Spinner size={'lg'} />
       </div>
-    );
+    )
   }
 
   return (
@@ -39,7 +38,5 @@ const PreviewPage = () => {
         />
       </div>
     </>
-  );
-};
-
-export default PreviewPage;
+  )
+}

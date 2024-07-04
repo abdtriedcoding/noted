@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   AlertDialog,
@@ -10,20 +10,23 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog'
 
 interface ConfirmModalProps {
-  children: React.ReactNode;
-  onConfirm: () => void;
+  children: React.ReactNode
+  onConfirm: () => void
 }
 
-export const ConfirmModal = ({ children, onConfirm }: ConfirmModalProps) => {
+export default function ConfirmModal({
+  children,
+  onConfirm,
+}: ConfirmModalProps) {
   const handleConfirm = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.stopPropagation();
-    onConfirm();
-  };
+    e.stopPropagation()
+    onConfirm()
+  }
 
   return (
     <AlertDialog>
@@ -45,5 +48,5 @@ export const ConfirmModal = ({ children, onConfirm }: ConfirmModalProps) => {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  );
-};
+  )
+}

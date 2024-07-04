@@ -1,9 +1,9 @@
-import Image from "next/image";
-import { BorderBeam } from "@/components/ui/border-beam";
+import Image from 'next/image'
+import { BorderBeam } from '@/components/ui/border-beam'
 
-export const Heroes = () => {
+export default function Heroes() {
   return (
-    <div className="relative rounded-xl w-full border-2 p-2">
+    <div className="relative w-full rounded-xl border-2 p-2">
       <Image
         width={1400}
         height={720}
@@ -13,8 +13,8 @@ export const Heroes = () => {
         loading="eager"
         alt="Hero Image"
         draggable={false}
-        className="rounded-xl dark:hidden object-contain animate-fade-up opacity-0"
-        style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
+        className="animate-fade-up rounded-xl object-contain opacity-0 dark:hidden"
+        style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}
       />
       <Image
         width={1400}
@@ -25,11 +25,11 @@ export const Heroes = () => {
         loading="eager"
         alt="Hero Image"
         draggable={false}
-        className="rounded-xl hidden dark:block object-contain animate-fade-up opacity-0"
-        style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}
+        className="hidden animate-fade-up rounded-xl object-contain opacity-0 dark:block"
+        style={{ animationDelay: '0.35s', animationFillMode: 'forwards' }}
       />
 
       <BorderBeam size={150} duration={12} delay={9} borderWidth={2} />
     </div>
-  );
-};
+  )
+}

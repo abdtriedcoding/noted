@@ -1,57 +1,56 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useEdgeStore } from "@/lib/edgestore";
-import { SingleImageDropzone } from "@/components/single-image-dropzone";
+import { useState } from 'react'
+import { useMutation } from 'convex/react'
+import { api } from '@/convex/_generated/api'
+import { useEdgeStore } from '@/lib/edgestore'
+import { type Id } from '@/convex/_generated/dataModel'
+import { SingleImageDropzone } from '@/components/single-image-dropzone'
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTrigger,
-} from "@/components/ui/dialog";
-
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { Id } from "@/convex/_generated/dataModel";
+} from '@/components/ui/dialog'
 
 interface CoverImageModalProps {
-  children: React.ReactNode;
-  id: Id<"documents">;
-  imgUrl?: string;
+  children: React.ReactNode
+  id: Id<'documents'>
+  imgUrl?: string
 }
 
-export const CoverImageModal = ({
+export default function CoverImageModal({
   children,
   id,
   imgUrl,
-}: CoverImageModalProps) => {
-  const { edgestore } = useEdgeStore();
+}: CoverImageModalProps) {
+  const { edgestore } = useEdgeStore()
 
-  const [file, setFile] = useState<File>();
-  const [isDialogOpen, setDialogOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [file, setFile] = useState<File>()
+  const [isDialogOpen, setDialogOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const updateDocument = useMutation(api.documents.updateDocument);
+  const updateDocument = useMutation(api.documents.updateDocument)
 
   const handelImageUpload = async (file?: File) => {
-    if (!file) return;
-    setIsSubmitting(true);
-    setFile(file);
+    if (!file) return
+    setIsSubmitting(true)
+    setFile(file)
 
     const res = await edgestore.publicFiles.upload({
       file,
       options: {
         replaceTargetUrl: imgUrl,
       },
-    });
+    })
     await updateDocument({
       id: id,
       coverImage: res.url,
-    });
-    setDialogOpen(false);
-    setFile(undefined);
-    setIsSubmitting(false);
-  };
+    })
+    setDialogOpen(false)
+    setFile(undefined)
+    setIsSubmitting(false)
+  }
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setDialogOpen}>
@@ -68,5 +67,5 @@ export const CoverImageModal = ({
         />
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

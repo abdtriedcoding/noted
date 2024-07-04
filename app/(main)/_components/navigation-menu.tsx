@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import { Sidebar } from "./sidebar";
-import { PanelLeftOpen } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useSidebarStore } from "@/lib/useSidebarStore";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Sidebar from './sidebar'
+import { PanelLeftOpen } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { useSidebarStore } from '@/lib/useSidebarStore'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
-export const NavigationMenu = () => {
-  const { open, setOpen } = useSidebarStore();
+export default function NavigationMenu() {
+  const { open, setOpen } = useSidebarStore()
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -16,9 +16,9 @@ export const NavigationMenu = () => {
           <PanelLeftOpen className="h-8 w-8" />
         </Button>
       </SheetTrigger>
-      <SheetContent side={"left"}>
+      <SheetContent side={'left'}>
         <Sidebar />
       </SheetContent>
     </Sheet>
-  );
-};
+  )
+}

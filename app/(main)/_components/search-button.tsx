@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
-import { useRouter } from "next/navigation";
-import { File, Search } from "lucide-react";
-import { useEffect, useState } from "react";
-import { api } from "@/convex/_generated/api";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useUser } from '@clerk/nextjs'
+import { useQuery } from 'convex/react'
+import { useRouter } from 'next/navigation'
+import { File, Search } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { api } from '@/convex/_generated/api'
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   CommandDialog,
   CommandEmpty,
@@ -14,46 +14,46 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
+} from '@/components/ui/command'
 
-export const SearchButton = () => {
-  const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const { isLoaded, isSignedIn, user } = useUser();
+export default function SearchButton() {
+  const router = useRouter()
+  const [open, setOpen] = useState(false)
+  const { isLoaded, isSignedIn, user } = useUser()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen((open) => !open);
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        setOpen((open) => !open)
       }
-    };
+    }
 
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
+    document.addEventListener('keydown', down)
+    return () => document.removeEventListener('keydown', down)
+  }, [])
 
-  const documents = useQuery(api.documents.getUserDocuments);
+  const documents = useQuery(api.documents.getUserDocuments)
 
   if (documents === undefined) {
-    return <Skeleton className="px-4 py-4 w-full" />;
+    return <Skeleton className="w-full px-4 py-4" />
   }
 
   const onSelect = (id: string) => {
-    router.push(`/documents/${id}`);
-    setOpen(false);
-  };
+    router.push(`/documents/${id}`)
+    setOpen(false)
+  }
 
   return (
     <>
       <div
         role="button"
         onClick={() => setOpen(true)}
-        className="px-4 py-2 text-sm w-full hover:bg-primary/5 flex items-center font-medium rounded-md"
+        className="flex w-full items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-primary/5"
       >
-        <Search className="shrink-0 h-[18px] w-[18px] mr-2" />
+        <Search className="mr-2 h-[18px] w-[18px] shrink-0" />
         <span className="truncate">Search</span>
-        <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium">
+        <kbd className="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium">
           <span className="text-xs">⌘</span>K
         </kbd>
       </div>
@@ -83,5 +83,5 @@ export const SearchButton = () => {
         </CommandList>
       </CommandDialog>
     </>
-  );
-};
+  )
+}

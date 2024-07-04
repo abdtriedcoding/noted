@@ -1,46 +1,46 @@
-import { IconPicker } from "./icon-picker";
-import { Button } from "@/components/ui/button";
-import { ImageIcon, Smile, X } from "lucide-react";
-import { CoverImageModal } from "@/components/modals/cover-image-upload";
-
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { Doc } from "@/convex/_generated/dataModel";
+import { toast } from 'sonner'
+import IconPicker from './icon-picker'
+import { useMutation } from 'convex/react'
+import { api } from '@/convex/_generated/api'
+import { Button } from '@/components/ui/button'
+import { ImageIcon, Smile, X } from 'lucide-react'
+import { type Doc } from '@/convex/_generated/dataModel'
+import CoverImageModal from '@/components/modals/cover-image-upload'
 
 interface ItemProps {
-  document: Doc<"documents">;
-  preview?: boolean;
+  document: Doc<'documents'>
+  preview?: boolean
 }
 
-export const Toolbar = ({ document, preview }: ItemProps) => {
-  const updateDocument = useMutation(api.documents.updateDocument);
-  const removeIcon = useMutation(api.documents.removeIcon);
+export default function Toolbar({ document, preview }: ItemProps) {
+  const updateDocument = useMutation(api.documents.updateDocument)
+  const removeIcon = useMutation(api.documents.removeIcon)
 
   const onIconSelect = (icon: string) => {
     updateDocument({
       id: document._id,
       icon,
-    });
-  };
+    }).catch(() => toast.error('Failed to add icon'))
+  }
 
   const onRemoveIcon = () => {
     removeIcon({
       id: document._id,
-    });
-  };
+    }).catch(() => toast.error('Failed to remove icon'))
+  }
 
   return (
     <>
       {!!document.icon && !preview && (
-        <div className="flex group w-fit items-center gap-x-2 pt-6">
+        <div className="group flex w-fit items-center gap-x-2 pt-6">
           <IconPicker onChange={onIconSelect}>
-            <p className="text-6xl hover:opacity-75 transition">
+            <p className="text-6xl transition hover:opacity-75">
               {document.icon}
             </p>
           </IconPicker>
           <Button
             onClick={onRemoveIcon}
-            className="rounded-full opacity-0 group-hover:opacity-100 transition text-xs"
+            className="rounded-full text-xs opacity-0 transition group-hover:opacity-100"
             variant="outline"
             size="icon"
           >
@@ -49,13 +49,13 @@ export const Toolbar = ({ document, preview }: ItemProps) => {
         </div>
       )}
       {!!document.icon && preview && (
-        <p className="text-6xl pt-6">{document.icon}</p>
+        <p className="pt-6 text-6xl">{document.icon}</p>
       )}
-      <div className="opacity-100 flex items-center gap-x-1 py-4">
+      <div className="flex items-center gap-x-1 py-4 opacity-100">
         {!document.icon && !preview && (
           <IconPicker asChild onChange={onIconSelect}>
             <Button className="text-xs" variant="outline" size="sm">
-              <Smile className="h-4 w-4 mr-2" />
+              <Smile className="mr-2 h-4 w-4" />
               Add icon
             </Button>
           </IconPicker>
@@ -63,12 +63,12 @@ export const Toolbar = ({ document, preview }: ItemProps) => {
         {!document.coverImage && !preview && (
           <CoverImageModal id={document._id}>
             <Button className="text-xs" variant="outline" size="sm">
-              <ImageIcon className="h-4 w-4 mr-2" />
+              <ImageIcon className="mr-2 h-4 w-4" />
               Add cover
             </Button>
           </CoverImageModal>
         )}
       </div>
     </>
-  );
-};
+  )
+}

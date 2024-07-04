@@ -1,6 +1,6 @@
-import Image from "next/image";
+import Image from 'next/image'
 
-export const Logo = () => {
+export default function Logo() {
   return (
     <div className="flex items-center gap-x-2">
       <Image
@@ -19,5 +19,5 @@ export const Logo = () => {
       />
       <p className="font-semibold">Noted</p>
     </div>
-  );
-};
+  )
+}
