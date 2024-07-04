@@ -94,6 +94,6 @@ const TESTIMONIALS = [
     message:
       'Noted is a fantastic tool that has revolutionized our workflow. Our productivity and collaboration have reached new heights.',
   },
-];
+]
 
 export default TESTIMONIALS
