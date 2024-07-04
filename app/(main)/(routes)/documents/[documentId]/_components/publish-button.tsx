@@ -1,72 +1,71 @@
-import { toast } from "sonner";
-import { useState } from "react";
-import { useOrigin } from "@/hooks/use-origin";
-import { Button } from "@/components/ui/button";
-import { Check, Copy, Globe } from "lucide-react";
+import { toast } from 'sonner'
+import { useState } from 'react'
+import { useMutation } from 'convex/react'
+import { api } from '@/convex/_generated/api'
+import { Input } from '@/components/ui/input'
+import { useOrigin } from '@/hooks/use-origin'
+import { Button } from '@/components/ui/button'
+import { Check, Copy, Globe } from 'lucide-react'
+import { type Id } from '@/convex/_generated/dataModel'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-
-import { api } from "@/convex/_generated/api";
-import { useMutation } from "convex/react";
-import { Id } from "@/convex/_generated/dataModel";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/popover'
 
 interface ItemProps {
-  id: Id<"documents">;
-  isPublished: boolean;
+  id: Id<'documents'>
+  isPublished: boolean
 }
 
-export const PublishButton = ({ id, isPublished }: ItemProps) => {
-  const origin = useOrigin();
-  const [copied, setCopied] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export default function PublishButton({ id, isPublished }: ItemProps) {
+  const origin = useOrigin()
+  const [copied, setCopied] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const updateDocument = useMutation(api.documents.updateDocument);
+  const updateDocument = useMutation(api.documents.updateDocument)
 
-  const url = `${origin}/preview/${id}`;
+  const url = `${origin}/preview/${id}`
 
-  const onCopy = () => {
-    navigator?.clipboard?.writeText(url);
-    setCopied(true);
-
+  const onCopy = async () => {
+    await navigator?.clipboard?.writeText(url)
+    setCopied(true)
+    toast.success('Link copied successfully')
     setTimeout(() => {
-      setCopied(false);
-    }, 1000);
-  };
+      setCopied(false)
+    }, 1000)
+  }
 
   const onPublish = () => {
-    setIsSubmitting(true);
+    setIsSubmitting(true)
 
     const promise = updateDocument({
       id,
       isPublished: true,
-    });
-    setIsSubmitting(false);
+    })
+    setIsSubmitting(false)
     toast.promise(promise, {
-      loading: "Publishing...",
-      success: "Note published",
-      error: "Failed to publish note.",
-    });
-  };
+      loading: 'Publishing...',
+      success: 'Note published',
+      error: 'Failed to publish note.',
+    })
+  }
 
   const onUnpublish = () => {
-    setIsSubmitting(true);
+    setIsSubmitting(true)
 
     const promise = updateDocument({
       id,
       isPublished: false,
-    });
-    setIsSubmitting(false);
+    })
+    setIsSubmitting(false)
 
     toast.promise(promise, {
-      loading: "Unpublishing...",
-      success: "Note unpublished",
-      error: "Failed to unpublish note.",
-    });
-  };
+      loading: 'Unpublishing...',
+      success: 'Note unpublished',
+      error: 'Failed to unpublish note.',
+    })
+  }
 
   return (
     <>
@@ -74,21 +73,21 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
         <PopoverTrigger asChild>
           <Button size="sm" variant="ghost">
             Publish
-            {isPublished && <Globe className="text-sky-500 w-4 h-4 ml-2" />}
+            {isPublished && <Globe className="ml-2 h-4 w-4 text-sky-500" />}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-72" align="end" alignOffset={8} forceMount>
           {isPublished ? (
             <div className="space-y-4">
               <div className="flex items-center gap-x-2">
-                <Globe className="text-sky-500 animate-pulse h-4 w-4" />
+                <Globe className="h-4 w-4 animate-pulse text-sky-500" />
                 <p className="text-xs font-medium text-sky-500">
                   This note is live on web.
                 </p>
               </div>
               <div className="flex items-center">
                 <Input
-                  className="flex-1 text-xs rounded-r-none h-8 truncate"
+                  className="h-8 flex-1 truncate rounded-r-none text-xs"
                   value={url}
                   disabled
                 />
@@ -115,9 +114,9 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center">
-              <Globe className="h-8 w-8 mb-2" />
-              <p className="text-sm font-medium mb-2">Publish this note</p>
-              <span className="text-xs mb-4">Share your work with others.</span>
+              <Globe className="mb-2 h-8 w-8" />
+              <p className="mb-2 text-sm font-medium">Publish this note</p>
+              <span className="mb-4 text-xs">Share your work with others.</span>
               <Button
                 disabled={isSubmitting}
                 onClick={onPublish}
@@ -131,5 +130,5 @@ export const PublishButton = ({ id, isPublished }: ItemProps) => {
         </PopoverContent>
       </Popover>
     </>
-  );
-};
+  )
+}
