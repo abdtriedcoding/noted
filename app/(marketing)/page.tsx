@@ -3,7 +3,6 @@ import Heading from './_components/heading'
 import Features from './_components/features'
 import OpenSource from './_components/open-source'
 import Testimonials from './_components/testimonials'
-import GlobeSection from './_components/globe-section'
 
 export default function MarketingPage() {
   return (
@@ -11,7 +10,6 @@ export default function MarketingPage() {
       <Heading />
       <Heroes />
       <Features />
-      <GlobeSection />
       <Testimonials />
       <OpenSource />
     </>
