@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@blocknote/core": "^0.14.2",
-    "@blocknote/mantine": "^0.14.2",
-    "@blocknote/react": "^0.14.2",
-    "@clerk/nextjs": "^5.1.6",
+    "@blocknote/core": "^0.14.5",
+    "@blocknote/mantine": "^0.14.6",
+    "@blocknote/react": "^0.14.6",
+    "@clerk/nextjs": "^5.2.2",
     "@edgestore/react": "^0.1.6",
     "@edgestore/server": "^0.1.6",
     "@radix-ui/react-alert-dialog": "^1.0.5",
@@ -55,13 +55,11 @@
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
     "autoprefixer": "^10.0.1",
-    "cobe": "^0.6.3",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "postcss": "^8",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "react-spring": "^9.7.3",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   },

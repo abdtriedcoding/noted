@@ -37,11 +37,12 @@ export default function CoverImage({ id, imgUrl, preview }: CoverImageProps) {
     <div className="group relative h-[35vh] w-full">
       {!!imgUrl && (
         <Image
+          priority
           src={imgUrl}
           fill
           alt="Cover-Image"
           className={`object-cover transition-opacity duration-700 ease-in-out ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-          onLoadingComplete={() => setImageLoaded(true)}
+          onLoad={() => setImageLoaded(true)}
         />
       )}
       {imgUrl && !preview && (
