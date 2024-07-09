@@ -163,7 +163,7 @@ pre {
 }
 
 .ProseMirror {
-  @apply p-12 px-8 sm:px-12;
+  @apply p-4;
 }
 
 .ProseMirror .is-editor-empty:first-child::before {

@@ -1,5 +1,6 @@
 import { Command, renderItems } from 'novel/extensions'
 import { createSuggestionItems } from 'novel/extensions'
+import { uploadFn } from './image-upload'
 import {
   CheckSquare,
   Code,
@@ -136,9 +137,8 @@ export const suggestionItems = createSuggestionItems([
         if (input.files?.length) {
           const file = input.files[0]
           if (file) {
-            // TODO: Need to implement this functionality
-            // const pos = editor.view.state.selection.from
-            // uploadFn(file, editor.view, pos)
+            const pos = editor.view.state.selection.from
+            uploadFn(file, editor.view, pos)
           }
         }
       }

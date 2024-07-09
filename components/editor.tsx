@@ -4,7 +4,6 @@ import { useMutation } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import { Separator } from '@/components/ui/separator'
 import { type Id } from '@/convex/_generated/dataModel'
-import { useImageUpload } from '@/hooks/useImageUpload'
 import { handleImageDrop, handleImagePaste } from 'novel/plugins'
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions'
 import {
@@ -19,6 +18,7 @@ import {
 
 import TextButtons from './editor/text-buttons'
 import LinkSelector from './editor/link-selector'
+import { uploadFn } from './editor/image-upload'
 import NodeSelector from './editor/node-selector'
 import ColorSelector from './editor/color-selector'
 import { defaultExtensions } from './editor/extensions'
@@ -34,8 +34,6 @@ interface ItemProps {
 }
 
 export default function Editor({ id, initialContent, editable }: ItemProps) {
-  // TODO: Future refactor this useImageUpload hook
-  const { uploadFn } = useImageUpload()
   const [openNode, setOpenNode] = useState(false)
   const [openColor, setOpenColor] = useState(false)
   const [openLink, setOpenLink] = useState(false)
