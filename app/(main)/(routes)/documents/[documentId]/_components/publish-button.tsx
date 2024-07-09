@@ -47,7 +47,7 @@ export default function PublishButton({ id, isPublished }: ItemProps) {
     toast.promise(promise, {
       loading: 'Publishing...',
       success: 'Note published',
-      error: 'Failed to publish note.',
+      error: 'Failed to publish note',
     })
   }
 
