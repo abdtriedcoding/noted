@@ -87,7 +87,7 @@ export default function RootLayout({
               defaultTheme="system"
               enableSystem
               disableTransitionOnChange
-              storageKey="noted-theme-2"
+              storageKey="noted-theme"
             >
               <Toaster richColors theme="system" position="bottom-center" />
               {children}
