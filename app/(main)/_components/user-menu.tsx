@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { ChevronsLeftRight } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { SignOutButton, useUser } from '@clerk/nextjs'
@@ -22,10 +23,7 @@ export default function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div
-          role="button"
-          className="flex w-full items-center justify-between rounded-md px-4 py-2 text-sm hover:bg-primary/5"
-        >
+        <Button variant={'ghost'} size={'sm'} className="w-full justify-start">
           <div className="flex max-w-[150px] items-center gap-x-2">
             <Avatar className="h-5 w-5">
               <AvatarImage src={user?.imageUrl} />
@@ -34,8 +32,8 @@ export default function UserMenu() {
               {user?.firstName}&apos;s Noted
             </span>
           </div>
-          <ChevronsLeftRight className="h-4 w-4 rotate-90" />
-        </div>
+          <ChevronsLeftRight className="ml-auto h-4 w-4 rotate-90" />
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-80"

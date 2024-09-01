@@ -4,12 +4,13 @@ import { toast } from 'sonner'
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { api } from '@/convex/_generated/api'
+import { Button } from '@/components/ui/button'
+import { Search, Trash, Undo } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useMutation, useQuery } from 'convex/react'
 import { useParams, useRouter } from 'next/navigation'
 import { type Id } from '@/convex/_generated/dataModel'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Search, Trash, TrashIcon, Undo } from 'lucide-react'
 import ConfirmModal from '@/components/modals/confirm-modal'
 import {
   Popover,
@@ -64,14 +65,11 @@ export default function TrashBox() {
 
   return (
     <Popover>
-      <PopoverTrigger className="w-full">
-        <div
-          role="button"
-          className="flex w-full items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-primary/5"
-        >
-          <TrashIcon className="mr-2 h-[18px] w-[18px] shrink-0" />
-          <span className="truncate">Trash</span>
-        </div>
+      <PopoverTrigger asChild className="w-full">
+        <Button variant={'ghost'} size={'sm'} className="w-full justify-start">
+          <Trash className="mr-2 h-5 w-5" />
+          Trash
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-72 p-0">
         <div className="flex items-center gap-x-1 p-2">

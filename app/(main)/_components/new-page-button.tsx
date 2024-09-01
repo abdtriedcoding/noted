@@ -1,10 +1,11 @@
 'use client'
 
 import { toast } from 'sonner'
+import { PlusCircle } from 'lucide-react'
 import { useMutation } from 'convex/react'
 import { useRouter } from 'next/navigation'
-import { PlusCircleIcon } from 'lucide-react'
 import { api } from '@/convex/_generated/api'
+import { Button } from '@/components/ui/button'
 
 export default function NewPageButton() {
   const router = useRouter()
@@ -23,13 +24,14 @@ export default function NewPageButton() {
   }
 
   return (
-    <div
+    <Button
       onClick={onCreateNote}
-      role="button"
-      className="flex w-full items-center rounded-md px-4 py-2 text-sm font-medium hover:bg-primary/5"
+      variant={'ghost'}
+      size={'sm'}
+      className="w-full justify-start"
     >
-      <PlusCircleIcon className="mr-2 h-[18px] w-[18px] shrink-0" />
-      <span className="truncate">New Page</span>
-    </div>
+      <PlusCircle className="mr-2 h-5 w-5" />
+      New Page
+    </Button>
   )
 }

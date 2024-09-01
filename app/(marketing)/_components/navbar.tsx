@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
     <div
       className={cn(
-        'fixed z-50 flex w-full items-center bg-background p-4',
+        'fixed inset-x-0 top-0 z-50 flex h-16 w-full items-center bg-background/60 px-4 backdrop-blur-xl transition-all',
         scrolled && 'border-b shadow-sm'
       )}
     >

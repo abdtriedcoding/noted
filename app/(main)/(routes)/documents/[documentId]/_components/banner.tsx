@@ -34,14 +34,16 @@ export default function Banner({ id }: { id: Id<'documents'> }) {
   }
 
   return (
-    <div className="flex w-full items-center justify-center gap-x-2 bg-rose-500 p-2 text-center text-white">
-      <p className="hidden md:block">This page is in the Trash.</p>
-      <Button size="sm" onClick={onRestoreNote}>
-        Restore page
-      </Button>
-      <ConfirmModal onConfirm={onRemoveNote}>
-        <Button size="sm">Delete forever</Button>
-      </ConfirmModal>
+    <div className="flex w-full flex-col items-center gap-2 bg-rose-500 p-2 md:flex-row">
+      <p>This page is in the Trash.</p>
+      <div className="space-x-2 md:ml-auto">
+        <Button size="sm" onClick={onRestoreNote}>
+          Restore page
+        </Button>
+        <ConfirmModal onConfirm={onRemoveNote}>
+          <Button size="sm">Delete forever</Button>
+        </ConfirmModal>
+      </div>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { Loader } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 const spinnerVariants = cva('animate-spin', {
@@ -19,5 +19,5 @@ const spinnerVariants = cva('animate-spin', {
 type SpinnerProps = VariantProps<typeof spinnerVariants>
 
 export default function Spinner({ size }: SpinnerProps) {
-  return <Loader className={cn(spinnerVariants({ size }))} />
+  return <Loader2 className={cn(spinnerVariants({ size }))} />
 }
