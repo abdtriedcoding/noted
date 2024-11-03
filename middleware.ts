@@ -1,24 +1,30 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import {
+  convexAuthNextjsMiddleware,
+  createRouteMatcher,
+  nextjsMiddlewareRedirect,
+} from '@convex-dev/auth/nextjs/server'
 
 const isPublicRoute = createRouteMatcher([
-  '/sign-in(.*)',
-  '/sign-up(.*)',
+  '/auth',
   '/',
   '/preview(.*)',
   '/api/edgestore(.*)',
 ])
 
-export default clerkMiddleware((auth, request) => {
-  if (!isPublicRoute(request)) {
-    auth().protect()
+const isAuthRoute = createRouteMatcher(['/auth'])
+
+export default convexAuthNextjsMiddleware((request, { convexAuth }) => {
+  if (!isPublicRoute(request) && !convexAuth.isAuthenticated()) {
+    return nextjsMiddlewareRedirect(request, '/auth')
+  }
+
+  if (isAuthRoute(request) && convexAuth.isAuthenticated()) {
+    return nextjsMiddlewareRedirect(request, '/')
   }
 })
 
 export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-  ],
+  // The following matcher runs middleware on all routes
+  // except static assets.
+  matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
 }
