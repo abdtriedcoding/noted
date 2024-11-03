@@ -1,15 +1,15 @@
+import { convexAuthNextjsMiddleware } from '@convex-dev/auth/nextjs/server'
 import { put } from '@vercel/blob'
 import { NextResponse } from 'next/server'
-import { auth } from '@clerk/nextjs/server'
 
 export const runtime = 'edge'
 
-export async function POST(req: Request) {
-  const { userId } = auth()
-
-  if (!userId) {
+export const POST = convexAuthNextjsMiddleware(async function POST(
+  req,
+  { convexAuth }
+) {
+  if (!convexAuth.isAuthenticated())
     return new NextResponse('Unauthorized', { status: 401 })
-  }
 
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
     return new Response(
@@ -35,4 +35,4 @@ export async function POST(req: Request) {
   })
 
   return NextResponse.json(blob)
-}
+})

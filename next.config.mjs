@@ -1,4 +1,5 @@
 const nextConfig = {
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
@@ -6,10 +7,12 @@ const nextConfig = {
         hostname: 'files.edgestore.dev',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'randomuser.me',
+        pathname: '**',
+      },
     ],
-  },
-  experimental: {
-    reactCompiler: true,
   },
 }
 

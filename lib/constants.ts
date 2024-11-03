@@ -1,4 +1,6 @@
-const TESTIMONIALS = [
+import { Clock, FileText, Search } from 'lucide-react'
+
+export const TESTIMONIALS = [
   {
     name: 'Alice',
     message:
@@ -96,4 +98,34 @@ const TESTIMONIALS = [
   },
 ]
 
-export default TESTIMONIALS
+export const COMPANIES = [
+  'Google',
+  'Microsoft',
+  'Amazon',
+  'Netflix',
+  'YouTube',
+  'Instagram',
+  'Uber',
+  'Spotify',
+]
+
+export const PROBLEMS = [
+  {
+    title: 'Fragmented Workflows',
+    description:
+      'Switching between multiple apps results in lost time and productivity. Our platform unifies all essential tools, streamlining your workflow.',
+    icon: Clock,
+  },
+  {
+    title: 'Disconnected Communication',
+    description:
+      'Using different platforms for communication causes misalignment and confusion. Our solution integrates all communication channels for seamless collaboration.',
+    icon: FileText,
+  },
+  {
+    title: 'Uncoordinated Progress Tracking',
+    description:
+      'Tracking tasks and goals across various tools leads to confusion and missed deadlines. Our platform centralizes project management, making it easy to stay on track.',
+    icon: Search,
+  },
+]
