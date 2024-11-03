@@ -1,26 +1,26 @@
-import { type ReactNode } from "react";
-import { EditorBubble, useEditor } from "novel";
+import { EditorBubble, useEditor } from 'novel'
+import { type ReactNode } from 'react'
 
 interface GenerativeMenuSwitchProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export default function GenerativeMenuSwitch({
   children,
 }: GenerativeMenuSwitchProps) {
-  const { editor } = useEditor();
+  const { editor } = useEditor()
 
   return (
     <EditorBubble
       tippyOptions={{
-        placement: "top-end",
+        placement: 'top-end',
         onHidden: () => {
-          editor?.chain().unsetHighlight().run();
+          editor?.chain().unsetHighlight().run()
         },
       }}
       className="flex w-fit max-w-[90vw] overflow-hidden rounded-md border border-muted bg-background shadow-xl"
     >
       {<>{children}</>}
     </EditorBubble>
-  );
+  )
 }
